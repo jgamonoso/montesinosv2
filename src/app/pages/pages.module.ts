@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Módulos
 import { SharedModule } from '../shared/shared.module';
@@ -35,6 +36,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     SharedModule,
     RouterModule,
     ComponentsModule,
+    HttpClientModule,
   ],
 })
 export class PagesModule {}
