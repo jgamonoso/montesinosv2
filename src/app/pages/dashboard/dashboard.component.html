@@ -1,1 +1,9 @@
 <p>dashboard works!</p>
+
+<div *ngIf="datos && datos.jugadores">
+  <div *ngFor="let jugador of datos.jugadores; let i = index">
+    <p *ngIf="i < 3">
+      {{ jugador.jugador_abreviado }}
+    </p>
+  </div>
+</div>
