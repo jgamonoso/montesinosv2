@@ -11,7 +11,9 @@ declare function customInitFunctions();
 export class PagesComponent implements OnInit {
   year = new Date().getFullYear();
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService
+  ) { }
 
   ngOnInit(): void {
     customInitFunctions();
