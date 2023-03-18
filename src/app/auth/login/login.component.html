@@ -24,6 +24,8 @@
               class="form-control"
               type="text"
               required=""
+              [(ngModel)]="credentials.login"
+              [ngModelOptions]="{standalone: true}"
               placeholder="Username"
             />
           </div>
@@ -34,6 +36,8 @@
               class="form-control"
               type="password"
               required=""
+              [(ngModel)]="credentials.password"
+              [ngModelOptions]="{standalone: true}"
               placeholder="Password"
             />
           </div>
