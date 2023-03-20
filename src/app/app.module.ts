@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
 import { Error404Component } from './error404/error404.component';
+import { MaterialModule } from './shared/modules/material.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { Error404Component } from './error404/error404.component';
     AppRoutingModule,
     PagesModule,
     AuthModule,
+    MaterialModule
   ],
   bootstrap: [AppComponent],
 })
