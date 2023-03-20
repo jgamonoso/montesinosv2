@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { LangService } from 'src/app/shared/modules/lang.module/service/lang.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public langService: LangService,
   ) { }
 
   ngOnInit(): void {
@@ -28,10 +30,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log('submit');
-    debugger;
     this.authService.authenticate(this.form.value).subscribe(
       (response) => {
-        debugger
         if (response.status === 'ok') {
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        debugger
         console.error('Error de inicio de sesión', error);
       }
     );

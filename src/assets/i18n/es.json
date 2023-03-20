@@ -1,0 +1,9 @@
+{
+  "dont_have_an_account?": "¿No tienes una cuenta?",
+  "forgot_pwd?": "¿Olvidó su password?",
+  "login": "Login",
+  "password": "Contraseña",
+  "required": "Campo requerido",
+  "remember_me": "Recuerdame",
+  "sign_up": "Registrarse"
+}

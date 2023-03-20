@@ -9,22 +9,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Componentes
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetComponent
   ],
   exports: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ResetComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
 })
 export class AuthModule { }
