@@ -17,7 +17,6 @@ export class AuthService {
   }
 
   authenticate(credentials: { login: string; password: string }): Observable<any> {
-    debugger;
     return this.http.post<any>(base_url + 'login/login.php', credentials);
   }
 }
