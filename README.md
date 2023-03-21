@@ -25,3 +25,23 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+--------------------
+Para desplegar en un proyecto de Angular en un servidor Apache dentro de un subdirectorio
+
+ng build --prod --base-href /v2/
+luego ir al index generado en la carpeta dist y cambiar esto
+<base href="C:/Program Files/Git/v2/">
+por esto otro
+<base href="/v2/">
+
+Aparte crear un fichero .htaccess en el subdirectorio tal que así
+RewriteEngine On
+# Si el archivo solicitado existe, utiliza ese archivo
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Si no existe, redirige la solicitud al archivo index.html
+RewriteRule ^ /v2/index.html [L]
