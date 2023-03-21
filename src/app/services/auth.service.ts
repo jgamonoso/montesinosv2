@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../environments/environment';
 
-const base_url = environment.base_url;
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,6 @@ export class AuthService {
   }
 
   authenticate(credentials: { login: string; password: string }): Observable<any> {
-    return this.http.post<any>(base_url + 'login/login.php', credentials);
+    return this.http.post<any>(API_URL + 'login/login.php', credentials);
   }
 }

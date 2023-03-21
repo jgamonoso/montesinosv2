@@ -8,7 +8,8 @@ export const environment = {
   production: false,
   version: VERSION.version,
   gitHash: VERSION.hash,
-  base_url: 'http://localhost/api/',
+  API_URL: 'http://localhost/api/',
+  BASE_HREF: '/',
   langArray: ['es', 'en'],
   langDefault: 'es',
 };

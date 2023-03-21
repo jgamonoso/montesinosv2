@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
-const base_url = environment.base_url;
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,6 @@ export class JugadoresPruebaService {
 
   getJugadores() {
     console.log('getJugadores()');
-    return this.http.get(`${base_url}/jugadores`);
+    return this.http.get(`${API_URL}/jugadores`);
   }
 }
