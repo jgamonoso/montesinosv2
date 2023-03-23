@@ -43,15 +43,11 @@ const customInitFunctions = () => {
     // Theme options
     // ==============================================================
     $(".sidebartoggler").off("click").on("click", function () {
-
-      console.log("Evento sidebartoggler activado");
       if ($("body").hasClass("mini-sidebar")) {
-        console.log("Quita mini-sidebar");
         $("body").trigger("resize");
         $("body").removeClass("mini-sidebar");
         $(".navbar-brand span").show();
       } else {
-        console.log("Añade mini-sidebar");
         $("body").trigger("resize");
         $("body").addClass("mini-sidebar");
         $(".navbar-brand span").hide();
