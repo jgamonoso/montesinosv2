@@ -1,0 +1,11 @@
+.search-btn {
+  right: 50px !important;
+}
+
+.app-search {
+  display: none;
+}
+
+.app-search.visible {
+  display: block;
+}

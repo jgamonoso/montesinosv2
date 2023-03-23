@@ -29,8 +29,7 @@ const customInitFunctions = () => {
         $(".navbar-brand span").show();
       }
 
-      var height =
-        (window.innerHeight > 0 ? window.innerHeight : this.screen.height) - 1;
+      var height = (window.innerHeight > 0 ? window.innerHeight : this.screen.height) - 1;
       height = height - topOffset;
       if (height < 1) height = 1;
       if (height > topOffset) {
@@ -43,12 +42,16 @@ const customInitFunctions = () => {
     // ==============================================================
     // Theme options
     // ==============================================================
-    $(".sidebartoggler").on("click", function () {
+    $(".sidebartoggler").off("click").on("click", function () {
+
+      console.log("Evento sidebartoggler activado");
       if ($("body").hasClass("mini-sidebar")) {
+        console.log("Quita mini-sidebar");
         $("body").trigger("resize");
         $("body").removeClass("mini-sidebar");
         $(".navbar-brand span").show();
       } else {
+        console.log("Añade mini-sidebar");
         $("body").trigger("resize");
         $("body").addClass("mini-sidebar");
         $(".navbar-brand span").hide();
@@ -56,18 +59,12 @@ const customInitFunctions = () => {
     });
 
     // this is for close icon when navigation open in mobile view
-    $(".nav-toggler").click(function () {
+    $(".nav-toggler").off("click").on("click", function () {
       $("body").toggleClass("show-sidebar");
       $(".nav-toggler i").toggleClass("ti-menu");
       $(".nav-toggler i").addClass("ti-close");
     });
 
-    $(".search-box a, .search-box .app-search .srh-btn").on(
-      "click",
-      function () {
-        $(".app-search").toggle(200);
-      }
-    );
     // ==============================================================
     // Right sidebar options
     // ==============================================================
