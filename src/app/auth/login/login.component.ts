@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   base_href = environment.BASE_HREF;
+  errorMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,10 +25,16 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    let sessionActive = this.authService.getStoredCredentials();
+
+    if (sessionActive && sessionActive.status === 'ok') {
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      this.form = this.formBuilder.group({
+        login: ['', Validators.required],
+        password: ['', Validators.required]
+      });
+    }
   }
 
   login() {
@@ -38,11 +45,17 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/dashboard');
         } else {
           console.error('Error de inicio de sesión');
+          this.errorMessage = response.message;
         }
       },
       (error) => {
         console.error('Error de inicio de sesión', error);
+        this.errorMessage = 'Login error';
       }
     );
+  }
+
+  setRemember(value: boolean): void {
+    this.authService.remember = value;
   }
 }

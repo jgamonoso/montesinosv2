@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
@@ -8,10 +9,16 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  constructor(private sidebarService: SidebarService) {}
+  credenciales: any;
+
+  constructor(
+    private sidebarService: SidebarService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
     console.log(this.menuItems);
+    this.credenciales = this.authService.getStoredCredentials();
   }
 }

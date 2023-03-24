@@ -7,6 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Error404Component } from './error404/error404.component';
 import { MaterialModule } from './shared/modules/material.module/material.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -25,6 +26,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     PagesModule,
     AuthModule,

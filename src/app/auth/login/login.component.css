@@ -48,3 +48,15 @@ Login register and recover password Page
     right: 0px;
     position: absolute;
     height: 100%; }
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.remember-me {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}

@@ -12,11 +12,12 @@
             class="has-arrow waves-effect waves-dark"
             href="#"
             aria-expanded="false"
-            ><img src="./assets/images/users/profile.png" alt="user" /><span
-              class="hide-menu"
-              >Paketenaikos
-            </span></a
           >
+            <img src="./assets/images/users/profile.png" alt="user" />
+            <span class="hide-menu">
+              {{this.credenciales.manager | titlecase }}
+            </span>
+          </a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="javascript:void()">Mi equipo</a></li>
             <li><a href="javascript:void()">Ofertas enviadas</a></li>
