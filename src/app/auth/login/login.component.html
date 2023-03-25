@@ -2,7 +2,11 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <section id="wrapper" class="login-register login-sidebar"
-  [style.background-image]="'url(' + base_href + 'assets/images/background/login-register.jpg)'">
+    [style.background-image]="backgroundImageStyle"
+    [style.background-repeat]="'no-repeat'"
+    [style.background-position]="'calc(50% - 200px) center'"
+    [style.background-attachment]="'fixed'">
+
   <div class="login-box card">
     <div class="card-body">
       <form [formGroup]="form" class="form-horizontal form-material" id="loginform" (submit)="login()">
@@ -59,12 +63,12 @@
             </div>
           </div>
         </div> -->
-        <!-- <div class="form-group m-b-0">
+        <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
             {{ 'dont_have_an_account?' | translate }}
             <a [routerLink]="'/auth/register'" class="text-primary m-l-5"><b>{{ 'sign_up' | translate }}</b></a>
           </div>
-        </div> -->
+        </div>
       </form>
     </div>
   </div>
