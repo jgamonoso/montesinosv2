@@ -1,6 +1,6 @@
 {
-  "name": "custom-montesinos",
-  "version": "0.0.0",
+  "name": "montesinosv2",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open --port=4202",
