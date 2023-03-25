@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve --open --port=4202",
     "build": "ng build",
-    "build-v2sub": "ng build --prod --base-href /v2/",
+    "buildv2": "ng build --prod --output-path=dist/v2 --base-href /v2/ && npm run copyhtaccess",
+    "copyhtaccess": "copyfiles -f src/assets/.htaccess dist/v2/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -37,6 +38,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "copyfiles": "^2.4.1",
     "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
