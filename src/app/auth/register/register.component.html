@@ -1,11 +1,23 @@
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<section id="wrapper" class="login-register login-sidebar"
-    [style.background-image]="backgroundImageStyle"
-    [style.background-repeat]="'no-repeat'"
-    [style.background-position]="'calc(50% - 200px) center'"
-    [style.background-attachment]="'fixed'">
+<section id="wrapper"
+       class="login-register login-sidebar"
+       [style.background-attachment]="'fixed'">
+  <div class="background-image"
+       [style.background-image]="backgroundImageStyle1"
+       [style.background-repeat]="'no-repeat'"
+       [style.background-position]="'calc(50% - 200px) center'"
+       [style.background-attachment]="'fixed'"
+       [style.opacity]="opacity1">
+  </div>
+  <div class="background-image"
+       [style.background-image]="backgroundImageStyle2"
+       [style.background-repeat]="'no-repeat'"
+       [style.background-position]="'calc(50% - 200px) center'"
+       [style.background-attachment]="'fixed'"
+       [style.opacity]="opacity2">
+  </div>
   <div class="login-box card">
     <div class="card-body">
       <form class="form-horizontal form-material" id="loginform" action="index.html">
