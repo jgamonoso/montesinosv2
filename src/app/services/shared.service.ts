@@ -11,7 +11,12 @@ export class SharedService {
     'background-4.jpg',
     'background-5.jpg',
     'background-6.jpg',
+    'background-8.jpg',
     'background-9.jpg',
+    'background-10.jpg',
+    'background-11.jpg',
+    'background-12.jpg',
+    'background-13.jpg',
   ];
 
   constructor() {}
