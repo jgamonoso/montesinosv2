@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
+import { LangService } from 'src/app/shared/modules/lang.module/service/lang.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit {
   currentLayer = 1;
 
   constructor(
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    public langService: LangService
   ) {
     this.images = this.sharedService.images;
   }

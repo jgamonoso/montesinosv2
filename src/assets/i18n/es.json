@@ -1,9 +1,24 @@
 {
   "dont_have_an_account?": "¿No tienes una cuenta?",
-  "forgot_pwd?": "¿Olvidó su password?",
-  "login": "Login",
-  "password": "Contraseña",
+  "enter_email": "Ingrese su correo electrónico y se le enviarán las instrucciones",
+  "forgot_pwd?": "¿Olvidó su contraseña?",
+  "login": "login",
+  "password": "contraseña",
+  "recover_pass": "Recuperar contraseña",
   "required": "Campo requerido",
   "remember_me": "Recuerdame",
-  "sign_up": "Registrarse"
+  "reset": "reset",
+  "sign_up": "Registrarse",
+  "sign_in": "Iniciar sesión",
+  "register_now": "Regístrate ahora",
+  "create_account": "Crea tu cuenta y disfruta",
+  "name": "Nombre",
+  "email": "Email",
+  "confirm_password": "Confirmar contraseña",
+  "already_account": "¿Ya tienes una cuenta?",
+  "agree_all": "Acepto todos los",
+  "terms": "términos",
+  "dont_cry": "aww... no llores!",
+  "page_not_exist": "La página que intentas solicitar no existe, pero todo tiene arreglo.",
+  "back_home": "Volver al inicio"
 }
