@@ -9,8 +9,19 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [BreadcrumbsComponent, SidebarComponent, HeaderComponent],
-  exports: [BreadcrumbsComponent, SidebarComponent, HeaderComponent],
-  imports: [CommonModule, RouterModule],
+  declarations: [
+    BreadcrumbsComponent,
+    SidebarComponent,
+    HeaderComponent
+  ],
+  exports: [
+    BreadcrumbsComponent,
+    SidebarComponent,
+    HeaderComponent,
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+  ],
 })
-export class SharedModule {}
+export class SharedModule { }
