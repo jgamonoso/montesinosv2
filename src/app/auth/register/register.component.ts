@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/services/shared.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,10 +11,14 @@ export class RegisterComponent implements OnInit {
   base_href = environment.BASE_HREF;
   currentImageIndex = 0;
   randomImageSequence: number[];
-  images = ['background-1.png', 'background-2.png', 'background-3.png', 'background-4.png',];
+  images = [];
   backgroundImageStyle = '';
 
-  constructor() {}
+  constructor(
+    private sharedService: SharedService
+  ) {
+    this.images = this.sharedService.images;
+  }
 
   ngOnInit(): void {
 

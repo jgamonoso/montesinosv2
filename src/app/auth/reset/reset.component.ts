@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { LangService } from 'src/app/shared/modules/lang.module/service/lang.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +18,7 @@ export class ResetComponent implements OnInit {
   base_href = environment.BASE_HREF;
   currentImageIndex = 0;
   randomImageSequence: number[];
-  images = ['background-1.png', 'background-2.png', 'background-3.png', 'background-4.png',];
+  images = [];
   backgroundImageStyle = '';
 
   constructor(
@@ -25,8 +26,9 @@ export class ResetComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     public langService: LangService,
+    private sharedService: SharedService
   ) {
-    console.log('reset!!')
+    this.images = this.sharedService.images;
   }
 
   ngOnInit(): void {
