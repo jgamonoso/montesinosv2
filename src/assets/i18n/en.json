@@ -3,6 +3,7 @@
   "enter_email": "Enter your Email and instructions will be sent to you",
   "forgot_pwd?": "Forgot pwd?",
   "login": "login",
+  "logout": "logout",
   "password": "Password",
   "recover_pass": "Recover password",
   "required": "Required",
@@ -21,5 +22,4 @@
   "dont_cry": "aww... don't cry!",
   "page_not_exist": "The page you are trying to request does not exist, but everything is fine.",
   "back_home": "Back to home"
-
 }

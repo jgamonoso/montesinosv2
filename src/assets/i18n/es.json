@@ -3,6 +3,7 @@
   "enter_email": "Ingrese su correo electrónico y se le enviarán las instrucciones",
   "forgot_pwd?": "¿Olvidó su contraseña?",
   "login": "login",
+  "logout": "Cerrar sesión",
   "password": "contraseña",
   "recover_pass": "Recuperar contraseña",
   "required": "Campo requerido",
