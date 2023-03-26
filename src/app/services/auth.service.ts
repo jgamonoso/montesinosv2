@@ -13,15 +13,13 @@ const SECRET_KEY = 'your-secret-key';
 })
 export class AuthService {
 
-
   constructor(
     private http: HttpClient
   ) {
   }
 
-
   authenticate(credentials: { login: string; password: string }): Observable<any> {
-    return this.http.post<any>(API_URL + 'login/login.php', credentials).pipe(
+    return this.http.post<any>(API_URL + 'v2/login.php', credentials).pipe(
       tap(response => {
         // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
         if (response.status === 'ok') {
