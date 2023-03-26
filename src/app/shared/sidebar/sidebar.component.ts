@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
@@ -14,11 +15,15 @@ export class SidebarComponent implements OnInit {
   constructor(
     private sidebarService: SidebarService,
     private authService: AuthService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
     console.log(this.menuItems);
     this.credenciales = this.authService.getStoredCredentials();
+    if (!this.credenciales) {
+      this.router.navigate(['/auth/login']);
+    }
   }
 }

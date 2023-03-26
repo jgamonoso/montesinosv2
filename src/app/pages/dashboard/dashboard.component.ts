@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { JugadoresPruebaService } from 'src/app/services/jugadores-prueba.service';
 
@@ -14,8 +15,9 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private jugadoresPruebaService: JugadoresPruebaService,
+    private router: Router,
     private authService: AuthService,
-    // public readonly authService: AuthService,
+    // public readonly authService: AuthService,,
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +31,8 @@ export class DashboardComponent implements OnInit {
     // );
 
     this.credenciales = this.authService.getStoredCredentials();
-
+    if (!this.credenciales) {
+      this.router.navigate(['/auth/login']);
+    }
   }
 }

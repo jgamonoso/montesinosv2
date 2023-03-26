@@ -99,6 +99,10 @@ export class LoginComponent implements OnInit {
   }
 
   setRemember(value: boolean): void {
-    this.authService.remember = value;
+    if (value) {
+      this.authService.saveRemember();
+    } else {
+      this.authService.deleteRemember();
+    }
   }
 }

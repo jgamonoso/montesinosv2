@@ -13,57 +13,63 @@ const SECRET_KEY = 'your-secret-key';
 })
 export class AuthService {
 
-  public remember: boolean;
 
   constructor(
     private http: HttpClient
   ) {
-    this.remember = false;
   }
 
 
   authenticate(credentials: { login: string; password: string }): Observable<any> {
     return this.http.post<any>(API_URL + 'login/login.php', credentials).pipe(
       tap(response => {
-        //guardar las credenciales en el localStorage cuando la respuesta sea exitosa
+        // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
         if (response.status === 'ok') {
-          this.remember = this.remember
-            ? this.saveRemember()
-            : this.deleteRemember();
-
           const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
-          localStorage.setItem('credentials', encryptedData);
+          const remember = this.getRemember();
+
+          if (remember) {
+            localStorage.setItem('credentials', encryptedData);
+          } else {
+            sessionStorage.setItem('credentials', encryptedData);
+          }
         }
       })
     );
   }
 
-  //método para obtener las credenciales almacenadas:
-  getStoredCredentials(): any {
-    const encryptedData = localStorage.getItem('credentials');
-    if (!encryptedData) {
-      return null;
-    }
-    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
-    return JSON.parse(decryptedData);
+  // Método para obtener las credenciales almacenadas:
+getStoredCredentials(): any {
+  const encryptedData = this.getRemember()
+    ? localStorage.getItem('credentials')
+    : sessionStorage.getItem('credentials');
+
+  if (!encryptedData) {
+    return null;
   }
+  const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+  return JSON.parse(decryptedData);
+}
 
   //método para eliminar las credenciales almacenadas (por ejemplo, al cerrar sesión):
   removeStoredCredentials(): void {
-    localStorage.removeItem('credentials');
+    if (this.getRemember()) {
+      localStorage.removeItem('credentials');
+      this.deleteRemember();
+    } else {
+      sessionStorage.removeItem('credentials');
+    }
   }
 
-  setRemember(value: boolean): void {
-    this.remember = value;
+  getRemember(): boolean {
+    return !!JSON.parse(localStorage.getItem('remember'));
   }
 
-  private saveRemember(): boolean {
-    sessionStorage.setItem('remember', 'true');
-    return true;
+  saveRemember(): void {
+    localStorage.setItem('remember', 'true');
   }
 
-  private deleteRemember(): boolean {
-    sessionStorage.removeItem('remember');
-    return false;
+  deleteRemember(): void {
+    localStorage.removeItem('remember');
   }
 }
