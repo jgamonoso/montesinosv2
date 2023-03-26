@@ -5883,3 +5883,18 @@ File: scss
     text-align: center;
     margin-top: 10px;
     overflow: hidden; } }
+
+/* Cambia el cursor a una mano cuando se pasa el ratón por encima de un botón o enlace */
+button, a {
+  cursor: pointer;
+}
+
+/* Cambia el cursor a un puntero de texto cuando se pasa el ratón por encima de un input */
+input {
+  cursor: text;
+}
+
+a.navi-link:hover {
+  /* Aquí debes agregar los estilos que se aplican al hacer hover sobre el enlace, como el color del texto, etc. */
+  color: white;
+}

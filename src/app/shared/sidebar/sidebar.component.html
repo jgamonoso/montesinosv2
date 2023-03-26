@@ -30,7 +30,9 @@
               <a routerLink="/dashboard/account-settings">Configuración App</a>
             </li>
             <li>
-              <a routerLink="/login">Logout</a>
+              <a class="navi-link" (click)="logout()">
+                {{ 'logout' | translate | titlecase }}
+              </a>
             </li>
           </ul>
         </li>
