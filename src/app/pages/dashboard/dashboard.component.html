@@ -1,16 +1,10 @@
-<p>dashboard works!</p>
-
-<!-- <div *ngIf="datos && datos.jugadores">
-  <div *ngFor="let jugador of datos.jugadores; let i = index">
-    <p *ngIf="i < 3">
-      {{ jugador.jugador_abreviado }}
-    </p>
+<div *ngIf="noticias">
+  <div *ngFor="let fecha of fechas">
+    <h2 mat-headline>{{ fecha | date: 'dd-MM-yyyy' }}</h2>
+    <hr />
+    <div *ngFor="let noticia of noticias[fecha]">
+      <div mat-body-2>{{ noticia.hora }}. <span [innerHTML]="noticia.texto"></span></div>
+      <hr />
+    </div>
   </div>
-</div> -->
-
-
-Credenciales:
-<pre>{{credenciales | json}}</pre>
-
-
-<!-- <pre>{{authService.remember}}</pre> -->
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { DashboardService } from 'src/app/services/dashboard.service';
 import { JugadoresPruebaService } from 'src/app/services/jugadores-prueba.service';
 
 @Component({
@@ -9,30 +10,15 @@ import { JugadoresPruebaService } from 'src/app/services/jugadores-prueba.servic
   styles: [],
 })
 export class DashboardComponent implements OnInit {
+  noticias: any;
+  fechas: string[];
 
-  datos: any;
-  credenciales: any;
-
-  constructor(
-    private jugadoresPruebaService: JugadoresPruebaService,
-    private router: Router,
-    private authService: AuthService,
-    // public readonly authService: AuthService,,
-  ) {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    // this.jugadoresPruebaService.getJugadores().subscribe(
-    //   (resp) => {
-    //     if (resp) {
-    //       this.datos = resp;
-    //     }
-    //   },
-    //   (err) => console.warn(err)
-    // );
-
-    this.credenciales = this.authService.getStoredCredentials();
-    if (!this.credenciales) {
-      this.router.navigate(['/auth/login']);
-    }
+    this.dashboardService.getNoticias(1,1).subscribe((data) => {
+      this.noticias = data;
+      this.fechas = Object.keys(data);
+    });
   }
 }
