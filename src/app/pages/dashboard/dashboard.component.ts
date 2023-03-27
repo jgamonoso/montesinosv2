@@ -7,18 +7,42 @@ import { JugadoresPruebaService } from 'src/app/services/jugadores-prueba.servic
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: [],
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   noticias: any;
   fechas: string[];
+  //TODO:
+  // pagina: number = 1;
+  pagina: number = 50;
+  liga: number = 1;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService
+  ) {}
 
   ngOnInit(): void {
-    this.dashboardService.getNoticias(1,1).subscribe((data) => {
-      this.noticias = data;
-      this.fechas = Object.keys(data);
-    });
+    this.cargarNoticias();
+  }
+
+  cargarNoticias(): void {
+    this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(
+      (resp) => {
+        if (resp) {
+          this.noticias = resp;
+          this.fechas = Object.keys(resp);
+        }
+      },
+      (err) => console.warn(err)
+    );
+  }
+
+  cambiarPagina(incremento: number): void {
+    this.pagina += incremento;
+    this.cargarNoticias();
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

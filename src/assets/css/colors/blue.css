@@ -81,7 +81,7 @@ a.link:hover, a.link:focus {
   .btn-themecolor.disabled:hover {
     background: #1976d2;
     opacity: 0.7;
-    border: 1px solid #1976d2; }
+    border: none; }
   .btn-themecolor.active, .btn-themecolor:focus,
   .btn-themecolor.disabled.active,
   .btn-themecolor.disabled:focus {

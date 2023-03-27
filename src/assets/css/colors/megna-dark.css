@@ -100,11 +100,11 @@ a.link:hover, a.link:focus {
   .btn-themecolor.disabled:hover {
     background: #56c0d8;
     opacity: 0.7;
-    border: 1px solid #56c0d8; }
+    border: none; }
   .btn-themecolor.active, .btn-themecolor:focus,
   .btn-themecolor.disabled.active,
   .btn-themecolor.disabled:focus {
-    background: #028ee1; }
+    background: #56c0d8; }
 
 /*******************
 /*sidebar navigation

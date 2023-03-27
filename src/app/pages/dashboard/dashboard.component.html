@@ -1,4 +1,15 @@
 <div *ngIf="noticias">
+  <div class="pagination">
+    <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
+      <span class="desktop-text">Mes posterior</span>
+      <span class="mobile-text">&lt;</span>
+    </button>
+    <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
+      <span class="desktop-text">Mes anterior</span>
+      <span class="mobile-text">&gt;</span>
+    </button>
+  </div>
+
   <div *ngFor="let fecha of fechas">
     <h2 mat-headline>{{ fecha | date: 'dd-MM-yyyy' }}</h2>
     <hr />
@@ -6,5 +17,23 @@
       <div mat-body-2>{{ noticia.hora }}. <span [innerHTML]="noticia.texto"></span></div>
       <hr />
     </div>
+    <br/>
+  </div>
+
+  <div class="pagination">
+    <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
+      <span class="desktop-text">Mes posterior</span>
+      <span class="mobile-text">&lt;</span>
+    </button>
+    <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
+      <span class="desktop-text">Mes anterior</span>
+      <span class="mobile-text">&gt;</span>
+    </button>
+  </div>
+
+  <div class="back-to-top">
+    <button mat-icon-button (click)="scrollToTop()" title="Volver arriba" class="btn-themecolor">
+      <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
   </div>
 </div>

@@ -15,6 +15,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { MaterialModule } from '../shared/modules/material.module/material.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     RouterModule,
     ComponentsModule,
     HttpClientModule,
+    MaterialModule
   ],
 })
 export class PagesModule {}

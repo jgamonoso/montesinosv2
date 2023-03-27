@@ -84,11 +84,11 @@ a.link:hover, a.link:focus {
   .btn-themecolor.disabled:hover {
     background: #7460ee;
     opacity: 0.7;
-    border: 1px solid #7460ee; }
+    border: none; }
   .btn-themecolor.active, .btn-themecolor:focus,
   .btn-themecolor.disabled.active,
   .btn-themecolor.disabled:focus {
-    background: #028ee1; }
+    background: #7460ee; }
 
 /*******************
 /*sidebar navigation
