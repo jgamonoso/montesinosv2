@@ -1,11 +1,11 @@
 <div *ngIf="noticias">
   <div class="pagination">
     <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
-      <span class="desktop-text">Mes posterior</span>
+      <span class="desktop-text">&lt;</span>
       <span class="mobile-text">&lt;</span>
     </button>
     <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
-      <span class="desktop-text">Mes anterior</span>
+      <span class="desktop-text">&gt;</span>
       <span class="mobile-text">&gt;</span>
     </button>
   </div>
@@ -22,11 +22,11 @@
 
   <div class="pagination">
     <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
-      <span class="desktop-text">Mes posterior</span>
+      <span class="desktop-text">&lt;</span>
       <span class="mobile-text">&lt;</span>
     </button>
     <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
-      <span class="desktop-text">Mes anterior</span>
+      <span class="desktop-text">&gt;</span>
       <span class="mobile-text">&gt;</span>
     </button>
   </div>
