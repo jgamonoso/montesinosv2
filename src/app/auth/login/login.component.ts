@@ -35,6 +35,11 @@ export class LoginComponent implements OnInit {
     private sharedService: SharedService
   ) {
     this.images = this.sharedService.images;
+
+    this.form = this.formBuilder.group({
+      login: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -42,11 +47,6 @@ export class LoginComponent implements OnInit {
 
     if (sessionActive && sessionActive.status === 'ok') {
       this.router.navigateByUrl('/dashboard');
-    } else {
-      this.form = this.formBuilder.group({
-        login: ['', Validators.required],
-        password: ['', Validators.required]
-      });
     }
 
     this.randomImageSequence = this.generateRandomSequence(this.images.length);
