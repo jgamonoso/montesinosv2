@@ -15,7 +15,6 @@ export class DashboardService {
   ) { }
 
   obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
-    // let url = `${API_URL}v2/noticias.php`;
     let url = `${API_URL}v2/noticias.php?pagina=${pagina}`;
     if (pkLiga) {
       url += `&pkLiga=${pkLiga}`;

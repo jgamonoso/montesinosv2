@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { DashboardService } from 'src/app/services/dashboard.service';
-import { JugadoresPruebaService } from 'src/app/services/jugadores-prueba.service';
+import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
