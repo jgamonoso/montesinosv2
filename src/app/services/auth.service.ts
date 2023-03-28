@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { xorEncryptDecrypt } from '../shared/functions/xor-encryption/xor-encryption.component';
 
 const API_URL = environment.API_URL;
-const SECRET_KEY = 'your-secret-key';
+const SECRET_KEY = 'montesinos';
 
 @Injectable({
   providedIn: 'root',
