@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { HttpParametersClass } from './http-parameters.class';
-import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
@@ -21,9 +20,8 @@ export class HttpService {
   }
 
   get(httpParametersClass: HttpParametersClass): Observable<any> {
-    debugger;
     return this.http
-      .get(this.setUrl(httpParametersClass), {
+      .get(httpParametersClass.url, {
         params: httpParametersClass.params,
         headers: this.setHeader(httpParametersClass)
       })
@@ -35,9 +33,8 @@ export class HttpService {
   }
 
   post(httpParametersClass: HttpParametersClass): Observable<any> {
-    debugger;
     return this.http
-      .post(this.setUrl(httpParametersClass), httpParametersClass.body, {
+      .post(httpParametersClass.url, httpParametersClass.body, {
         params: httpParametersClass.params,
         headers: this.setHeader(httpParametersClass)
       })
@@ -48,13 +45,7 @@ export class HttpService {
       );
   }
 
-  private setUrl(httpParametersClass: HttpParametersClass): string {
-    debugger;
-    return encodeURI(httpParametersClass.url);
-  }
-
   private setHeader(httpParametersClass: HttpParametersClass): HttpHeaders {
-    debugger;
     const hhttpParametersClass: HttpParametersClass = this.ifParamsHeader(
       httpParametersClass
     );
@@ -62,12 +53,6 @@ export class HttpService {
   }
 
   private ifParamsHeader(httpParametersClass: HttpParametersClass): HttpParametersClass {
-    debugger;
-    if (!httpParametersClass.headers) {
-      httpParametersClass.headers = {
-        'accept-language': this.lang
-      };
-    }
     httpParametersClass.headers = {
       ...httpParametersClass.headers,
       'Access-Control-Allow-Origin': '*',
@@ -83,13 +68,13 @@ export class HttpService {
     let throwErrorValue = true;
     if (error.status === 400 || error.status === 0) {
       if (error.statusText === 'Unknown Error') {
-        this.router.navigate(['auth/login']);
+        // this.router.navigate(['auth/login']);
       }
     } else if (error.status === 401 && (error.error?.error_description === 'The access token expired' || error.error?.error === 'invalid_token')) {
       const _remember: boolean = !!JSON.parse(sessionStorage.getItem('CFV'));
       const _currentPath: string = this.router.url;
     } else if (error.status === 403) {
-      this.router.navigate(['auth/login']);
+      // this.router.navigate(['auth/login']);
     }
     if (throwErrorValue) {
       return throwError(error);

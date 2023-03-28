@@ -23,17 +23,12 @@ export class AuthService {
   }
 
   authenticate(credentials: { login: string; password: string }): Observable<any> {
-    debugger;
-
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
       body: credentials
     });
-    debugger;
-
     return this.httpService.post(httpParametersClass).pipe(
       tap(response => {
-        debugger;
         // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
         if (response.status === 'ok') {
           const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);

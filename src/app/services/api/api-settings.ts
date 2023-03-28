@@ -10,6 +10,6 @@ export const _API_ENDPOINTS: any = {
         start: '/login.php',
     },
     dashboard: {
-        start: '/noticias.php',
+        start: '/not2icias.php',
     },
 };

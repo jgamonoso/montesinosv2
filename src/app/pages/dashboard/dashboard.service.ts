@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { _API_ENDPOINTS } from 'src/app/services/api/api-settings';
+import { HttpParametersClass } from 'src/app/shared/modules/http.module/service/http-parameters.class';
+import { HttpService } from 'src/app/shared/modules/http.module/service/http.service';
 import { environment } from 'src/environments/environment';
 
 const API_URL = environment.API_URL;
@@ -11,23 +15,18 @@ const API_URL = environment.API_URL;
 export class DashboardService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private readonly httpService: HttpService
   ) { }
 
-  // obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
-  //   let url = `${API_URL}v2/noticias.php?pagina=${pagina}`;
-  //   if (pkLiga) {
-  //     url += `&pkLiga=${pkLiga}`;
-  //   }
-  //   return this.http.get(url);+
-  // }
-
   obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
-    let url = `${API_URL}v2/noticias.php?pagina=${pagina}`;
-    if (pkLiga) {
-      url += `&pkLiga=${pkLiga}`;
-    }
-    return this.http.get(url);
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.dashboard.start}?pagina=${pagina}&pkLiga=${pkLiga}`,
+    });
+    return this.httpService.get(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
-
 }
