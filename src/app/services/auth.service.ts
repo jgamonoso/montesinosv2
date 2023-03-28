@@ -4,6 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { xorEncryptDecrypt } from '../shared/functions/xor-encryption/xor-encryption.component';
+import { HttpParametersClass } from '../shared/modules/http.module/service/http-parameters.class';
+import { HttpService } from '../shared/modules/http.module/service/http.service';
+import { _API_ENDPOINTS } from './api/api-settings';
 
 const API_URL = environment.API_URL;
 const SECRET_KEY = 'montesinos';
@@ -14,13 +17,23 @@ const SECRET_KEY = 'montesinos';
 export class AuthService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private readonly httpService: HttpService
   ) {
   }
 
   authenticate(credentials: { login: string; password: string }): Observable<any> {
-    return this.http.post<any>(API_URL + 'v2/login.php', credentials).pipe(
+    debugger;
+
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
+      body: credentials
+    });
+    debugger;
+
+    return this.httpService.post(httpParametersClass).pipe(
       tap(response => {
+        debugger;
         // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
         if (response.status === 'ok') {
           const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);

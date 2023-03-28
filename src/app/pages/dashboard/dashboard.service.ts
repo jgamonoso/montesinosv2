@@ -14,6 +14,14 @@ export class DashboardService {
     private http: HttpClient
   ) { }
 
+  // obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
+  //   let url = `${API_URL}v2/noticias.php?pagina=${pagina}`;
+  //   if (pkLiga) {
+  //     url += `&pkLiga=${pkLiga}`;
+  //   }
+  //   return this.http.get(url);+
+  // }
+
   obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
     let url = `${API_URL}v2/noticias.php?pagina=${pagina}`;
     if (pkLiga) {
