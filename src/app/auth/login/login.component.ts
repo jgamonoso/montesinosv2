@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error de inicio de sesión', error);
+        // console.error('Error de inicio de sesión', error.message);
         this.errorMessage = 'Login error';
       }
     );

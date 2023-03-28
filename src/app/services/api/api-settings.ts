@@ -7,9 +7,9 @@ const API_URL = environment.API_URL;
 export const _API_ENDPOINTS: any = {
     host: API_URL + 'v2' ,
     login: {
-        start: '/login.php',
+        start: '/login',
     },
     dashboard: {
-        start: '/noticias.php',
+        start: '/noticias',
     },
 };

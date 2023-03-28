@@ -28,19 +28,23 @@ export class AuthService {
       body: credentials
     });
     return this.httpService.post(httpParametersClass).pipe(
-      tap(response => {
-        // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
-        if (response.status === 'ok') {
-          const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
-          const remember = this.getRemember();
+      tap(
+        response => {
+          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
+          if (response.status === 'ok') {
+            const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
+            const remember = this.getRemember();
 
-          if (remember) {
-            localStorage.setItem('credentials', encryptedData);
-          } else {
-            sessionStorage.setItem('credentials', encryptedData);
+            if (remember) {
+              localStorage.setItem('credentials', encryptedData);
+            } else {
+              sessionStorage.setItem('credentials', encryptedData);
+            }
           }
+        },
+        error => {
         }
-      })
+      )
     );
   }
 

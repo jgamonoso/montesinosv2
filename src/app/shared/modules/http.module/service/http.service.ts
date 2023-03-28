@@ -67,14 +67,10 @@ export class HttpService {
     debugger;
     let throwErrorValue = true;
     if (error.status === 400 || error.status === 0) {
-      if (error.statusText === 'Unknown Error') {
-        // this.router.navigate(['auth/login']);
-      }
-    } else if (error.status === 401 && (error.error?.error_description === 'The access token expired' || error.error?.error === 'invalid_token')) {
-      const _remember: boolean = !!JSON.parse(sessionStorage.getItem('CFV'));
-      const _currentPath: string = this.router.url;
+    } else if (error.status === 401) {
     } else if (error.status === 403) {
       // this.router.navigate(['auth/login']);
+    } else if (error.status === 404) {
     }
     if (throwErrorValue) {
       return throwError(error);
