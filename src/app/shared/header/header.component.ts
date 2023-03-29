@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 import { LangService } from '../modules/lang.module/service/lang.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { LangService } from '../modules/lang.module/service/lang.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  base_href = environment.BASE_HREF;
 
   constructor(
     private authService: AuthService,
