@@ -9,9 +9,7 @@ import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 export class DashboardComponent implements OnInit {
   noticias: any;
   fechas: string[];
-  //TODO:
-  // pagina: number = 1;
-  pagina: number = 50;
+  pagina: number = 1;
   liga: number = 1;
 
   constructor(
