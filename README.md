@@ -45,3 +45,6 @@ RewriteRule ^ - [L]
 
 # Si no existe, redirige la solicitud al archivo index.html
 RewriteRule ^ /v2/index.html [L]
+
+
+TEMPLATE: Admin Pro by wrappixel.com
