@@ -8,7 +8,10 @@ export const environment = {
   production: false,
   version: VERSION.version,
   gitHash: VERSION.hash,
+  // Para usar API php
   API_URL: 'http://localhost/api/',
+  // Para usar API node.js en desarrollo
+  // API_URL: 'http://localhost:3000/api/',
   BASE_HREF: '/',
   langArray: ['es', 'en'],
   langDefault: 'es',
