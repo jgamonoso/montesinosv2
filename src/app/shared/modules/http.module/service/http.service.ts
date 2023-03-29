@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { HttpParametersClass } from './http-parameters.class';
 import { TranslateService } from '@ngx-translate/core';
+import { LoadingService } from '../../loading.module/service/loading.service';
 
 @Injectable()
 export class HttpService {
@@ -14,12 +14,12 @@ export class HttpService {
   constructor(
     private readonly http: HttpClient,
     private readonly translate: TranslateService,
-    private readonly router: Router
+    private readonly loadingService: LoadingService
   ) {
     this.lang = this.translate.currentLang ? this.translate.currentLang : 'es';
   }
 
-  get(httpParametersClass: HttpParametersClass): Observable<any> {
+  getLogin(httpParametersClass: HttpParametersClass): Observable<any> {
     return this.http
       .get(httpParametersClass.url, {
         params: httpParametersClass.params,
@@ -31,8 +31,7 @@ export class HttpService {
         )
       );
   }
-
-  post(httpParametersClass: HttpParametersClass): Observable<any> {
+  postLogin(httpParametersClass: HttpParametersClass): Observable<any> {
     return this.http
       .post(httpParametersClass.url, httpParametersClass.body, {
         params: httpParametersClass.params,
@@ -42,6 +41,39 @@ export class HttpService {
         catchError((response: HttpErrorResponse) =>
           this.handleError(response)
         )
+      );
+  }
+
+  get(httpParametersClass: HttpParametersClass): Observable<any> {
+    this.loadingService.setLoadingState(true);
+    return this.http
+      .get(httpParametersClass.url, {
+        params: httpParametersClass.params,
+        headers: this.setHeader(httpParametersClass)
+      })
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          this.handleError(response)
+        ),
+        finalize(() => {
+          this.loadingService.setLoadingState(false);
+        })
+      );
+  }
+  post(httpParametersClass: HttpParametersClass): Observable<any> {
+    this.loadingService.setLoadingState(true);
+    return this.http
+      .post(httpParametersClass.url, httpParametersClass.body, {
+        params: httpParametersClass.params,
+        headers: this.setHeader(httpParametersClass)
+      })
+      .pipe(
+        catchError((response: HttpErrorResponse) =>
+          this.handleError(response)
+        ),
+        finalize(() => {
+          this.loadingService.setLoadingState(false);
+        })
       );
   }
 

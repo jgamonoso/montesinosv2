@@ -27,7 +27,7 @@ export class AuthService {
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
       body: credentials
     });
-    return this.httpService.post(httpParametersClass).pipe(
+    return this.httpService.postLogin(httpParametersClass).pipe(
       tap(
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa

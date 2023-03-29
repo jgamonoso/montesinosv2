@@ -7,7 +7,6 @@ import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  loading = false;
   noticias: any;
   fechas: string[];
   pagina: number = 1;
@@ -18,22 +17,18 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loading = false;
     this.cargarNoticias();
   }
 
   cargarNoticias(): void {
-    this.loading = true;
     this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
         if (resp) {
-          this.loading = false;
           this.noticias = resp;
           this.fechas = Object.keys(resp);
         }
       },
       (err) => {
-        this.loading = false;
         console.warn(err)
       }
     );
