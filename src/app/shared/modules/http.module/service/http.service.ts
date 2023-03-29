@@ -64,7 +64,6 @@ export class HttpService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any>  {
-    debugger;
     let throwErrorValue = true;
     if (error.status === 400 || error.status === 0) {
     } else if (error.status === 401) {
