@@ -10,7 +10,6 @@ import { LangService } from '../modules/lang.module/service/lang.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  base_href = environment.BASE_HREF;
 
   constructor(
     private authService: AuthService,
