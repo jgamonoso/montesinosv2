@@ -7,10 +7,7 @@ export class SettingsService {
   private linkTheme = document.querySelector('#theme');
 
   constructor() {
-    console.log('Hola, soy SettingsService');
-
-    const url =
-      localStorage.getItem('theme') || './assets/css/colors/default-dark.css';
+    const url = localStorage.getItem('theme') || './assets/css/colors/default-dark.css';
     this.linkTheme.setAttribute('href', url);
   }
 

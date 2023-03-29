@@ -73,7 +73,6 @@ export class ResetComponent implements OnInit {
   }
 
   login() {
-    console.log('submit');
     this.authService.authenticate(this.form.value).subscribe(
       (response) => {
         if (response.status === 'ok') {

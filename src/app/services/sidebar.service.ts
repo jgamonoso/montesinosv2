@@ -144,6 +144,5 @@ export class SidebarService {
   ];
 
   constructor() {
-    console.log('Hola, soy SidebarService');
   }
 }
