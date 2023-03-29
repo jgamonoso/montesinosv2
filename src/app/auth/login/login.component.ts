@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
   login() {
     console.log('submit');
     this.loading = true;
+    this.errorMessage = '';
     this.authService.authenticate(this.form.value).subscribe(
       (response) => {
         this.loading = false;

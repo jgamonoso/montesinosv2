@@ -1,3 +1,4 @@
+<app-loading *ngIf="loading" class="app-loading-container"></app-loading>
 <div *ngIf="noticias">
   <div class="pagination">
     <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
