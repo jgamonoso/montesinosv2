@@ -169,3 +169,7 @@ Preloader
     opacity: 0.25;
   }
 }
+
+.custom-spinner.mat-spinner circle, .custom-spinner.mat-progress-spinner circle {
+  stroke: #398bf7; /* Cambia este valor al color que desees */
+}

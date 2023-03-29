@@ -10,24 +10,27 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoadingModule } from './modules/loading.module/loading.module';
 
 @NgModule({
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslateModule,
+    HttpModule,
+    LoadingModule
+  ],
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    TranslateModule,
-    HttpModule
-  ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
-    HttpModule
+    HttpModule,
+    LoadingModule
   ],
 })
 export class SharedModule { }

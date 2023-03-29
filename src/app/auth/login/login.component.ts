@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
-  submitted = false;
   base_href = environment.BASE_HREF;
   errorMessage: string;
   currentImageIndex = 0;
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = false;
     let sessionActive = this.authService.getStoredCredentials();
 
     if (sessionActive && sessionActive.status === 'ok') {
@@ -82,8 +82,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     console.log('submit');
+    this.loading = true;
     this.authService.authenticate(this.form.value).subscribe(
       (response) => {
+        this.loading = false;
         if (response.status === 'ok') {
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -92,6 +94,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
+        this.loading = false;
         // console.error('Error de inicio de sesión', error.message);
         this.errorMessage = 'Login error';
       }

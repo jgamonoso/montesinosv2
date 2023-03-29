@@ -12,6 +12,7 @@ import { MaterialModule } from '../shared/modules/material.module/material.modul
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetComponent } from './reset/reset.component';
+import { LoadingModule } from '../shared/modules/loading.module/loading.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ResetComponent } from './reset/reset.component';
     HttpClientModule,
     ReactiveFormsModule,
     TranslateModule,
-    MaterialModule
+    MaterialModule,
+    LoadingModule,
   ],
 })
 export class AuthModule { }
