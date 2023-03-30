@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, delay, finalize } from 'rxjs/operators';
 import { HttpParametersClass } from './http-parameters.class';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingService } from '../../loading.module/service/loading.service';
@@ -52,6 +52,7 @@ export class HttpService {
         headers: this.setHeader(httpParametersClass)
       })
       .pipe(
+        // delay(10000),
         catchError((response: HttpErrorResponse) =>
           this.handleError(response)
         ),
@@ -68,6 +69,7 @@ export class HttpService {
         headers: this.setHeader(httpParametersClass)
       })
       .pipe(
+        // delay(10000),
         catchError((response: HttpErrorResponse) =>
           this.handleError(response)
         ),
