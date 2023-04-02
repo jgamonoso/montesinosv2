@@ -48,18 +48,37 @@ export class AuthService {
     );
   }
 
-  // Método para obtener las credenciales almacenadas:
-getStoredCredentials(): any {
-  const encryptedData = this.getRemember()
-    ? localStorage.getItem('credentials')
-    : sessionStorage.getItem('credentials');
-
-  if (!encryptedData) {
-    return null;
+  obtenerTemporadaActual(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
+      body: { action: 'obtenerTemporadaActual' }
+    });
+    return this.httpService.postLogin(httpParametersClass);
   }
-  const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
-  return JSON.parse(decryptedData);
-}
+
+  obtenerManagerPorLogin(login: string): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
+      body: {
+        action: 'obtenerManagerPorLogin',
+        login: login
+      }
+    });
+    return this.httpService.postLogin(httpParametersClass);
+  }
+
+  // Método para obtener las credenciales almacenadas:
+  getStoredCredentials(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('credentials')
+      : sessionStorage.getItem('credentials');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
+  }
 
   //método para eliminar las credenciales almacenadas (por ejemplo, al cerrar sesión):
   removeStoredCredentials(): void {
