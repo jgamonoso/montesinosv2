@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(){
-    this.authService.removeStoredCredentials();
+    this.authService.removeStoredData();
     this.router.navigateByUrl('/');
   }
 }

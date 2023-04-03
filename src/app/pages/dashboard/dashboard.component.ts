@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,14 +13,35 @@ export class DashboardComponent implements OnInit {
   fechas: string[];
   pagina: number = 1;
   liga: number = 1;
+  credenciales: any;
 
   constructor(
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.cargarNoticias();
+    this.loadInitialData();
   }
+
+  loadInitialData() {
+    this.credenciales = this.authService.getStoredCredentials();
+    forkJoin([
+      this.authService.obtenerTemporadaActual(),
+      this.authService.obtenerManagerPorLogin(this.credenciales.manager),
+    ]).subscribe(
+      ([temporadaActual, managerPorLogin]) => {
+        // console.log('Temporada actual:', temporadaActual);
+        // console.log('Manager por login:', managerPorLogin);
+        this.liga = managerPorLogin.equipo.fkLiga;
+        this.cargarNoticias();
+      },
+      (error) => {
+        console.error('Error al obtener la temporada actual o manager por login', error.message);
+      }
+    );
+  }
+
 
   cargarNoticias(): void {
     this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(

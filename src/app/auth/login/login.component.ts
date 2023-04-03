@@ -85,29 +85,19 @@ export class LoginComponent implements OnInit {
   login() {
     this.loading = true;
     this.errorMessage = '';
-
-    this.authService.authenticate(this.form.value).pipe(
-      switchMap((response) => {
-        if (response.status === 'ok') {
-          return forkJoin([
-            this.authService.obtenerTemporadaActual(),
-            this.authService.obtenerManagerPorLogin(this.form.value.login),
-          ]);
-        } else {
-          this.errorMessage = response.message;
-          return throwError('Error de inicio de sesión');
-        }
-      }),
-    ).subscribe(
-      ([temporadaActual, managerPorLogin]) => {
+    this.authService.authenticate(this.form.value).subscribe(
+      (response) => {
         this.loading = false;
-        console.log('Temporada actual:', temporadaActual);
-        console.log('manager por login:', managerPorLogin);
-        this.router.navigateByUrl('/dashboard');
+        if (response.status === 'ok') {
+          this.router.navigateByUrl('/dashboard');
+        } else {
+          console.error('Error de inicio de sesión');
+          this.errorMessage = response.message;
+        }
       },
       (error) => {
         this.loading = false;
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        // console.error('Error de inicio de sesión', error.message);
         this.errorMessage = 'Login error';
       }
     );

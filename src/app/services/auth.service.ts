@@ -53,7 +53,25 @@ export class AuthService {
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
       body: { action: 'obtenerTemporadaActual' }
     });
-    return this.httpService.postLogin(httpParametersClass);
+    return this.httpService.postLogin(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
+          if (response.pkTemporada) {
+            const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
+            const remember = this.getRemember();
+
+            if (remember) {
+              localStorage.setItem('temporada', encryptedData);
+            } else {
+              sessionStorage.setItem('temporada', encryptedData);
+            }
+          }
+        },
+        error => {
+        }
+      )
+    );
   }
 
   obtenerManagerPorLogin(login: string): Observable<any> {
@@ -64,7 +82,25 @@ export class AuthService {
         login: login
       }
     });
-    return this.httpService.postLogin(httpParametersClass);
+    return this.httpService.postLogin(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
+          if (response.login) {
+            const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
+            const remember = this.getRemember();
+
+            if (remember) {
+              localStorage.setItem('manager', encryptedData);
+            } else {
+              sessionStorage.setItem('manager', encryptedData);
+            }
+          }
+        },
+        error => {
+        }
+      )
+    );
   }
 
   // Método para obtener las credenciales almacenadas:
@@ -80,13 +116,43 @@ export class AuthService {
     return JSON.parse(decryptedData);
   }
 
+  // Método para obtener la temporada almacenada:
+  getStoredTemporada(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('temporada')
+      : sessionStorage.getItem('temporada');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
+  }
+
+  // Método para obtener el manager almacenado:
+  getStoredManager(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('manager')
+      : sessionStorage.getItem('manager');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
+  }
+
   //método para eliminar las credenciales almacenadas (por ejemplo, al cerrar sesión):
-  removeStoredCredentials(): void {
+  removeStoredData(): void {
     if (this.getRemember()) {
       localStorage.removeItem('credentials');
+      localStorage.removeItem('temporada');
+      localStorage.removeItem('manager');
       this.deleteRemember();
     } else {
       sessionStorage.removeItem('credentials');
+      sessionStorage.removeItem('temporada');
+      sessionStorage.removeItem('manager');
     }
   }
 
