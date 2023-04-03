@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SettingsService } from '../services/settings.service';
 import { LoadingService } from '../shared/modules/loading.module/service/loading.service';
 
 declare function customInitFunctions();
@@ -16,7 +15,6 @@ export class PagesComponent implements OnInit {
   loading: boolean;
 
   constructor(
-    private settingsService: SettingsService,
     private loadingService: LoadingService,
     private cdr: ChangeDetectorRef
   ) {
