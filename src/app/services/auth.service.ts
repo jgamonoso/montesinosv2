@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
@@ -7,6 +6,7 @@ import { xorEncryptDecrypt } from '../shared/functions/xor-encryption/xor-encryp
 import { HttpParametersClass } from '../shared/modules/http.module/service/http-parameters.class';
 import { HttpService } from '../shared/modules/http.module/service/http.service';
 import { _API_ENDPOINTS } from './api/api-settings';
+import { LoadingService } from '../shared/modules/loading.module/service/loading.service';
 
 const API_URL = environment.API_URL;
 const SECRET_KEY = 'montesinos';
@@ -17,8 +17,8 @@ const SECRET_KEY = 'montesinos';
 export class AuthService {
 
   constructor(
-    private http: HttpClient,
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
+    private readonly loadingService: LoadingService
   ) {
   }
 
@@ -43,6 +43,7 @@ export class AuthService {
           }
         },
         error => {
+          this.loadingService.setLoadingState(false);
         }
       )
     );
@@ -69,6 +70,7 @@ export class AuthService {
           }
         },
         error => {
+          this.loadingService.setLoadingState(false);
         }
       )
     );
@@ -98,6 +100,7 @@ export class AuthService {
           }
         },
         error => {
+          this.loadingService.setLoadingState(false);
         }
       )
     );
