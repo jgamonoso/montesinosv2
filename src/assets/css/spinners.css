@@ -54,6 +54,7 @@ Preloader
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
   margin: 0.5em 0 0 50%;
+  margin-top:5em;
   font-size: 0.875em;
   letter-spacing: 0.1em;
   line-height: 1.5em;

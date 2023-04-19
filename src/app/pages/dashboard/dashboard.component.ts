@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit {
   cargarNoticias(): void {
     this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
-        this.loadingService.setLoadingState(false);
         if (resp) {
           this.noticias = resp;
           this.fechas = Object.keys(resp);
