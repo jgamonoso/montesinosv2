@@ -11,6 +11,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoadingModule } from './modules/loading.module/loading.module';
+import { Error404Component } from './error404/error404.component';
 
 @NgModule({
   imports: [
@@ -23,12 +24,14 @@ import { LoadingModule } from './modules/loading.module/loading.module';
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    Error404Component
   ],
   exports: [
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
+    Error404Component,
     HttpModule,
     LoadingModule
   ],

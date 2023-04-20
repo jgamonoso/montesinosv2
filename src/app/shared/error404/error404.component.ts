@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LangService } from '../shared/modules/lang.module/service/lang.service';
+import { LangService } from '../modules/lang.module/service/lang.service';
 
 @Component({
   selector: 'app-error404',

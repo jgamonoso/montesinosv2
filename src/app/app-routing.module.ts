@@ -6,7 +6,7 @@ import { PagesRoutingModule } from './pages/pages.routing';
 import { AuthRoutingModule } from './auth/auth.routing';
 
 //Componentes
-import { Error404Component } from './error404/error404.component';
+import { Error404Component } from './shared/error404/error404.component';
 
 declare const window: any;
 
