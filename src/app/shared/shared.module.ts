@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoadingModule } from './modules/loading.module/loading.module';
 import { Error404Component } from './error404/error404.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { Error404Component } from './error404/error404.component';
     BreadcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
+    AccountSettingsComponent,
     Error404Component
   ],
   exports: [
@@ -32,6 +34,7 @@ import { Error404Component } from './error404/error404.component';
     SidebarComponent,
     HeaderComponent,
     Error404Component,
+    AccountSettingsComponent,
     HttpModule,
     LoadingModule
   ],
