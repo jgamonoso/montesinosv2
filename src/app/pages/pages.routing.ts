@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from '../features/dashboard/dashboard/dashboard.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
-import { ProgressComponent } from './progress/progress.component';
-import { AccountSettingsComponent } from '../features/dashboard/account-settings/account-settings.component';
+import { DashboardComponent } from 'src/app/pages/dashboard/dashboard.component';
+import { Grafica1Component } from 'src/app/pages/grafica1/grafica1.component';
+import { ProgressComponent } from 'src/app/pages/progress/progress.component';
+import { AccountSettingsComponent } from 'src/app/pages/account-settings/account-settings.component';
 
 const routes: Routes = [
   {

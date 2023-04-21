@@ -1,8 +1,14 @@
 import { NgModule} from '@angular/core';
-import { LoadingComponent } from './component/loading.component';
+
+// Módulos
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material.module/material.module';
+
+// Servicios
 import { LoadingService } from './service/loading.service';
+
+// Componentes
+import { LoadingComponent } from './component/loading.component';
 
 @NgModule({
   imports: [

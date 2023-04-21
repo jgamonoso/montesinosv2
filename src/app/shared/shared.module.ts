@@ -5,14 +5,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from './modules/http.module/http.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoadingModule } from 'src/app/shared/modules/loading.module/loading.module';
 
 //Componentes
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { LoadingModule } from './modules/loading.module/loading.module';
-import { Error404Component } from './error404/error404.component';
-import { AccountSettingsComponent } from '../features/dashboard/account-settings/account-settings.component';
+import { BreadcrumbsComponent } from 'src/app/shared/breadcrumbs/breadcrumbs.component';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { SidebarComponent } from 'src/app/shared/sidebar/sidebar.component';
+import { Error404Component } from 'src/app/shared/error404/error404.component';
+import { AccountSettingsComponent } from 'src/app/pages/account-settings/account-settings.component';
 
 @NgModule({
   imports: [
