@@ -12,7 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoadingModule } from './modules/loading.module/loading.module';
 import { Error404Component } from './error404/error404.component';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { AccountSettingsComponent } from '../features/dashboard/account-settings/account-settings.component';
 
 @NgModule({
   imports: [

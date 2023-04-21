@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { xorEncryptDecrypt } from '../shared/functions/xor-encryption/xor-encryption.component';
-import { HttpParametersClass } from '../shared/modules/http.module/service/http-parameters.class';
-import { HttpService } from '../shared/modules/http.module/service/http.service';
-import { _API_ENDPOINTS } from './api/api-settings';
-import { LoadingService } from '../shared/modules/loading.module/service/loading.service';
+import { environment } from 'src/environments/environment';
+import { xorEncryptDecrypt } from 'src/app/shared/functions/xor-encryption/xor-encryption.component';
+import { HttpParametersClass } from 'src/app/shared/modules/http.module/service/http-parameters.class';
+import { HttpService } from 'src/app/shared/modules/http.module/service/http.service';
+import { _API_ENDPOINTS } from 'src/app/services/api/api-settings';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 const API_URL = environment.API_URL;
 const SECRET_KEY = 'montesinos';

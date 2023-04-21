@@ -11,7 +11,7 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Noticias',
-          url: 'a',
+          url: '/liga/noticias',
         },
         {
           titulo: 'Equipos',
@@ -62,20 +62,6 @@ export class SidebarService {
       ],
     },
     {
-      titulo: 'Renovaciones',
-      icono: 'mdi mdi-chart-bubble',
-      submenu: [
-        {
-          titulo: 'Jugadores',
-          url: 'index.html',
-        },
-        {
-          titulo: 'Pujas Activas (x)',
-          url: 'index2.html',
-        },
-      ],
-    },
-    {
       titulo: 'Agencia Libre',
       icono: 'mdi mdi-file',
       submenu: [
@@ -98,6 +84,20 @@ export class SidebarService {
       ],
     },
     {
+      titulo: 'Renovaciones',
+      icono: 'mdi mdi-chart-bubble',
+      submenu: [
+        {
+          titulo: 'Jugadores',
+          url: 'index.html',
+        },
+        {
+          titulo: 'Pujas Activas (x)',
+          url: 'index2.html',
+        },
+      ],
+    },
+    {
       titulo: 'Draft',
       icono: 'mdi mdi-map-marker',
       submenu: [
@@ -106,41 +106,7 @@ export class SidebarService {
           url: 'index.html',
         },
       ],
-    },
-    {
-      titulo: 'Liga',
-      icono: 'mdi mdi-gauge',
-      submenu: [
-        {
-          titulo: 'Noticias',
-          url: 'a',
-        },
-        {
-          titulo: 'Equipos',
-          url: 'progress',
-        },
-        {
-          titulo: 'Lesionados',
-          url: 'account-settings',
-        },
-        {
-          titulo: 'Apuestas',
-          url: 'account-settings2',
-        },
-        {
-          titulo: 'Historico',
-          url: 'account-settings3',
-        },
-        {
-          titulo: 'Normativa',
-          url: '4',
-        },
-        {
-          titulo: 'Cambiar de liga',
-          url: '5',
-        },
-      ],
-    },
+    }
   ];
 
   constructor() {

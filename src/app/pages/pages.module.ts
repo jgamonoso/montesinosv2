@@ -6,15 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 //Módulos
-import { SharedModule } from '../shared/shared.module';
-import { ComponentsModule } from '../components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 //Componentes
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
-import { PagesComponent } from './pages.component';
-import { ProgressComponent } from './progress/progress.component';
-import { MaterialModule } from '../shared/modules/material.module/material.module';
+import { DashboardComponent } from 'src/app//features/dashboard/dashboard/dashboard.component';
+import { Grafica1Component } from 'src/app/pages/grafica1/grafica1.component';
+import { PagesComponent } from 'src/app/pages/pages.component';
+import { ProgressComponent } from 'src/app/pages/progress/progress.component';
+import { MaterialModule } from 'src/app/shared/modules/material.module/material.module';
 
 @NgModule({
   declarations: [

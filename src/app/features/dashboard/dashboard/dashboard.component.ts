@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { DashboardService } from 'src/app/features/dashboard/dashboard/dashboard.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { SettingsService } from 'src/app/features/dashboard/account-settings/settings.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
