@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { LangService } from '../modules/lang.module/service/lang.service';
 
 @Component({
@@ -23,13 +23,13 @@ export class HeaderComponent implements OnInit {
     event.preventDefault(); // Previene la acción predeterminada del formulario
   }
   onSearchEnter(searchText: string): void {
-    console.log('Search text:', searchText);
+    console.log('Search text onSearchEnter:', searchText);
     // Aquí puedes utilizar el texto de búsqueda (searchText) para realizar la búsqueda
   }
 
   onSearchButton(event: MouseEvent, searchText: string): void {
     event.stopPropagation();
-    console.log('Search text:', searchText);
+    console.log('Search text onSearchButton:', searchText);
     // Aquí puedes utilizar el texto de búsqueda (searchText) para realizar la búsqueda
   }
 
@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    this.authService.removeStoredCredentials();
+    this.authService.removeStoredData();
     this.router.navigateByUrl('/');
   }
 }

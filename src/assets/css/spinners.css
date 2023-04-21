@@ -1,18 +1,19 @@
 /*******************
 Preloader
 ********************/
-.preloader{
-    width: 100%;
-    height: 100%;
-    top:0px;
-    position: fixed;
-    z-index: 99999;
-    background: #fff;
-    .cssload-speeding-wheel{
-        position: absolute;
-        top: calc(50% - 3.5px);
-        left: calc(50% - 3.5px);
-    }
+.preloader {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: fixed;
+  z-index: 99999;
+  background: #fff;
+}
+
+.preloader .cssload-speeding-wheel {
+  position: absolute;
+  top: calc(50% - 3.5px);
+  left: calc(50% - 3.5px);
 }
 .loader,
 .loader__figure {
@@ -53,6 +54,7 @@ Preloader
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
   margin: 0.5em 0 0 50%;
+  margin-top:5em;
   font-size: 0.875em;
   letter-spacing: 0.1em;
   line-height: 1.5em;
@@ -167,4 +169,8 @@ Preloader
   100% {
     opacity: 0.25;
   }
+}
+
+.custom-spinner.mat-spinner circle, .custom-spinner.mat-progress-spinner circle {
+  stroke: #398bf7; /* Cambia este valor al color que desees */
 }

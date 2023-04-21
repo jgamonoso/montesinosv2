@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { SettingsService } from 'src/app/pages/account-settings/settings.service';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,17 +13,39 @@ import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 export class DashboardComponent implements OnInit {
   noticias: any;
   fechas: string[];
-  //TODO:
-  // pagina: number = 1;
-  pagina: number = 50;
+  pagina: number = 1;
   liga: number = 1;
+  credenciales: any;
 
   constructor(
-    private dashboardService: DashboardService
-  ) {}
+    private dashboardService: DashboardService,
+    private authService: AuthService,
+    private readonly loadingService: LoadingService,
+    private settingsService: SettingsService
+  ) { }
 
   ngOnInit(): void {
-    this.cargarNoticias();
+    this.settingsService.checkCurrentTheme();
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
+    this.loadingService.setLoadingState(true);
+    this.credenciales = this.authService.getStoredCredentials();
+    forkJoin([
+      this.authService.obtenerTemporadaActual(),
+      this.authService.obtenerManagerPorLogin(this.credenciales.manager),
+    ]).subscribe(
+      ([temporadaActual, managerPorLogin]) => {
+        // console.log('Temporada actual:', temporadaActual);
+        // console.log('Manager por login:', managerPorLogin);
+        this.liga = managerPorLogin.equipo.fkLiga;
+        this.cargarNoticias();
+      },
+      (error) => {
+        console.error('Error al obtener la temporada actual o manager por login', error.message);
+      }
+    );
   }
 
   cargarNoticias(): void {
@@ -30,7 +56,10 @@ export class DashboardComponent implements OnInit {
           this.fechas = Object.keys(resp);
         }
       },
-      (err) => console.warn(err)
+      (err) => {
+        this.loadingService.setLoadingState(false);
+        console.warn(err)
+      }
     );
   }
 

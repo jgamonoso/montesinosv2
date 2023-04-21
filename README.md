@@ -1,4 +1,4 @@
-# CustomMontesinos
+# montesinosv2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.1.
 
@@ -45,3 +45,6 @@ RewriteRule ^ - [L]
 
 # Si no existe, redirige la solicitud al archivo index.html
 RewriteRule ^ /v2/index.html [L]
+
+
+TEMPLATE: Admin Pro by wrappixel.com

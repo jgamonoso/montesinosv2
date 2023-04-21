@@ -1,5 +1,3 @@
-//TODO: Cambiar la url de los servicios en prod
-
 import { VERSION } from './version';
 
 export const environment = {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { SidebarService } from 'src/app/services/sidebar.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { SidebarService } from 'src/app/shared/sidebar/services/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +20,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
-    console.log(this.menuItems);
     this.credenciales = this.authService.getStoredCredentials();
     if (!this.credenciales) {
       this.router.navigate(['/auth/login']);
@@ -28,7 +27,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(){
-    this.authService.removeStoredCredentials();
+    this.authService.removeStoredData();
     this.router.navigateByUrl('/');
   }
 }

@@ -43,6 +43,9 @@ const customInitFunctions = () => {
     // Theme options
     // ==============================================================
     $(".sidebartoggler").off("click").on("click", function () {
+      if ($(event.target).closest(".navbar-brand").length > 0) {
+        return; // Si el clic fue en el botón de la marca, no hagas nada
+      }
       if ($("body").hasClass("mini-sidebar")) {
         $("body").trigger("resize");
         $("body").removeClass("mini-sidebar");

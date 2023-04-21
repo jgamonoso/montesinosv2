@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LangService } from 'src/app/shared/modules/lang.module/service/lang.service';
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
-  submitted = false;
   base_href = environment.BASE_HREF;
   errorMessage: string;
   currentImageIndex = 0;
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = false;
     let sessionActive = this.authService.getStoredCredentials();
 
     if (sessionActive && sessionActive.status === 'ok') {
@@ -81,9 +81,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('submit');
+    this.loading = true;
+    this.errorMessage = '';
     this.authService.authenticate(this.form.value).subscribe(
       (response) => {
+        this.loading = false;
         if (response.status === 'ok') {
           this.router.navigateByUrl('/dashboard');
         } else {
@@ -92,7 +94,8 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error de inicio de sesión', error);
+        this.loading = false;
+        // console.error('Error de inicio de sesión', error.message);
         this.errorMessage = 'Login error';
       }
     );

@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../shared/modules/material.module/material.module';
+import { LoadingModule } from '../shared/modules/loading.module/loading.module';
 
 //Componentes
 import { LoginComponent } from './login/login.component';
@@ -31,7 +32,8 @@ import { ResetComponent } from './reset/reset.component';
     HttpClientModule,
     ReactiveFormsModule,
     TranslateModule,
-    MaterialModule
+    MaterialModule,
+    LoadingModule,
   ],
 })
 export class AuthModule { }
