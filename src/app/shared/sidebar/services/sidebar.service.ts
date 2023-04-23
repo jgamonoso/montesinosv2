@@ -15,27 +15,27 @@ export class SidebarService {
         },
         {
           titulo: 'Equipos',
-          url: 'progress',
+          url: '/liga/equipos',
         },
         {
           titulo: 'Lesionados',
-          url: 'account-settings',
+          url: '/liga/lesionados-liga',
         },
         {
           titulo: 'Apuestas',
-          url: 'account-settings2',
+          url: '/liga/apuestas-liga',
         },
         {
           titulo: 'Historico',
-          url: 'account-settings3',
+          url: '/liga/historico',
         },
         {
           titulo: 'Normativa',
-          url: '4',
+          url: '/liga/normativa',
         },
         {
           titulo: 'Cambiar de liga',
-          url: '5',
+          url: '/liga/cambiar-liga',
         },
       ],
     },

@@ -21,7 +21,7 @@ import { ProgressComponent } from 'src/app/pages/progress/progress.component';
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
-    PagesComponent
+    PagesComponent,
   ],
   exports: [
     DashboardComponent,

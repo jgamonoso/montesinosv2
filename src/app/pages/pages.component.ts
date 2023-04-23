@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoadingService } from '../shared/modules/loading.module/service/loading.service';
+import { SettingsService } from './account-settings/settings.service';
 
 declare function customInitFunctions();
 
@@ -16,17 +17,21 @@ export class PagesComponent implements OnInit {
 
   constructor(
     private loadingService: LoadingService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private settingsService: SettingsService
   ) {
     this.loadingService.loading$.subscribe((loading) => {
       setTimeout(() => {
+        console.log('load1: ', this.loading)
         this.loading = loading;
+        console.log('load2: ', this.loading)
         this.cdr.markForCheck();
       }, 0);
     });
   }
 
   ngOnInit(): void {
+    this.settingsService.checkCurrentTheme();
     customInitFunctions();
     customInitFunctions();
   }

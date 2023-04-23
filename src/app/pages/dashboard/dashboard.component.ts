@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SettingsService } from 'src/app/pages/account-settings/settings.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
@@ -20,12 +19,10 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService,
-    private readonly loadingService: LoadingService,
-    private settingsService: SettingsService
+    private readonly loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
-    this.settingsService.checkCurrentTheme();
     this.loadInitialData();
   }
 
