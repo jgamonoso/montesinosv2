@@ -22,9 +22,9 @@ export class PagesComponent implements OnInit {
   ) {
     this.loadingService.loading$.subscribe((loading) => {
       setTimeout(() => {
-        console.log('load1: ', this.loading)
+        // console.log('load1: ', this.loading)
         this.loading = loading;
-        console.log('load2: ', this.loading)
+        // console.log('load2: ', this.loading)
         this.cdr.markForCheck();
       }, 0);
     });

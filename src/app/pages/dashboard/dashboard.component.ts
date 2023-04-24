@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
         if (resp) {
+          // TODO: si no llegan noticias del ultimo mes, incrementar la paginación
           this.noticias = resp;
           this.fechas = Object.keys(resp);
         }
