@@ -10,7 +10,7 @@
         <li class="user-profile">
           <a
             class="has-arrow waves-effect waves-dark"
-            routerLink="/mi-equipo"
+            href="#"
             aria-expanded="false"
           >
             <img src="./assets/images/users/profile.png" alt="user" />
@@ -20,28 +20,28 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li>
-              <a routerLink="/mi-equipo/equipo-detalle">Mi equipo</a>
+              <a routerLink="/mi-equipo/equipo-detalle" (click)="onSidebarLinkClick()">Mi equipo</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/ofertas-enviadas">Ofertas enviadas</a>
+              <a routerLink="/mi-equipo/ofertas-enviadas" (click)="onSidebarLinkClick()">Ofertas enviadas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/ofertas-recibidas">Ofertas recibidas</a>
+              <a routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/pujas-activas">Pujas activas</a>
+              <a routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/waivers">Waivers</a>
+              <a routerLink="/mi-equipo/waivers" (click)="onSidebarLinkClick()">Waivers</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/lesionados">Lesionados</a>
+              <a routerLink="/mi-equipo/lesionados" (click)="onSidebarLinkClick()">Lesionados</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/apuestas">Apuestas</a>
+              <a routerLink="/mi-equipo/apuestas" (click)="onSidebarLinkClick()">Apuestas</a>
             </li>
             <li>
-              <a routerLink="/dashboard/account-settings">Configuración App</a>
+              <a routerLink="/dashboard/account-settings" (click)="onSidebarLinkClick()">Configuración App</a>
             </li>
             <li>
               <a class="navi-link" (click)="logout()">
@@ -70,7 +70,7 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li *ngFor="let subMenuItem of item.submenu">
-              <a [routerLink]="subMenuItem.url">
+              <a [routerLink]="subMenuItem.url" (click)="onSidebarLinkClick()">
                 {{ subMenuItem.titulo }}
               </a>
             </li>
@@ -93,40 +93,40 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li>
-              <a routerLink="/comisionado/liga">Liga</a>
+              <a routerLink="/comisionado/liga" (click)="onSidebarLinkClick()">Liga</a>
             </li>
             <li>
-              <a routerLink="/comisionado/equipos">Equipos</a>
+              <a routerLink="/comisionado/equipos" (click)="onSidebarLinkClick()">Equipos</a>
             </li>
             <li>
-              <a routerLink="/comisionado/jugadores">Jugadores</a>
+              <a routerLink="/comisionado/jugadores" (click)="onSidebarLinkClick()">Jugadores</a>
             </li>
             <li>
-              <a routerLink="/comisionado/entrenadores">Entrenadores</a>
+              <a routerLink="/comisionado/entrenadores" (click)="onSidebarLinkClick()">Entrenadores</a>
             </li>
             <li>
-              <a routerLink="/comisionado/draft">Draft</a>
+              <a routerLink="/comisionado/draft" (click)="onSidebarLinkClick()">Draft</a>
             </li>
             <li>
-              <a routerLink="/comisionado/trades">Trades</a>
+              <a routerLink="/comisionado/trades" (click)="onSidebarLinkClick()">Trades</a>
             </li>
             <li>
-              <a routerLink="/comisionado/subastas">Subastas</a>
+              <a routerLink="/comisionado/subastas" (click)="onSidebarLinkClick()">Subastas</a>
             </li>
             <li>
-              <a routerLink="/comisionado/waivers">Waivers</a>
+              <a routerLink="/comisionado/waivers" (click)="onSidebarLinkClick()">Waivers</a>
             </li>
             <li>
-              <a routerLink="/comisionado/sanciones">Sanciones</a>
+              <a routerLink="/comisionado/sanciones" (click)="onSidebarLinkClick()">Sanciones</a>
             </li>
             <li>
-              <a routerLink="/comisionado/bonus">Bonus</a>
+              <a routerLink="/comisionado/bonus" (click)="onSidebarLinkClick()">Bonus</a>
             </li>
             <li>
-              <a routerLink="/comisionado/noticias">Noticias</a>
+              <a routerLink="/comisionado/noticias" (click)="onSidebarLinkClick()">Noticias</a>
             </li>
             <li>
-              <a routerLink="/comisionado/matchup">Matchup</a>
+              <a routerLink="/comisionado/matchup" (click)="onSidebarLinkClick()">Matchup</a>
             </li>
           </ul>
         </li>
@@ -147,13 +147,13 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li>
-              <a routerLink="/administrador/managers">Managers</a>
+              <a routerLink="/administrador/managers" (click)="onSidebarLinkClick()">Managers</a>
             </li>
             <li>
-              <a routerLink="/administrador/equipos">Equipos</a>
+              <a routerLink="/administrador/equipos" (click)="onSidebarLinkClick()">Equipos</a>
             </li>
             <li>
-              <a routerLink="/administrador/parametros-liga">Parametros Liga</a>
+              <a routerLink="/administrador/parametros-liga" (click)="onSidebarLinkClick()">Parametros Liga</a>
             </li>
           </ul>
         </li>
