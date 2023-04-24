@@ -45,19 +45,19 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Jugadores',
-          url: 'index.html',
+          url: '/mercado/jugadores',
         },
         {
           titulo: 'Derechos',
-          url: 'index2.html',
+          url: '/mercado/derechos',
         },
         {
           titulo: 'Draft Picks',
-          url: 'index3.html',
+          url: '/mercado/draft-picks-mercado',
         },
         {
           titulo: 'Trading Block',
-          url: 'index4.html',
+          url: '/mercado/trading-block',
         },
       ],
     },
@@ -67,19 +67,19 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Jugadores (AL)',
-          url: 'index.html',
+          url: '/agencia-libre/jugadores-al',
         },
         {
           titulo: 'Jugadores (ALSeason)',
-          url: 'index2.html',
+          url: '/agencia-libre/jugadores-al-season',
         },
         {
           titulo: 'Jugadores (ALOffseason)',
-          url: 'index3.html',
+          url: '/agencia-libre/jugadores-al-offseason',
         },
         {
-          titulo: 'Pujas Activas (y)',
-          url: 'index4.html',
+          titulo: 'Pujas Activas',
+          url: '/agencia-libre/pujas-activas-al',
         },
       ],
     },
@@ -89,11 +89,11 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Jugadores',
-          url: 'index.html',
+          url: '/renovaciones/jugadores-renovaciones',
         },
         {
           titulo: 'Pujas Activas (x)',
-          url: 'index2.html',
+          url: '/renovaciones/pujas-activas-renovaciones',
         },
       ],
     },
@@ -103,7 +103,7 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Draft',
-          url: 'index.html',
+          url: '/draft/draft-picks',
         },
       ],
     }
