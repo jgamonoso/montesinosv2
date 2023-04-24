@@ -118,15 +118,18 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <td *ngIf="player.jugador.posiciones[0] && !player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}, {{ player.jugador.posiciones[2]?.nombre}}</td>
+            <ng-container [ngSwitch]="player.jugador.posiciones.length">
+              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
+              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
+              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
+            </ng-container>
 
             <td>{{ player.contrato.salario }}</td>
 
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
             <td>Recuperar</td>
           </tr>
         </tbody>
@@ -157,9 +160,11 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <td *ngIf="player.jugador.posiciones[0] && !player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}, {{ player.jugador.posiciones[2]?.nombre}}</td>
+            <ng-container [ngSwitch]="player.jugador.posiciones.length">
+              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
+              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
+              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
+            </ng-container>
 
             <td>{{ player.derecho.salario }}</td>
 
@@ -199,20 +204,18 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <td *ngIf="player.jugador.posiciones[0] && !player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && !player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}</td>
-            <td *ngIf="player.jugador.posiciones[0] && player.jugador.posiciones[1] && player.jugador.posiciones[2]">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1]?.nombre}}, {{ player.jugador.posiciones[2]?.nombre}}</td>
+            <ng-container [ngSwitch]="player.jugador.posiciones.length">
+              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
+              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
+              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
+            </ng-container>
 
             <td>{{ player.contrato.salario }}</td>
 
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada >= listaTemporadas[1]?.pkTemporada">{{ player.contrato.salario }}</td>
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada < listaTemporadas[1]?.pkTemporada"></td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada >= listaTemporadas[2]?.pkTemporada">{{ player.contrato.salario }}</td>
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada < listaTemporadas[2]?.pkTemporada"></td>
-
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada >= listaTemporadas[3]?.pkTemporada">{{ player.contrato.salario }}</td>
-            <td *ngIf="player.contrato.temporadaFin.pkTemporada < listaTemporadas[3]?.pkTemporada"></td>
           </tr>
         </tbody>
       </table>
@@ -241,7 +244,7 @@
             <td>{{ pick.fkTemporada | nombretemporada }}</td>
             <td>{{ pick.numRonda }}</td>
             <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
-            <td *ngIf="pick.numPick == null">?</td>
+            <td *ngIf="pick.numPick == null"></td>
 
             <td *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
             <td *ngIf="pick.enTradingBlock == false">No (añadir)</td>
