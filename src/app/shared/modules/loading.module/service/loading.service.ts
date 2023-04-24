@@ -9,8 +9,7 @@ export class LoadingService {
   public loading$ = this.loadingSubject.asObservable();
 
   setLoadingState(isLoading: boolean): void {
-    // console.log('LOADING!!');
-    // console.log('isLoading:', isLoading);
+    // console.log('LOADING!! - isLoading:', isLoading);
     this.loadingSubject.next(isLoading);
   }
 }

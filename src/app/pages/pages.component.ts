@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { LoadingService } from '../shared/modules/loading.module/service/loading.service';
 import { SettingsService } from './account-settings/settings.service';
 
@@ -10,21 +10,22 @@ declare function customInitFunctions();
   templateUrl: './pages.component.html',
   styles: [],
 })
-export class PagesComponent implements OnInit {
+export class PagesComponent implements OnInit, OnDestroy {
+
   year = new Date().getFullYear();
   loading$: Observable<boolean>; // Variable para almacenar el observable del estado del spinner
   loading: boolean;
+  private loadingSubscription: Subscription;
 
   constructor(
     private loadingService: LoadingService,
     private cdr: ChangeDetectorRef,
     private settingsService: SettingsService
   ) {
-    this.loadingService.loading$.subscribe((loading) => {
+    this.loadingSubscription = this.loadingService.loading$.subscribe((loading) => {
       setTimeout(() => {
-        // console.log('load1: ', this.loading)
         this.loading = loading;
-        // console.log('load2: ', this.loading)
+        // console.log('load: ', this.loading)
         this.cdr.markForCheck();
       }, 0);
     });
@@ -34,5 +35,10 @@ export class PagesComponent implements OnInit {
     this.settingsService.checkCurrentTheme();
     customInitFunctions();
     customInitFunctions();
+  }
+
+  ngOnDestroy(): void {
+    console.log('------ngOnDestroy------');
+    this.loadingSubscription.unsubscribe();
   }
 }
