@@ -12,4 +12,7 @@ export const _API_ENDPOINTS: any = {
     dashboard: {
         start: '/noticias',
     },
+    miequipo: {
+        start: '/miequipo',
+    },
 };
