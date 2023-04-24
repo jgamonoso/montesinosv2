@@ -2,7 +2,6 @@
 <!-- <pre>manager: {{manager | json}}</pre> -->
 <!-- <pre>listaTemporadas: {{listaTemporadas | json}}</pre> -->
 
-
 <style>
   .responsive-table {
     overflow-x: auto;
@@ -10,10 +9,9 @@
   }
 </style>
 
-
 <div *ngIf="dataLoaded" class="container">
   <div *ngIf="man.equipo?.nombre" class="container animated fadeIn">
-    <h2 [innerHtml]="man.equipo?.nombre"></h2>
+    <h2> {{ man.equipo?.nombre }} </h2>
 
     <div class="container">
       <div class="row">
@@ -38,8 +36,6 @@
         </div>
       </div>
     </div>
-
-    <hr>
 
     <h4>Roster</h4>
     <div class="responsive-table">
@@ -67,11 +63,7 @@
 
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <ng-container [ngSwitch]="player.jugador.posiciones.length">
-              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
-              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
-              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
-            </ng-container>
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -81,8 +73,10 @@
 
             <td>Activar</td>
 
-            <td *ngIf="player.enTradingBlock == true">Si (quitar)</td>
-            <td *ngIf="player.enTradingBlock == false">No (añadir)</td>
+            <ng-container [ngSwitch]="player.enTradingBlock">
+              <td *ngSwitchCase="true">Si (quitar)</td>
+              <td *ngSwitchCase="false">No (añadir)</td>
+            </ng-container>
 
             <td *ngIf="man.equipo.corteGratisHabilitado == 1">gratis</td>
             <td *ngIf="player.contrato.salario < 2">gratis</td>
@@ -93,8 +87,6 @@
         </tbody>
       </table>
     </div>
-
-    <br>
 
     <h4 *ngIf="man.equipo?.jugadoresIL">Lesionados</h4>
     <div class="responsive-table">
@@ -118,11 +110,7 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <ng-container [ngSwitch]="player.jugador.posiciones.length">
-              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
-              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
-              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
-            </ng-container>
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -135,8 +123,6 @@
         </tbody>
       </table>
     </div>
-
-    <br>
 
     <h4 *ngIf="man.equipo?.jugadoresConDerecho">Derechos</h4>
     <div class="responsive-table">
@@ -160,18 +146,16 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <ng-container [ngSwitch]="player.jugador.posiciones.length">
-              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
-              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
-              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
-            </ng-container>
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
             <td>{{ player.derecho.salario }}</td>
 
             <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-            <td *ngIf="player.enTradingBlock == true">Si (quitar)</td>
-            <td *ngIf="player.enTradingBlock == false">No (añadir)</td>
+            <ng-container [ngSwitch]="player.enTradingBlock">
+              <td *ngSwitchCase="true">Si (quitar)</td>
+              <td *ngSwitchCase="false">No (añadir)</td>
+            </ng-container>
 
             <td>ejercer</td>
 
@@ -180,8 +164,6 @@
         </tbody>
       </table>
     </div>
-
-    <br>
 
     <h4 *ngIf="man.equipo?.jugadoresLesionados">OFS</h4>
     <div class="responsive-table">
@@ -204,11 +186,7 @@
             <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
-            <ng-container [ngSwitch]="player.jugador.posiciones.length">
-              <td *ngSwitchCase="1">{{ player.jugador.posiciones[0].nombre }}</td>
-              <td *ngSwitchCase="2">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}</td>
-              <td *ngSwitchCase="3">{{ player.jugador.posiciones[0].nombre }}, {{ player.jugador.posiciones[1].nombre }}, {{ player.jugador.posiciones[2].nombre }}</td>
-            </ng-container>
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -220,8 +198,6 @@
         </tbody>
       </table>
     </div>
-
-    <hr>
 
     <h4 *ngIf="man.equipo?.draftpicks">Draft Picks</h4>
     <div class="responsive-table">
@@ -255,8 +231,6 @@
       </table>
     </div>
 
-    <hr>
-
     <h4 *ngIf="man.equipo?.bonus">Bonus</h4>
     <div class="responsive-table">
       <table *ngIf="man.equipo?.bonus" class="table table-striped table-bordered table-sm">
@@ -280,8 +254,6 @@
         </tbody>
       </table>
     </div>
-
-    <hr>
 
     <h4 *ngIf="man.equipo?.sanciones">Sanciones</h4>
     <div class="responsive-table">

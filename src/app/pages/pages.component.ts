@@ -38,7 +38,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('------ngOnDestroy------');
+    // console.log('------ngOnDestroy------');
     this.loadingSubscription.unsubscribe();
   }
 }
