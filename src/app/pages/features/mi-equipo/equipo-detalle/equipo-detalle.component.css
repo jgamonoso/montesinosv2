@@ -1,0 +1,15 @@
+/* Estilo para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+  .fixed-column {
+    position: sticky;
+    left: 0;
+    background-color: white; /* Asegúrate de que el fondo sea opaco para que la columna fija sea legible */
+    z-index: 10; /* Incrementa el índice z para que la columna fija esté por encima de las demás columnas */
+  }
+
+  /* Estilos específicos para el encabezado */
+  th.fixed-column {
+    background-color: white; /* Cambia el color de fondo según el diseño de tu tabla */
+    /* Aplica cualquier otro estilo que desees para el encabezado */
+  }
+}

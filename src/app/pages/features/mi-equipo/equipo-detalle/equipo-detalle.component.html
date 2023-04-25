@@ -9,11 +9,11 @@
   }
 </style>
 
-<div *ngIf="dataLoaded" class="container">
-  <div *ngIf="man.equipo?.nombre" class="container animated fadeIn">
+<div *ngIf="dataLoaded" class="container-fluid">
+  <div *ngIf="man.equipo?.nombre" class="container-fluid animated fadeIn">
     <h2> {{ man.equipo?.nombre }} </h2>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-4 col-sm-12">
           <ul class="list-group list-group-flush">
@@ -43,7 +43,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre</th>
+            <th scope="col" class="fixed-column">Nombre</th>
             <th scope="col">Equipo</th>
             <th scope="col">Posición</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
@@ -59,7 +59,10 @@
         <tbody>
           <tr class="table-default" *ngFor="let player of man.equipo?.jugadoresConContrato; let a = index">
             <th scope="row">{{a+1}}</th>
-            <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
 
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
@@ -94,7 +97,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre</th>
+            <th scope="col" class="fixed-column">Nombre</th>
             <th scope="col">Equipo</th>
             <th scope="col">Posición</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
@@ -107,7 +110,10 @@
         <tbody>
           <tr class="table-active" *ngFor="let player of man.equipo?.jugadoresIL; let b = index">
             <th scope="row">{{b+1}}</th>
-            <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
@@ -130,7 +136,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre</th>
+            <th scope="col" class="fixed-column">Nombre</th>
             <th scope="col">Equipo</th>
             <th scope="col">Posición</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
@@ -143,14 +149,17 @@
         <tbody>
           <tr class="table-info" *ngFor="let player of man.equipo?.jugadoresConDerecho; let c = index">
             <th scope="row">{{c+1}}</th>
-            <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
             <td>{{ player.derecho.salario }}</td>
 
-            <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
 
             <ng-container [ngSwitch]="player.enTradingBlock">
               <td *ngSwitchCase="true">Si (quitar)</td>
@@ -171,7 +180,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre</th>
+            <th scope="col" class="fixed-column">Nombre</th>
             <th scope="col">Equipo</th>
             <th scope="col">Posición</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
@@ -183,7 +192,10 @@
         <tbody>
           <tr class="table-danger" *ngFor="let player of man.equipo?.jugadoresLesionados; let d = index">
             <th scope="row">{{d+1}}</th>
-            <td>{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
             <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>

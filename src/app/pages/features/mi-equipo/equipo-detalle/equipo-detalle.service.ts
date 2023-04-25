@@ -23,6 +23,8 @@ export class EquipoDetalleService {
       body: {
         action: 'obtenerManager',
         pkManager: pkManager
+        // TODO: Quitar hardcodeo de pruebas
+        // pkManager: 25
       }
     });
     return this.httpService.post(httpParametersClass).pipe(
