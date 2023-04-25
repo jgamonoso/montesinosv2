@@ -1,15 +1,49 @@
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 767.98px) {
-  .fixed-column {
+
+  .fixed-column,
+  .fixed-column-les,
+  .fixed-column-cov,
+  .fixed-column-der,
+  .fixed-column-ofs {
     position: sticky;
+    opacity: 1;
+    z-index: 10;
     left: 0;
-    background-color: white; /* Asegúrate de que el fondo sea opaco para que la columna fija sea legible */
-    z-index: 10; /* Incrementa el índice z para que la columna fija esté por encima de las demás columnas */
+  }
+
+  .fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  .fixed-column-les,
+  .fixed-column-cov {
+    background-color: rgba(209, 210, 213, 1); /* Elige un color diferente para .fixed-column-der */
+  }
+
+  .fixed-column-der {
+    background-color: rgba(190, 229, 235, 1); /* Elige un color diferente para .fixed-column-der */
+  }
+
+  .fixed-column-ofs {
+    background-color: rgba(245, 198, 203, 1); /* Elige un color diferente para .fixed-column-der */
   }
 
   /* Estilos específicos para el encabezado */
   th.fixed-column {
-    background-color: white; /* Cambia el color de fondo según el diseño de tu tabla */
-    /* Aplica cualquier otro estilo que desees para el encabezado */
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Estilos específicos para las filas impares */
+  tr:nth-child(odd) td.fixed-column {
+    background-color: rgba(233, 237, 242, 1); /* Elige un color diferente para las filas impares */
+  }
+
+  tr:nth-child(odd) td.fixed-column-les {
+    background-color: rgba(216, 219, 224, 1); /* Elige un color diferente para las filas impares */
+  }
+
+  tr:nth-child(odd) td.fixed-column-cov {
+    background-color: rgba(216, 219, 224, 1); /* Elige un color diferente para las filas impares */
   }
 }
