@@ -9,39 +9,22 @@ import { LoadingService } from 'src/app/shared/modules/loading.module/service/lo
 @Injectable({
   providedIn: 'root'
 })
-export class EquipoDetalleService {
+export class EquiposService {
 
   constructor(
     private readonly httpService: HttpService,
     private readonly loadingService: LoadingService
   ) { }
 
-  obtenerManager(pkManager: string): Observable<any> {
+  obtenerListadoManagersConEquipo(pkLiga: string): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
-      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
       body: {
-        action: 'obtenerManager',
-        pkManager: pkManager
+        action: 'obtenerListadoManagersConEquipo',
+        pkLiga: pkLiga
       }
     });
     return this.httpService.post(httpParametersClass).pipe(
-      tap(
-        response => {
-          // Respuesta OK
-        },
-        error => {
-          this.loadingService.setLoadingState(false);
-        }
-      )
-    );
-  }
-
-  obtenerProximasTemporadas(): Observable<any> {
-    const httpParametersClass = new HttpParametersClass({
-      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
-      body: { action: 'obtenerProximasTemporadas' }
-    });
-    return this.httpService.postLogin(httpParametersClass).pipe(
       tap(
         response => {
           // Respuesta OK

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquipoDetalleService } from './equipo-detalle.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-equipo-detalle',
@@ -11,41 +13,89 @@ import { LoadingService } from 'src/app/shared/modules/loading.module/service/lo
 })
 export class EquipoDetalleComponent implements OnInit {
 
+  mngr: string;
+  ligaPropia: boolean;
+  equipoPropio: boolean;
+
   dataLoaded: boolean;
 
-  manager: any;
   man: any;
+  manager: any; // Manager logueado
+  managerParam: any; // Manager por parametro
   listaTemporadas: any[];
 
   constructor(
     private authService: AuthService,
     private equipoDetalleService: EquipoDetalleService,
-    private readonly loadingService: LoadingService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.equipoPropio = true;
+    this.ligaPropia = true;
+
     this.dataLoaded = false;
-    this.loadInitialData();
+    this.route.queryParamMap.pipe(
+      tap(params => {
+        this.mngr = params.get('mngr');
+      }),
+      switchMap(() => {
+        if (this.mngr) {
+          // Si this.mngr existe, ejecuta la llamada a obtenerManager(this.mngr)
+          return this.equipoDetalleService.obtenerManager(this.mngr);
+        } else {
+          // Si this.mngr no existe, retorna un observable que emite un valor nulo
+          return of(null);
+        }
+      }),
+      tap(managerParam => {
+        this.manager = this.authService.getStoredManager();
+        if (managerParam) {
+          console.log('MANAGER:', managerParam.equipo.nombre)
+          if (this.manager.pkManager === managerParam.pkManager) {
+            this.equipoPropio = true;
+          } else {
+            this.managerParam = managerParam; // Almacenamos el managerParam
+            this.man = managerParam; // Almacenamos managerParam en this.man cuando no es equipoPropio
+            this.equipoPropio = false;
+          }
+          if (this.manager.equipo.fkLiga === managerParam.equipo.fkLiga) {
+            this.ligaPropia = true;
+          } else {
+            this.ligaPropia = false;
+          }
+        } else {
+          console.log('NO MANAGER')
+        }
+      }),
+      switchMap(() => this.loadInitialData())
+    ).subscribe();
   }
 
   loadInitialData() {
-    this.manager = this.authService.getStoredManager();
-    // console.log(this.manager);
-    forkJoin([
-      this.equipoDetalleService.obtenerManager(this.manager.pkManager),
+    // Modificamos la primera llamada en el forkJoin para usar managerParamCache si está disponible
+    const managerRequest = this.managerParam
+      ? of(this.managerParam)
+      : this.equipoDetalleService.obtenerManager(this.manager.pkManager);
+
+    return forkJoin([
+      managerRequest,
       this.equipoDetalleService.obtenerProximasTemporadas(),
-    ]).subscribe(
-      ([manager, proximasTemporadas]) => {
+    ]).pipe(
+      tap(([manager, proximasTemporadas]) => {
         console.log('Manager:', manager);
         this.man = manager;
         console.log('Proximas Temporadas:', proximasTemporadas);
         this.listaTemporadas = proximasTemporadas;
         this.dataLoaded = true;
-      },
-      (error) => {
-        console.error('Error en las llamadas', error.message);
-      }
+      }),
+      tap(
+        () => {
+        },
+        (error) => {
+          console.error('Error en las llamadas', error.message);
+        }
+      )
     );
   }
-
 }

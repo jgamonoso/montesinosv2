@@ -15,4 +15,7 @@ export const _API_ENDPOINTS: any = {
     miequipo: {
         start: '/miequipo',
     },
+    liga: {
+        start: '/liga',
+    },
 };

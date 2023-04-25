@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { EquiposService } from './equipos.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-equipos',
@@ -7,9 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EquiposComponent implements OnInit {
 
-  constructor() { }
+  dataLoaded: boolean;
+
+  credenciales: any;
+
+  listadoManagersConEquipo: any[];
+
+  constructor(
+    private authService: AuthService,
+    private equiposService: EquiposService
+  ) { }
 
   ngOnInit(): void {
+    this.dataLoaded = false;
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
+    this.credenciales = this.authService.getStoredCredentials();
+    forkJoin([
+      this.equiposService.obtenerListadoManagersConEquipo(this.credenciales.liga),
+    ]).subscribe(
+      ([listadoManagersConEquipo]) => {
+        console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
+        this.listadoManagersConEquipo = listadoManagersConEquipo;
+        this.dataLoaded = true;
+      },
+      (error) => {
+        console.error('Error en las llamadas', error.message);
+      }
+    );
   }
 
 }

@@ -1,3 +1,9 @@
+/* Añade el estilo al archivo styles.css */
+.responsive-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 767.98px) {
 

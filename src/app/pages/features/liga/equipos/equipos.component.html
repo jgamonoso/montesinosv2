@@ -1,1 +1,25 @@
-<p>equipos works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2>Equipos</h2>
+  <div class="responsive-table">
+    <table class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Manager</th>
+          <th scope="col">Jugadores</th>
+          <th scope="col">CAP Libre</th>
+          <th scope="col">Waiver</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-default" *ngFor="let manager of listadoManagersConEquipo">
+          <td [routerLink]="['/mi-equipo/equipo-detalle']" [queryParams]="{ mngr: manager.pkManager }" class="link-style">{{ manager.equipo.nombre }}</td>
+          <td>{{ manager.nombre }}</td>
+          <td>{{ manager.equipo.numJugadoresConContrato }}</td>
+          <td>{{ manager.equipo.capLibre }}</td>
+          <td>{{ manager.equipo.waiver }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
