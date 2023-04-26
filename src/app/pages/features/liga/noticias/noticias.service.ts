@@ -19,7 +19,7 @@ export class NoticiasService {
 
   obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
-      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}${_API_ENDPOINTS.liga.noticias}?pagina=${pagina}&pkLiga=${pkLiga}`,
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.dashboard.start}?pagina=${pagina}&pkLiga=${pkLiga}`,
     });
     return this.httpService.get(httpParametersClass).pipe(
       map((res: any) => {
