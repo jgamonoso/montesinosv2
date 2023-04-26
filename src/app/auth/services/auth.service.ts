@@ -9,7 +9,7 @@ import { _API_ENDPOINTS } from 'src/app/services/api/api-settings';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 const API_URL = environment.API_URL;
-const SECRET_KEY = 'montesinos';
+const SECRET_KEY = environment.SECRET_KEY;
 
 @Injectable({
   providedIn: 'root',
@@ -145,17 +145,32 @@ export class AuthService {
     return JSON.parse(decryptedData);
   }
 
+  // Método para obtener datos de la liga guardada:
+  getStoredLigaGuardada(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('ligaGuardada')
+      : sessionStorage.getItem('ligaGuardada');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
+  }
+
   //método para eliminar las credenciales almacenadas (por ejemplo, al cerrar sesión):
   removeStoredData(): void {
     if (this.getRemember()) {
       localStorage.removeItem('credentials');
       localStorage.removeItem('temporada');
       localStorage.removeItem('manager');
+      localStorage.removeItem('ligaGuardada');
       this.deleteRemember();
     } else {
       sessionStorage.removeItem('credentials');
       sessionStorage.removeItem('temporada');
       sessionStorage.removeItem('manager');
+      sessionStorage.removeItem('ligaGuardada');
     }
   }
 

@@ -12,7 +12,7 @@ export class NoticiasComponent implements OnInit {
   noticias: any;
   fechas: string[];
   pagina: number = 1;
-  liga: number = 1;
+  liga: number;
 
   constructor(
     private noticiasService: NoticiasService,
@@ -21,6 +21,8 @@ export class NoticiasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    let ligaGuardada = this.authService.getStoredLigaGuardada();
+    this.liga = ligaGuardada.ligaVisible;
     this.cargarNoticias();
   }
 

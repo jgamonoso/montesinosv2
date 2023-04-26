@@ -16,7 +16,7 @@ export class EquiposService {
     private readonly loadingService: LoadingService
   ) { }
 
-  obtenerListadoManagersConEquipo(pkLiga: string): Observable<any> {
+  obtenerListadoManagersConEquipo(pkLiga: number): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
       body: {

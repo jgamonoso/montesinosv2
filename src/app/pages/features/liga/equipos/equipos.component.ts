@@ -9,10 +9,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./equipos.component.css']
 })
 export class EquiposComponent implements OnInit {
-
   dataLoaded: boolean;
-
-  credenciales: any;
 
   listadoManagersConEquipo: any[];
 
@@ -27,12 +24,12 @@ export class EquiposComponent implements OnInit {
   }
 
   loadInitialData() {
-    this.credenciales = this.authService.getStoredCredentials();
+    let ligaGuardada = this.authService.getStoredLigaGuardada();
     forkJoin([
-      this.equiposService.obtenerListadoManagersConEquipo(this.credenciales.liga),
+      this.equiposService.obtenerListadoManagersConEquipo(ligaGuardada.ligaVisible),
     ]).subscribe(
       ([listadoManagersConEquipo]) => {
-        console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
+        // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
         this.listadoManagersConEquipo = listadoManagersConEquipo;
         this.dataLoaded = true;
       },
