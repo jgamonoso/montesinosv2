@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { forkJoin, of } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, forkJoin, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquipoDetalleService } from './equipo-detalle.service';
-import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 
@@ -11,7 +10,7 @@ import { switchMap, tap } from 'rxjs/operators';
   templateUrl: './equipo-detalle.component.html',
   styleUrls: ['./equipo-detalle.component.css']
 })
-export class EquipoDetalleComponent implements OnInit {
+export class EquipoDetalleComponent implements OnInit, OnDestroy {
 
   mngr: string;
   ligaPropia: boolean;
@@ -23,6 +22,7 @@ export class EquipoDetalleComponent implements OnInit {
   manager: any; // Manager logueado
   managerParam: any; // Manager por parametro
   listaTemporadas: any[];
+  private subscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -35,7 +35,7 @@ export class EquipoDetalleComponent implements OnInit {
     this.ligaPropia = true;
 
     this.dataLoaded = false;
-    this.route.queryParamMap.pipe(
+    this.subscription = this.route.queryParamMap.pipe(
       tap(params => {
         this.mngr = params.get('mngr');
       }),
@@ -97,5 +97,11 @@ export class EquipoDetalleComponent implements OnInit {
         }
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
