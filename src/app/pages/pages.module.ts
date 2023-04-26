@@ -40,6 +40,7 @@ import { JugadoresRenovacionesComponent } from './features/renovaciones/jugadore
 import { PujasActivasRenovacionesComponent } from './features/renovaciones/pujas-activas-renovaciones/pujas-activas-renovaciones.component';
 import { DraftPicksComponent } from './features/draft/draft-picks/draft-picks.component';
 import { LigaComiComponent } from './features/comisionado/liga-comi/liga-comi.component';
+import { NoticiasComponent } from './features/liga/noticias/noticias.component';
 import { EquiposComiComponent } from './features/comisionado/equipos-comi/equipos-comi.component';
 import { JugadoresComiComponent } from './features/comisionado/jugadores-comi/jugadores-comi.component';
 import { EntrenadoresComiComponent } from './features/comisionado/entrenadores-comi/entrenadores-comi.component';
@@ -68,6 +69,7 @@ import { ParametrosLigaAdminComponent } from './features/administrador/parametro
     WaiversComponent,
     LesionadosComponent,
     ApuestasComponent,
+    NoticiasComponent,
     EquiposComponent,
     LesionadosLigaComponent,
     ApuestasLigaComponent,

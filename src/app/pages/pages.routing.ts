@@ -77,8 +77,8 @@ const routes: Routes = [
     path: 'liga', // Crear una nueva instancia de PagesComponent para la ruta /liga
     component: PagesComponent,
     children: [
-      { path: '', component: DashboardComponent },
-      { path: 'noticias', component: DashboardComponent },
+      { path: '', component: NoticiasComponent },
+      { path: 'noticias', component: NoticiasComponent },
       { path: 'equipos', component: EquiposComponent },
       { path: 'lesionados-liga', component: LesionadosLigaComponent },
       { path: 'apuestas-liga', component: ApuestasLigaComponent },
