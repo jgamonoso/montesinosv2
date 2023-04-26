@@ -30,9 +30,13 @@ export class NoticiasComponent implements OnInit {
     this.noticiasService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
         if (resp) {
-          // TODO: si no llegan noticias del ultimo mes, incrementar la paginación
           this.noticias = resp;
           this.fechas = Object.keys(resp);
+          if (this.noticias.length === 0) {
+            setTimeout(() => {
+              this.cambiarPagina(1);
+            }, 1);
+          }
         }
       },
       (err) => {
@@ -51,4 +55,7 @@ export class NoticiasComponent implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  isNotEmpty(obj: any): boolean {
+    return obj && Object.keys(obj).length > 0;
+  }
 }

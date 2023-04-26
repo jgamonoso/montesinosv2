@@ -1,4 +1,4 @@
-<div *ngIf="noticias">
+<div *ngIf="isNotEmpty(noticias)">
   <div class="pagination">
     <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
       <span class="desktop-text">&lt;</span>
