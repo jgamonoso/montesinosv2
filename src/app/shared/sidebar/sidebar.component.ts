@@ -15,6 +15,7 @@ const SECRET_KEY = environment.SECRET_KEY;
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   credencialesEnSesion: any;
+  managerEnSesion: any; // Manager logueado
   ligaGuardadaEnSesion: {
     ligaVisible: number;
     ligaPropia: boolean
@@ -52,6 +53,14 @@ export class SidebarComponent implements OnInit {
         menuButton.classList.add('ti-menu');
       }
     }
+  }
+
+  verMiEquipo(): void {
+    this.onSidebarLinkClick();
+
+    this.managerEnSesion = this.authService.getStoredManager();
+    const queryParams = { mngr: this.managerEnSesion.pkManager };
+    this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
   }
 
   cambiarDeLiga(): void {
