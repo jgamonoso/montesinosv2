@@ -18,7 +18,10 @@ export class SidebarComponent implements OnInit {
   managerEnSesion: any; // Manager logueado
   ligaGuardadaEnSesion: {
     ligaVisible: number;
-    ligaPropia: boolean
+    ligaPropia: boolean;
+  } = {
+    ligaVisible: 1,
+    ligaPropia: true
   };
 
   constructor(
@@ -29,6 +32,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada() || this.ligaGuardadaEnSesion;
     this.credencialesEnSesion = this.authService.getStoredCredentials();
     if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);

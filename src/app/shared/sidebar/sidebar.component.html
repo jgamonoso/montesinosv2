@@ -4,7 +4,7 @@
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
-        <li class="user-profile">
+        <li class="user-profile" [hidden]="!ligaGuardadaEnSesion.ligaPropia">
           <a
             class="has-arrow waves-effect waves-dark"
             href="#"
@@ -48,7 +48,7 @@
           </ul>
         </li>
 
-        <li class="nav-devider"></li>
+        <li class="nav-devider" *ngIf="ligaGuardadaEnSesion.ligaPropia"></li>
         <li class="nav-small-cap">PANEL DE CONTROL</li>
 
         <li *ngFor="let item of menuItems">
