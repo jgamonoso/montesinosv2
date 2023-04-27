@@ -13,7 +13,7 @@ const SECRET_KEY = environment.SECRET_KEY;
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  credenciales: any;
+  credencialesEnSesion: any;
   ligaGuardada: { ligaVisible: number; ligaPropia: boolean } = {
     ligaVisible: 1,
     ligaPropia: true,
@@ -31,12 +31,12 @@ export class DashboardComponent implements OnInit {
 
   loadInitialData() {
     this.loadingService.setLoadingState(true);
-    this.credenciales = this.authService.getStoredCredentials();
-    this.ligaGuardada.ligaVisible = Number(this.credenciales.liga);
+    this.credencialesEnSesion = this.authService.getStoredCredentials();
+    this.ligaGuardada.ligaVisible = Number(this.credencialesEnSesion.liga);
     this.ligaGuardada.ligaPropia = true;
     forkJoin([
       this.authService.obtenerTemporadaActual(),
-      this.authService.obtenerManagerPorLogin(this.credenciales.manager),
+      this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
     ]).subscribe(
       ([temporadaActual, managerPorLogin]) => {
         // console.log('Temporada actual:', temporadaActual);

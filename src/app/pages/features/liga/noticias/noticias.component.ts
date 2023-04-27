@@ -9,6 +9,8 @@ import { NoticiasService } from './noticias.service';
   styleUrls: ['./noticias.component.css']
 })
 export class NoticiasComponent implements OnInit {
+  ligaGuardadaEnSesion: any;
+
   noticias: any;
   fechas: string[];
   pagina: number = 1;
@@ -21,8 +23,8 @@ export class NoticiasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let ligaGuardada = this.authService.getStoredLigaGuardada();
-    this.liga = ligaGuardada.ligaVisible;
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+    this.liga = this.ligaGuardadaEnSesion.ligaVisible;
     this.cargarNoticias();
   }
 

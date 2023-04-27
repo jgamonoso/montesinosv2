@@ -9,6 +9,8 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./equipos.component.css']
 })
 export class EquiposComponent implements OnInit {
+  ligaGuardadaEnSesion: any;
+
   dataLoaded: boolean;
 
   listadoManagersConEquipo: any[];
@@ -24,9 +26,9 @@ export class EquiposComponent implements OnInit {
   }
 
   loadInitialData() {
-    let ligaGuardada = this.authService.getStoredLigaGuardada();
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
     forkJoin([
-      this.equiposService.obtenerListadoManagersConEquipo(ligaGuardada.ligaVisible),
+      this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible),
     ]).subscribe(
       ([listadoManagersConEquipo]) => {
         // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);

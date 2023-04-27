@@ -14,8 +14,8 @@ const SECRET_KEY = environment.SECRET_KEY;
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  credenciales: any;
-  ligaGuardada: {
+  credencialesEnSesion: any;
+  ligaGuardadaEnSesion: {
     ligaVisible: number;
     ligaPropia: boolean
   };
@@ -28,8 +28,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
-    this.credenciales = this.authService.getStoredCredentials();
-    if (!this.credenciales) {
+    this.credencialesEnSesion = this.authService.getStoredCredentials();
+    if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);
     }
   }
@@ -57,21 +57,21 @@ export class SidebarComponent implements OnInit {
   cambiarDeLiga(): void {
     this.onSidebarLinkClick();
 
-    this.ligaGuardada = this.authService.getStoredLigaGuardada();
-    this.ligaGuardada.ligaPropia = !this.ligaGuardada.ligaPropia;
-    if (this.ligaGuardada.ligaVisible === 1) {
-      this.ligaGuardada.ligaVisible = 2;
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+    this.ligaGuardadaEnSesion.ligaPropia = !this.ligaGuardadaEnSesion.ligaPropia;
+    if (this.ligaGuardadaEnSesion.ligaVisible === 1) {
+      this.ligaGuardadaEnSesion.ligaVisible = 2;
     } else {
-      this.ligaGuardada.ligaVisible = 1;
+      this.ligaGuardadaEnSesion.ligaVisible = 1;
     }
     this.setligaVisible();
 
-    const queryParams = { liga: this.ligaGuardada.ligaVisible };
+    const queryParams = { liga: this.ligaGuardadaEnSesion.ligaVisible };
     this.router.navigate(['/liga/cambiar-liga'], { queryParams });
   }
 
   setligaVisible(){
-    const encryptedData = xorEncryptDecrypt(JSON.stringify(this.ligaGuardada), SECRET_KEY);
+    const encryptedData = xorEncryptDecrypt(JSON.stringify(this.ligaGuardadaEnSesion), SECRET_KEY);
     const remember = this.authService.getRemember();
     if (remember) {
       localStorage.setItem('ligaGuardada', encryptedData);
