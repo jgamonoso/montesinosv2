@@ -53,3 +53,9 @@
     background-color: rgba(216, 219, 224, 1); /* Elige un color diferente para las filas impares */
   }
 }
+
+.link-style {
+  color: #007bff;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}

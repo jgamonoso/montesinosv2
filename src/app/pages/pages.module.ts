@@ -55,6 +55,7 @@ import { MatchupComiComponent } from './features/comisionado/matchup-comi/matchu
 import { ManagersAdminComponent } from './features/administrador/managers-admin/managers-admin.component';
 import { EquiposAdminComponent } from './features/administrador/equipos-admin/equipos-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
+import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { ParametrosLigaAdminComponent } from './features/administrador/parametro
     ManagersAdminComponent,
     EquiposAdminComponent,
     ParametrosLigaAdminComponent,
+    ActivarIlComponent,
   ],
   exports: [
     DashboardComponent,

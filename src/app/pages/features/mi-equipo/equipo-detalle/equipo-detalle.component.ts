@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, forkJoin, of } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquipoDetalleService } from './equipo-detalle.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -19,15 +19,19 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
   dataLoaded: boolean;
 
   man: any;
-  manager: any; // Manager logueado
+  managerEnSesion: any; // Manager logueado
   managerParam: any; // Manager por parametro
   listaTemporadas: any[];
+
+  temporadaEnSesion: any
+
   private subscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private equipoDetalleService: EquipoDetalleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,9 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     this.ligaPropia = true;
 
     this.dataLoaded = false;
+
+    this.temporadaEnSesion = this.authService.getStoredTemporada();
+
     this.subscription = this.route.queryParamMap.pipe(
       tap(params => {
         this.mngr = params.get('mngr');
@@ -49,17 +56,21 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
         }
       }),
       tap(managerParam => {
-        this.manager = this.authService.getStoredManager();
+        this.managerEnSesion = this.authService.getStoredManager();
         if (managerParam) {
           console.log('MANAGER:', managerParam.equipo.nombre)
-          if (this.manager.pkManager === managerParam.pkManager) {
+          if (this.managerEnSesion.pkManager === managerParam.pkManager) {
             this.equipoPropio = true;
+            // Guardar Manager en sesion (por si hubo cambios)
+            this.authService.setManagerToStore(managerParam);
+
           } else {
-            this.managerParam = managerParam; // Almacenamos el managerParam
             this.man = managerParam; // Almacenamos managerParam en this.man cuando no es equipoPropio
             this.equipoPropio = false;
           }
-          if (this.manager.equipo.fkLiga === managerParam.equipo.fkLiga) {
+          this.managerParam = managerParam; // Almacenamos el managerParam
+
+          if (this.managerEnSesion.equipo.fkLiga === managerParam.equipo.fkLiga) {
             this.ligaPropia = true;
           } else {
             this.ligaPropia = false;
@@ -76,16 +87,16 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     // Modificamos la primera llamada en el forkJoin para usar managerParamCache si está disponible
     const managerRequest = this.managerParam
       ? of(this.managerParam)
-      : this.equipoDetalleService.obtenerManager(this.manager.pkManager);
+      : this.equipoDetalleService.obtenerManager(this.managerEnSesion.pkManager);
 
     return forkJoin([
       managerRequest,
       this.equipoDetalleService.obtenerProximasTemporadas(),
     ]).pipe(
       tap(([manager, proximasTemporadas]) => {
-        console.log('Manager:', manager);
+        // console.log('Manager:', manager);
         this.man = manager;
-        console.log('Proximas Temporadas:', proximasTemporadas);
+        // console.log('Proximas Temporadas:', proximasTemporadas);
         this.listaTemporadas = proximasTemporadas;
         this.dataLoaded = true;
       }),
@@ -97,6 +108,14 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  navegarILPagina(pkJugadorliga: number, recuperarIL: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+      recuperarIL: recuperarIL
+    };
+    this.router.navigate(['/mi-equipo/activar-il'], { queryParams });
   }
 
   ngOnDestroy(): void {

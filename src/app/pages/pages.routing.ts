@@ -47,6 +47,7 @@ import { WaiversComiComponent } from './features/comisionado/waivers-comi/waiver
 import { EquiposAdminComponent } from './features/administrador/equipos-admin/equipos-admin.component';
 import { ManagersAdminComponent } from './features/administrador/managers-admin/managers-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
+import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,7 @@ const routes: Routes = [
       { path: 'waivers', component: WaiversComponent },
       { path: 'lesionados', component: LesionadosComponent },
       { path: 'apuestas', component: ApuestasComponent },
+      { path: 'activar-il', component: ActivarIlComponent },
     ],
   },
   {
