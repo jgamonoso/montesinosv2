@@ -1,10 +1,10 @@
 .responsive-table {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
-  .link-style {
-    color: #007bff;
-    /* text-decoration: underline; */
-    cursor: pointer;
-  }
+.link-style {
+  color: #007bff;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
