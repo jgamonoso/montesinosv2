@@ -52,7 +52,9 @@ export class AuthService {
   obtenerTemporadaActual(): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
-      body: { action: 'obtenerTemporadaActual' }
+      body: {
+        action: 'obtenerTemporadaActual'
+      }
     });
     return this.httpService.postLogin(httpParametersClass).pipe(
       tap(
@@ -89,14 +91,7 @@ export class AuthService {
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
           if (response.login) {
-            const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
-            const remember = this.getRemember();
-
-            if (remember) {
-              localStorage.setItem('manager', encryptedData);
-            } else {
-              sessionStorage.setItem('manager', encryptedData);
-            }
+            this.setManagerToStore(response);
           }
         },
         error => {
@@ -143,6 +138,18 @@ export class AuthService {
     }
     const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
     return JSON.parse(decryptedData);
+  }
+
+  // Método para almacenar el manager en el storage:
+  setManagerToStore(param: any): any {
+    const encryptedData = xorEncryptDecrypt(JSON.stringify(param), SECRET_KEY);
+    const remember = this.getRemember();
+
+    if (remember) {
+      localStorage.setItem('manager', encryptedData);
+    } else {
+      sessionStorage.setItem('manager', encryptedData);
+    }
   }
 
   // Método para obtener datos de la liga guardada:
