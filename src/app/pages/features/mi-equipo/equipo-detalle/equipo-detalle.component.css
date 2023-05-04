@@ -1,4 +1,3 @@
-/* Añade el estilo al archivo styles.css */
 .responsive-table {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -18,40 +17,30 @@
     left: 0;
   }
 
-  .fixed-column {
-    background-color: rgba(244, 246, 249, 1);
-  }
-
-  .fixed-column-les,
-  .fixed-column-cov {
-    background-color: rgba(209, 210, 213, 1); /* Elige un color diferente para .fixed-column-der */
-  }
-
-  .fixed-column-der {
-    background-color: rgba(190, 229, 235, 1); /* Elige un color diferente para .fixed-column-der */
-  }
-
-  .fixed-column-ofs {
-    background-color: rgba(245, 198, 203, 1); /* Elige un color diferente para .fixed-column-der */
-  }
-
-  /* Estilos específicos para el encabezado */
+  /* Estilos específicos para el encabezado - Color de los th de cabecera donde pone nombre(NO TOCAR) */
   th.fixed-column {
     background-color: rgba(244, 246, 249, 1);
   }
 
-  /* Estilos específicos para las filas impares */
+  /* Filas pares fijadas de la tabla normal */
+  .fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Filas impares fijadas de la tabla normal*/
   tr:nth-child(odd) td.fixed-column {
-    background-color: rgba(233, 237, 242, 1); /* Elige un color diferente para las filas impares */
+    background-color: rgba(233, 237, 242, 1);
   }
 
-  tr:nth-child(odd) td.fixed-column-les {
-    background-color: rgba(216, 219, 224, 1); /* Elige un color diferente para las filas impares */
-  }
+  /* Estilos específicos para las filas pares de la tabla covid */
+  /* .fixed-column-cov {
+    background-color: rgba(209, 210, 213, 1);
+  } */
 
-  tr:nth-child(odd) td.fixed-column-cov {
-    background-color: rgba(216, 219, 224, 1); /* Elige un color diferente para las filas impares */
-  }
+  /* Estilos específicos para las filas impares de la tabla covid*/
+  /* tr:nth-child(odd) td.fixed-column-cov {
+    background-color: rgba(216, 219, 224, 1);
+  } */
 }
 
 .link-style {
