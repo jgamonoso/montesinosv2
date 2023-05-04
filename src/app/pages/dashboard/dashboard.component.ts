@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SettingsService } from 'src/app/pages/account-settings/settings.service';
+import { xorEncryptDecrypt } from 'src/app/shared/functions/xor-encryption/xor-encryption.component';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { environment } from 'src/environments/environment';
+
+const SECRET_KEY = environment.SECRET_KEY;
 
 @Component({
   selector: 'app-dashboard',
@@ -11,36 +13,38 @@ import { LoadingService } from 'src/app/shared/modules/loading.module/service/lo
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  noticias: any;
-  fechas: string[];
-  pagina: number = 1;
-  liga: number = 1;
-  credenciales: any;
+  credencialesEnSesion: any;
+  ligaGuardada: { ligaVisible: number; ligaPropia: boolean } = {
+    ligaVisible: 1,
+    ligaPropia: true,
+  };
+  ligaVisibleLoaded: boolean = false;
+  noticiasVisible: boolean = true;
 
   constructor(
-    private dashboardService: DashboardService,
     private authService: AuthService,
-    private readonly loadingService: LoadingService,
-    private settingsService: SettingsService
+    private readonly loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
-    this.settingsService.checkCurrentTheme();
+    this.ligaVisibleLoaded = false;
+    this.noticiasVisible = true;
     this.loadInitialData();
   }
 
   loadInitialData() {
     this.loadingService.setLoadingState(true);
-    this.credenciales = this.authService.getStoredCredentials();
+    this.credencialesEnSesion = this.authService.getStoredCredentials();
+    this.ligaGuardada.ligaVisible = Number(this.credencialesEnSesion.liga);
+    this.ligaGuardada.ligaPropia = true;
     forkJoin([
       this.authService.obtenerTemporadaActual(),
-      this.authService.obtenerManagerPorLogin(this.credenciales.manager),
+      this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
+      this.authService.obtenerProximasTemporadas(),
     ]).subscribe(
-      ([temporadaActual, managerPorLogin]) => {
-        // console.log('Temporada actual:', temporadaActual);
-        // console.log('Manager por login:', managerPorLogin);
-        this.liga = managerPorLogin.equipo.fkLiga;
-        this.cargarNoticias();
+      ([proximasTemporadas, temporadaActual, managerPorLogin]) => {
+        this.setligaVisible();
+        this.loadingService.setLoadingState(false);
       },
       (error) => {
         console.error('Error al obtener la temporada actual o manager por login', error.message);
@@ -48,27 +52,18 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  cargarNoticias(): void {
-    this.dashboardService.obtenerNoticias(this.pagina, this.liga).subscribe(
-      (resp) => {
-        if (resp) {
-          this.noticias = resp;
-          this.fechas = Object.keys(resp);
-        }
-      },
-      (err) => {
-        this.loadingService.setLoadingState(false);
-        console.warn(err)
-      }
-    );
+  setligaVisible(){
+    const encryptedData = xorEncryptDecrypt(JSON.stringify(this.ligaGuardada), SECRET_KEY);
+    const remember = this.authService.getRemember();
+    if (remember) {
+      localStorage.setItem('ligaGuardada', encryptedData);
+    } else {
+      sessionStorage.setItem('ligaGuardada', encryptedData);
+    }
+    this.ligaVisibleLoaded = true;
   }
 
-  cambiarPagina(incremento: number): void {
-    this.pagina += incremento;
-    this.cargarNoticias();
-  }
-
-  scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateNoticiasVisibility(resultadosBusqueda: any): void {
+    this.noticiasVisible = resultadosBusqueda === null;
   }
 }

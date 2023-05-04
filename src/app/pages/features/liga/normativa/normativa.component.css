@@ -1,0 +1,36 @@
+.titulos {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+#normativa {
+  margin-bottom: 2rem;
+}
+
+#itemnormativa {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.indice .link-style {
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* Estilos para el botón "Volver arriba" */
+.back-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 999;
+}
+
+.my-table {
+  width: auto; /* Asegúrate de que la tabla no ocupe todo el ancho disponible */
+}
+
+.my-table td,
+.my-table th {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}

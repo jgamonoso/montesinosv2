@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,12 @@ export class SharedService {
     'background-13.jpg',
   ];
 
+  private searchResultsSource = new Subject<any>();
+  searchResults$ = this.searchResultsSource.asObservable();
+
   constructor() {}
+
+  updateSearchResults(data: any): void {
+    this.searchResultsSource.next(data);
+  }
 }

@@ -1,13 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { _API_ENDPOINTS } from 'src/app/services/api/api-settings';
 import { HttpParametersClass } from 'src/app/shared/modules/http.module/service/http-parameters.class';
 import { HttpService } from 'src/app/shared/modules/http.module/service/http.service';
-import { environment } from 'src/environments/environment';
-
-const API_URL = environment.API_URL;
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +12,28 @@ const API_URL = environment.API_URL;
 export class DashboardService {
 
   constructor(
-    private http: HttpClient,
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
+    private readonly loadingService: LoadingService
   ) { }
 
-  obtenerNoticias(pagina: number, pkLiga?: number): Observable<any> {
+  obtenerListaJugadoresBuscadosFUSION(pkLiga: number, filtro: string): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
-      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.dashboard.start}?pagina=${pagina}&pkLiga=${pkLiga}`,
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.dashboard.start}`,
+      body: {
+        action: 'obtenerListaJugadoresBuscadosFUSION',
+        pkLiga: pkLiga,
+        filtro: filtro
+      }
     });
-    return this.httpService.get(httpParametersClass).pipe(
-      map((res: any) => {
-        return res;
-      })
+    return this.httpService.postLogin(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
     );
   }
 }

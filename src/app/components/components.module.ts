@@ -4,8 +4,15 @@ import { IncrementadorComponent } from './incrementador/incrementador.component'
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [IncrementadorComponent],
-  exports: [IncrementadorComponent],
-  imports: [CommonModule, FormsModule],
+  declarations: [
+    IncrementadorComponent
+  ],
+  exports: [
+    IncrementadorComponent
+  ],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
 })
 export class ComponentsModule {}

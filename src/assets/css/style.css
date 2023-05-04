@@ -781,7 +781,7 @@ use profile section
 sidebar navigation
 ******************/
 .scroll-sidebar {
-  height: calc(100% - 70px); }
+  height: calc(100%); }
   .scroll-sidebar.ps .ps__scrollbar-y-rail {
     left: 2px;
     right: auto;

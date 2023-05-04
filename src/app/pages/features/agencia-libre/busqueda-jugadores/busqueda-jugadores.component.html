@@ -1,0 +1,229 @@
+<div *ngIf="resultadosBusqueda" class="container animated fadeIn">
+  <h2>Resultados de búsqueda:</h2>
+
+  <ng-container *ngIf="resultadosBusqueda.listaALJugadores && resultadosBusqueda.listaALJugadores.length > 0; else empty">
+    <h4>Jugadores FA</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Equipo NBA</th>
+            <th scope="col">Posiciones</th>
+            <th scope="col">Waiver</th>
+            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia && temporadaEnSesion.estado==='SEASON')">ADD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-default" *ngFor="let player of resultadosBusqueda.listaALJugadores; let a = index">
+
+            <td>{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td *ngIf="player.waiver"> Si - {{ player.waiver.fechaFin }}</td>
+            <td *ngIf="!player.waiver"> No</td>
+
+            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'">Add</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #empty></ng-template>
+
+
+
+  <ng-container *ngIf="resultadosBusqueda.listaJugadores && resultadosBusqueda.listaJugadores.length > 0; else empty">
+    <h4>Jugadores con contrato</h4>
+    <div class="responsive-table" *ngIf="resultadosBusqueda.listaJugadores">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Equipo NBA</th>
+            <th scope="col">Posiciones</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+            <th scope="col">Oferta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-primary" *ngFor="let player of resultadosBusqueda.listaJugadores; let b = index">
+            <td>{{b+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.equipoLiga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+            <td class="link-style">{{ ((managerEnSesion.equipo.pkEquipo === player.contrato.fkEquipo)) ? '' : 'Hacer oferta' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #empty></ng-template>
+
+
+
+  <ng-container *ngIf="resultadosBusqueda.listaDerechos && resultadosBusqueda.listaDerechos.length > 0; else empty">
+    <h4>Derechos</h4>
+    <div class="responsive-table" *ngIf="resultadosBusqueda.listaDerechos">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Equipo NBA</th>
+            <th scope="col">Posiciones</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Salario</th>
+            <th scope="col">Última temp.</th>
+            <th scope="col">Oferta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-info" *ngFor="let player of resultadosBusqueda.listaDerechos; let c = index">
+            <td>{{c+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.equipoLiga }}</td>
+
+            <td>{{ player.derecho.salario }}</td>
+
+            <td>{{ player.derecho.temporadaFin.nombre }}</td>
+
+            <td class="link-style">{{ ((managerEnSesion.equipo.pkEquipo === player.derecho.fkEquipo)) ? '' : 'Hacer oferta' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #empty></ng-template>
+
+
+
+  <ng-container *ngIf="resultadosBusqueda.listaOFS && resultadosBusqueda.listaOFS.length > 0; else empty">
+    <h4>Jugadores OFS</h4>
+    <div class="responsive-table" *ngIf="resultadosBusqueda.listaOFS">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Equipo NBA</th>
+            <th scope="col">Posiciones</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-dark" *ngFor="let player of resultadosBusqueda.listaOFS; let d = index">
+            <td>{{d+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.equipoLiga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #empty></ng-template>
+
+
+
+  <ng-container *ngIf="resultadosBusqueda.listaCOVID && resultadosBusqueda.listaCOVID.length > 0; else empty">
+    <h4>Jugadores COVID</h4>
+    <div class="responsive-table" *ngIf="resultadosBusqueda.listaCOVID">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Equipo NBA</th>
+            <th scope="col">Posiciones</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-warning" *ngFor="let player of resultadosBusqueda.listaCOVID; let e = index">
+            <td>{{e+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.equipoLiga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-template #empty></ng-template>
+
+  <ng-container *ngIf="(!resultadosBusqueda.listaALJugadores || resultadosBusqueda.listaALJugadores.length <= 0) &&
+                       (!resultadosBusqueda.listaJugadores || resultadosBusqueda.listaJugadores.length <= 0) &&
+                       (!resultadosBusqueda.listaDerechos || resultadosBusqueda.listaDerechos.length <= 0) &&
+                       (!resultadosBusqueda.listaOFS || resultadosBusqueda.listaOFS.length <= 0) &&
+                       (!resultadosBusqueda.listaCOVID || resultadosBusqueda.listaCOVID.length <= 0)">
+    <p>No se han encontrado jugadores que coincidan con ese criterio de búsqueda</p>
+  </ng-container>
+
+</div>

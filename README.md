@@ -36,6 +36,8 @@ luego ir al index generado en la carpeta dist y cambiar esto
 por esto otro
 <base href="/v2/">
 
+O directamente hacer: ng run buildv2
+
 Aparte crear un fichero .htaccess en el subdirectorio tal que así
 RewriteEngine On
 # Si el archivo solicitado existe, utiliza ese archivo

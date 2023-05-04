@@ -1,13 +1,10 @@
-<!-- ============================================================== -->
-<!-- Left Sidebar - style you can find in sidebar.scss  -->
-<!-- ============================================================== -->
 <aside class="left-sidebar">
   <!-- Sidebar scroll-->
   <div class="scroll-sidebar">
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
-        <li class="user-profile">
+        <li class="user-profile" [hidden]="!ligaGuardadaEnSesion.ligaPropia">
           <a
             class="has-arrow waves-effect waves-dark"
             href="#"
@@ -15,33 +12,33 @@
           >
             <img src="./assets/images/users/profile.png" alt="user" />
             <span class="hide-menu">
-              {{this.credenciales?.manager | titlecase }}
+              {{this.credencialesEnSesion?.manager | titlecase }}
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">
             <li>
-              <a routerLink="/mi-equipo/equipo-detalle">Mi equipo</a>
+              <a routerLink="/mi-equipo/equipo-detalle" (click)="verMiEquipo()">Mi equipo</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/ofertas-enviadas">Ofertas enviadas</a>
+              <a routerLink="/mi-equipo/ofertas-enviadas" (click)="onSidebarLinkClick()">Ofertas enviadas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/ofertas-recibidas">Ofertas recibidas</a>
+              <a routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/pujas-activas">Pujas activas</a>
+              <a routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/waivers">Waivers</a>
+              <a routerLink="/mi-equipo/waivers" (click)="onSidebarLinkClick()">Waivers</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/lesionados">Lesionados</a>
+              <a routerLink="/mi-equipo/lesionados" (click)="onSidebarLinkClick()">Lesionados</a>
             </li>
             <li>
-              <a routerLink="/mi-equipo/apuestas">Apuestas</a>
+              <a routerLink="/mi-equipo/apuestas" (click)="onSidebarLinkClick()">Apuestas</a>
             </li>
             <li>
-              <a routerLink="/dashboard/account-settings">Configuración App</a>
+              <a routerLink="/dashboard/account-settings" (click)="onSidebarLinkClick()">Configuración App</a>
             </li>
             <li>
               <a class="navi-link" (click)="logout()">
@@ -51,7 +48,7 @@
           </ul>
         </li>
 
-        <li class="nav-devider"></li>
+        <li class="nav-devider" *ngIf="ligaGuardadaEnSesion.ligaPropia"></li>
         <li class="nav-small-cap">PANEL DE CONTROL</li>
 
         <li *ngFor="let item of menuItems">
@@ -70,7 +67,8 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li *ngFor="let subMenuItem of item.submenu">
-              <a [routerLink]="subMenuItem.url">
+              <a (click)="subMenuItem.titulo === 'Cambiar de liga' ? cambiarDeLiga() : onSidebarLinkClick()"
+                 [routerLink]="subMenuItem.url">
                 {{ subMenuItem.titulo }}
               </a>
             </li>
@@ -92,18 +90,42 @@
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="index.html">Liga</a></li>
-            <li><a href="index2.html">Equipos</a></li>
-            <li><a href="index3.html">Jugadores</a></li>
-            <li><a href="index4.html">Entrenadores</a></li>
-            <li><a href="index5.html">Draft</a></li>
-            <li><a href="index6.html">Trades</a></li>
-            <li><a href="index7.html">Subastas</a></li>
-            <li><a href="index8.html">Waivers</a></li>
-            <li><a href="index9.html">Sanciones</a></li>
-            <li><a href="index10.html">Bonus</a></li>
-            <li><a href="index11.html">Noticias</a></li>
-            <li><a href="index12.html">Matchup</a></li>
+            <li>
+              <a routerLink="/comisionado/liga" (click)="onSidebarLinkClick()">Liga</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/equipos" (click)="onSidebarLinkClick()">Equipos</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/jugadores" (click)="onSidebarLinkClick()">Jugadores</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/entrenadores" (click)="onSidebarLinkClick()">Entrenadores</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/draft" (click)="onSidebarLinkClick()">Draft</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/trades" (click)="onSidebarLinkClick()">Trades</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/subastas" (click)="onSidebarLinkClick()">Subastas</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/waivers" (click)="onSidebarLinkClick()">Waivers</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/sanciones" (click)="onSidebarLinkClick()">Sanciones</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/bonus" (click)="onSidebarLinkClick()">Bonus</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/noticias" (click)="onSidebarLinkClick()">Noticias</a>
+            </li>
+            <li>
+              <a routerLink="/comisionado/matchup" (click)="onSidebarLinkClick()">Matchup</a>
+            </li>
           </ul>
         </li>
 
@@ -122,9 +144,15 @@
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">
-            <li><a href="index.html">Managers</a></li>
-            <li><a href="index2.html">Equipos</a></li>
-            <li><a href="index3.html">Parametros Liga</a></li>
+            <li>
+              <a routerLink="/administrador/managers" (click)="onSidebarLinkClick()">Managers</a>
+            </li>
+            <li>
+              <a routerLink="/administrador/equipos" (click)="onSidebarLinkClick()">Equipos</a>
+            </li>
+            <li>
+              <a routerLink="/administrador/parametros-liga" (click)="onSidebarLinkClick()">Parametros Liga</a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -133,6 +161,3 @@
   </div>
   <!-- End Sidebar scroll-->
 </aside>
-<!-- ============================================================== -->
-<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-<!-- ============================================================== -->

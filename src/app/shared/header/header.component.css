@@ -9,3 +9,19 @@
 .app-search.visible {
   display: block;
 }
+
+input::placeholder {
+  font-size: 14px; /* Ajusta este valor según sea necesario */
+}
+
+@media (max-width: 575.98px) {
+  input::placeholder {
+    font-size: 12px; /* Ajusta este valor según sea necesario */
+  }
+}
+
+@media (max-width: 300px) {
+  input::placeholder {
+    font-size: 8px; /* Ajusta este valor según sea necesario */
+  }
+}

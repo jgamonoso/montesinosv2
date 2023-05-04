@@ -15,6 +15,7 @@ export const environment = {
   BASE_HREF: '/',
   langArray: ['es', 'en'],
   langDefault: 'es',
+  SECRET_KEY: 'montesinos',
 };
 
 /*

@@ -31,6 +31,7 @@ export class HttpService {
         )
       );
   }
+
   postLogin(httpParametersClass: HttpParametersClass): Observable<any> {
     return this.http
       .post(httpParametersClass.url, httpParametersClass.body, {
@@ -61,6 +62,7 @@ export class HttpService {
         })
       );
   }
+
   post(httpParametersClass: HttpParametersClass): Observable<any> {
     this.loadingService.setLoadingState(true);
     return this.http

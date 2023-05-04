@@ -8,4 +8,5 @@ export const environment = {
   BASE_HREF: '/v2/',
   langArray: ['es', 'en'],
   langDefault: 'es',
+  SECRET_KEY: 'montesinos',
 };

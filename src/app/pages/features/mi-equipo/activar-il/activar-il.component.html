@@ -1,0 +1,33 @@
+<div *ngIf="dataLoaded">
+  <div *ngIf="exito" class="container">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="recuperarIL === 1" class="alert alert-primary text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>Recuperado de la IL con exito</p>
+        </div>
+        <div *ngIf="recuperarIL === 0" class="alert alert-success text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>IL Activada con exito</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!exito" class="container">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="recuperarIL === 0" class="alert alert-warning text-center">
+          <h4 class="alert-heading">AVISO</h4>
+          <p>Máximo {{ this.numeroIL }} jugadores en IL</p>
+          <p>Añadir a {{jugadorliga.jugador.nombreAbreviado}} recuperando a:</p>
+          <p *ngFor="let jugadorIL of managerEnSesion.equipo.jugadoresIL"
+            (click)="sustituirPor(jugadorIL.pkJugadorliga)"
+            class="link-style">
+              {{ jugadorIL.jugador.nombre }} {{ jugadorIL.jugador.apellido }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
