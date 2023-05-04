@@ -56,6 +56,8 @@ import { ManagersAdminComponent } from './features/administrador/managers-admin/
 import { EquiposAdminComponent } from './features/administrador/equipos-admin/equipos-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
+import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
+import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-jugadores/busqueda-jugadores.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,7 @@ import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.c
     ApuestasLigaComponent,
     HistoricoComponent,
     NormativaComponent,
+    NormativaBackupComponent,
     CambiarLigaComponent,
     JugadoresComponent,
     DerechosComponent,
@@ -104,6 +107,7 @@ import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.c
     EquiposAdminComponent,
     ParametrosLigaAdminComponent,
     ActivarIlComponent,
+    BusquedaJugadoresComponent
   ],
   exports: [
     DashboardComponent,

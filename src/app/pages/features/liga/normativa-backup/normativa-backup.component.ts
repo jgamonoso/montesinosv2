@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-normativa',
-  templateUrl: './normativa.component.html',
-  styleUrls: ['./normativa.component.css']
+  selector: 'app-normativa-backup',
+  templateUrl: './normativa-backup.component.html',
+  styleUrls: ['./normativa-backup.component.css']
 })
-export class NormativaComponent implements OnInit {
+export class NormativaBackupComponent implements OnInit {
 
-  salariosPicks = [
+  data = [
     { pick: 1, salary: '4.8M' },
     { pick: 2, salary: '4.3M' },
     { pick: 3, salary: '3.9M' },
@@ -38,7 +38,7 @@ export class NormativaComponent implements OnInit {
     { pick: 28, salary: '0.7M' },
   ];
 
-  cantidadBonus = [
+  dataBonus = [
     { puesto: 1, bonus: '1.3M' },
     { puesto: 2, bonus: '1.2M' },
     { puesto: 3, bonus: '1.1M' },
@@ -54,7 +54,6 @@ export class NormativaComponent implements OnInit {
     { puesto: 13, bonus: '0.1M' },
     { puesto: 14, bonus: '0.0M' },
   ];
-
   constructor() { }
 
   ngOnInit(): void {

@@ -41,6 +41,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     this.dataLoaded = false;
 
     this.temporadaEnSesion = this.authService.getStoredTemporada();
+    this.listaTemporadas = this.authService.getStoredProximasTemporadas();
 
     this.subscription = this.route.queryParamMap.pipe(
       tap(params => {
@@ -89,15 +90,10 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       ? of(this.managerParam)
       : this.equipoDetalleService.obtenerManager(this.managerEnSesion.pkManager);
 
-    return forkJoin([
-      managerRequest,
-      this.equipoDetalleService.obtenerProximasTemporadas(),
-    ]).pipe(
-      tap(([manager, proximasTemporadas]) => {
+    return managerRequest.pipe(
+      tap(manager => {
         // console.log('Manager:', manager);
         this.man = manager;
-        // console.log('Proximas Temporadas:', proximasTemporadas);
-        this.listaTemporadas = proximasTemporadas;
         this.dataLoaded = true;
       }),
       tap(

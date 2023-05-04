@@ -9,8 +9,11 @@ export const _API_ENDPOINTS: any = {
     login: {
         start: '/login',
     },
-    dashboard: {
+    noticias: {
         start: '/noticias',
+    },
+    dashboard: {
+        start: '/dashboard',
     },
     miequipo: {
         start: '/miequipo',

@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit {
     ligaPropia: true,
   };
   ligaVisibleLoaded: boolean = false;
+  noticiasVisible: boolean = true;
 
   constructor(
     private authService: AuthService,
@@ -26,6 +27,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.ligaVisibleLoaded = false;
+    this.noticiasVisible = true;
     this.loadInitialData();
   }
 
@@ -37,12 +40,11 @@ export class DashboardComponent implements OnInit {
     forkJoin([
       this.authService.obtenerTemporadaActual(),
       this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
+      this.authService.obtenerProximasTemporadas(),
     ]).subscribe(
-      ([temporadaActual, managerPorLogin]) => {
-        // console.log('Temporada actual:', temporadaActual);
-        // console.log('Manager por login:', managerPorLogin);
-
+      ([proximasTemporadas, temporadaActual, managerPorLogin]) => {
         this.setligaVisible();
+        this.loadingService.setLoadingState(false);
       },
       (error) => {
         console.error('Error al obtener la temporada actual o manager por login', error.message);
@@ -59,5 +61,9 @@ export class DashboardComponent implements OnInit {
       sessionStorage.setItem('ligaGuardada', encryptedData);
     }
     this.ligaVisibleLoaded = true;
+  }
+
+  updateNoticiasVisibility(resultadosBusqueda: any): void {
+    this.noticiasVisible = resultadosBusqueda === null;
   }
 }

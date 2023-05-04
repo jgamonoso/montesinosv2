@@ -6,6 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConcatPositionsPipe implements PipeTransform {
 
   transform(positions: any[]): string {
-    return positions.map(pos => pos.nombre).join(', ');
+    if (positions) {
+      return positions.map(pos => pos.nombre).join(', ');
+    } else {
+      return '-';
+    }
   }
 }

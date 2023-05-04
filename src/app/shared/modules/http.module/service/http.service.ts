@@ -31,6 +31,7 @@ export class HttpService {
         )
       );
   }
+
   postLogin(httpParametersClass: HttpParametersClass): Observable<any> {
     return this.http
       .post(httpParametersClass.url, httpParametersClass.body, {

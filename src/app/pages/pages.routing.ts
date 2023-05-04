@@ -48,6 +48,7 @@ import { EquiposAdminComponent } from './features/administrador/equipos-admin/eq
 import { ManagersAdminComponent } from './features/administrador/managers-admin/managers-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
+import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,7 @@ const routes: Routes = [
       { path: 'apuestas-liga', component: ApuestasLigaComponent },
       { path: 'historico', component: HistoricoComponent },
       { path: 'normativa', component: NormativaComponent },
+      { path: 'normativa-backup', component: NormativaBackupComponent },
       { path: 'cambiar-liga', component: CambiarLigaComponent },
     ],
   },

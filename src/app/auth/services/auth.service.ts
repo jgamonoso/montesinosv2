@@ -49,6 +49,35 @@ export class AuthService {
     );
   }
 
+  obtenerProximasTemporadas(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'obtenerProximasTemporadas'
+      }
+    });
+    return this.httpService.postLogin(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
+          if (response) {
+            const encryptedData = xorEncryptDecrypt(JSON.stringify(response), SECRET_KEY);
+            const remember = this.getRemember();
+
+            if (remember) {
+              localStorage.setItem('proximasTemporadas', encryptedData);
+            } else {
+              sessionStorage.setItem('proximasTemporadas', encryptedData);
+            }
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
   obtenerTemporadaActual(): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
@@ -165,6 +194,19 @@ export class AuthService {
     return JSON.parse(decryptedData);
   }
 
+  // Método para obtener datos de las proximas temporadas:
+  getStoredProximasTemporadas(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('proximasTemporadas')
+      : sessionStorage.getItem('proximasTemporadas');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
+  }
+
   //método para eliminar las credenciales almacenadas (por ejemplo, al cerrar sesión):
   removeStoredData(): void {
     if (this.getRemember()) {
@@ -172,12 +214,14 @@ export class AuthService {
       localStorage.removeItem('temporada');
       localStorage.removeItem('manager');
       localStorage.removeItem('ligaGuardada');
+      localStorage.removeItem('proximasTemporadas');
       this.deleteRemember();
     } else {
       sessionStorage.removeItem('credentials');
       sessionStorage.removeItem('temporada');
       sessionStorage.removeItem('manager');
       sessionStorage.removeItem('ligaGuardada');
+      sessionStorage.removeItem('proximasTemporadas');
     }
   }
 

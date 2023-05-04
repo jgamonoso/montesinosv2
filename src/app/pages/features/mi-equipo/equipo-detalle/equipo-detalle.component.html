@@ -105,7 +105,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-active" *ngFor="let player of man.equipo?.jugadoresIL; let b = index">
+        <tr class="table-danger" *ngFor="let player of man.equipo?.jugadoresIL; let b = index">
           <td>{{b+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
@@ -144,7 +144,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-active" *ngFor="let player of man.equipo?.jugadoresCovid; let c = index">
+        <tr class="table-warning" *ngFor="let player of man.equipo?.jugadoresCovid; let c = index">
           <td>{{c+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
@@ -165,6 +165,7 @@
       </tbody>
     </table>
   </div>
+
   <h4 *ngIf="man.equipo?.jugadoresConDerecho">Derechos</h4>
   <div class="responsive-table">
     <table *ngIf="man.equipo?.jugadoresConDerecho" class="table table-striped table-bordered table-sm">
@@ -225,7 +226,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-danger" *ngFor="let player of man.equipo?.jugadoresLesionados; let e = index">
+        <tr class="table-dark" *ngFor="let player of man.equipo?.jugadoresLesionados; let e = index">
           <td>{{e+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
@@ -315,7 +316,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-warning" *ngFor="let sancion of man.equipo?.sanciones; let h = index">
+        <tr class="table-danger" *ngFor="let sancion of man.equipo?.sanciones; let h = index">
           <td>{{h+1}}</td>
           <td>{{ sancion.fkTemporada | nombretemporada  }}</td>
           <td>{{ sancion.cantidad }}</td>

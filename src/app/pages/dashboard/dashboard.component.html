@@ -1,1 +1,2 @@
-<app-noticias *ngIf="ligaVisibleLoaded"></app-noticias>
+<app-busqueda-jugadores [hidden]="noticiasVisible" (resultadosBusquedaChange)="updateNoticiasVisibility($event)"></app-busqueda-jugadores>
+<app-noticias *ngIf="noticiasVisible && ligaVisibleLoaded"></app-noticias>

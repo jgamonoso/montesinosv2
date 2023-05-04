@@ -36,25 +36,6 @@ export class EquipoDetalleService {
     );
   }
 
-  obtenerProximasTemporadas(): Observable<any> {
-    const httpParametersClass = new HttpParametersClass({
-      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
-      body: {
-        action: 'obtenerProximasTemporadas'
-      }
-    });
-    return this.httpService.post(httpParametersClass).pipe(
-      tap(
-        response => {
-          // Respuesta OK
-        },
-        error => {
-          this.loadingService.setLoadingState(false);
-        }
-      )
-    );
-  }
-
   obtenerJugadorliga(pkJugadorliga: string): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
