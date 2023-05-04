@@ -59,7 +59,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       tap(managerParam => {
         this.managerEnSesion = this.authService.getStoredManager();
         if (managerParam) {
-          console.log('MANAGER:', managerParam.equipo.nombre)
+          // console.log('MANAGER:', managerParam.equipo.nombre)
           if (this.managerEnSesion.pkManager === managerParam.pkManager) {
             this.equipoPropio = true;
             // Guardar Manager en sesion (por si hubo cambios)

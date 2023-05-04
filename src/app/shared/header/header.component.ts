@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSearchEnter(searchText: string): void {
-    console.log('Search text onSearchEnter:', searchText);
+    // console.log('Search text onSearchEnter:', searchText);
     if (searchText.length >= 3) {
       this.buscarJugadores(searchText);
     }
@@ -40,13 +40,14 @@ export class HeaderComponent implements OnInit {
 
   onSearchButton(event: MouseEvent, searchText: string): void {
     event.stopPropagation();
-    console.log('Search text onSearchButton:', searchText);
+    // console.log('Search text onSearchButton:', searchText);
     if (searchText.length >= 3) {
       this.onSearchEnter(searchText);
     }
   }
 
   toggleSearch(formElement: HTMLElement, searchInput?: HTMLInputElement): void {
+    this.onSidebarLinkClick();
     if (searchInput) {
       searchInput.value = '';
     }
