@@ -35,4 +35,24 @@ export class EquiposService {
       )
     );
   }
+
+  obtenerJugadoresLesionados(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'obtenerJugadoresLesionados',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }
