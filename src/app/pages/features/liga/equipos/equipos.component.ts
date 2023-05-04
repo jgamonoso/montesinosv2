@@ -27,18 +27,16 @@ export class EquiposComponent implements OnInit {
 
   loadInitialData() {
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
-    forkJoin([
-      this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible),
-    ]).subscribe(
-      ([listadoManagersConEquipo]) => {
-        // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
-        this.listadoManagersConEquipo = listadoManagersConEquipo;
-        this.dataLoaded = true;
-      },
-      (error) => {
-        console.error('Error en las llamadas', error.message);
-      }
-    );
+    this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible)
+      .subscribe(
+        (listadoManagersConEquipo) => {
+          // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
+          this.listadoManagersConEquipo = listadoManagersConEquipo;
+          this.dataLoaded = true;
+        },
+        (error) => {
+          console.error('Error en las llamadas', error.message);
+        }
+      );
   }
-
 }
