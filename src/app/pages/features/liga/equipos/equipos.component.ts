@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquiposService } from './equipos.service';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-equipos',
