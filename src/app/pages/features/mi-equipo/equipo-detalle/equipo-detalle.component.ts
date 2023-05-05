@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquipoDetalleService } from './equipo-detalle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
   selector: 'app-equipo-detalle',
@@ -32,6 +33,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     private equipoDetalleService: EquipoDetalleService,
     private route: ActivatedRoute,
     private router: Router,
+    private readonly loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +42,9 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
 
     this.dataLoaded = false;
 
+    this.loadingService.setLoadingState(true);
     this.temporadaEnSesion = this.authService.getStoredTemporada();
     this.listaTemporadas = this.authService.getStoredProximasTemporadas();
-
     this.subscription = this.route.queryParamMap.pipe(
       tap(params => {
         this.mngr = params.get('mngr');
@@ -95,6 +97,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
         // console.log('Manager:', manager);
         this.man = manager;
         this.dataLoaded = true;
+        this.loadingService.setLoadingState(false);
       }),
       tap(
         () => {

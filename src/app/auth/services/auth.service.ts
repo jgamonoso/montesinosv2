@@ -27,7 +27,7 @@ export class AuthService {
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.login.start}`,
       body: credentials
     });
-    return this.httpService.postLogin(httpParametersClass).pipe(
+    return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
@@ -56,7 +56,7 @@ export class AuthService {
         action: 'obtenerProximasTemporadas'
       }
     });
-    return this.httpService.postLogin(httpParametersClass).pipe(
+    return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
@@ -85,7 +85,7 @@ export class AuthService {
         action: 'obtenerTemporadaActual'
       }
     });
-    return this.httpService.postLogin(httpParametersClass).pipe(
+    return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
@@ -115,7 +115,7 @@ export class AuthService {
         login: login
       }
     });
-    return this.httpService.postLogin(httpParametersClass).pipe(
+    return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
           // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa

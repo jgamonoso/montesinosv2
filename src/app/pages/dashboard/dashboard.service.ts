@@ -25,7 +25,7 @@ export class DashboardService {
         filtro: filtro
       }
     });
-    return this.httpService.postLogin(httpParametersClass).pipe(
+    return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
           // Respuesta OK

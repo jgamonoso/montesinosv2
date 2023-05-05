@@ -29,11 +29,13 @@ export class NoticiasComponent implements OnInit {
   }
 
   cargarNoticias(): void {
+    this.loadingService.setLoadingState(true);
     this.noticiasService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
         if (resp) {
           this.noticias = resp;
           this.fechas = Object.keys(resp);
+          this.loadingService.setLoadingState(false);
           if (this.noticias.length === 0) {
             setTimeout(() => {
               this.cambiarPagina(1);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquiposService } from './equipos.service';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
   selector: 'app-equipos',
@@ -16,11 +17,13 @@ export class EquiposComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private equiposService: EquiposService
+    private equiposService: EquiposService,
+    private readonly loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.dataLoaded = false;
+    this.loadingService.setLoadingState(true);
     this.loadInitialData();
   }
 
@@ -32,6 +35,7 @@ export class EquiposComponent implements OnInit {
           // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
           this.listadoManagersConEquipo = listadoManagersConEquipo;
           this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
         },
         (error) => {
           console.error('Error en las llamadas', error.message);

@@ -19,34 +19,7 @@ export class HttpService {
     this.lang = this.translate.currentLang ? this.translate.currentLang : 'es';
   }
 
-  getLogin(httpParametersClass: HttpParametersClass): Observable<any> {
-    return this.http
-      .get(httpParametersClass.url, {
-        params: httpParametersClass.params,
-        headers: this.setHeader(httpParametersClass)
-      })
-      .pipe(
-        catchError((response: HttpErrorResponse) =>
-          this.handleError(response)
-        )
-      );
-  }
-
-  postLogin(httpParametersClass: HttpParametersClass): Observable<any> {
-    return this.http
-      .post(httpParametersClass.url, httpParametersClass.body, {
-        params: httpParametersClass.params,
-        headers: this.setHeader(httpParametersClass)
-      })
-      .pipe(
-        catchError((response: HttpErrorResponse) =>
-          this.handleError(response)
-        )
-      );
-  }
-
   get(httpParametersClass: HttpParametersClass): Observable<any> {
-    this.loadingService.setLoadingState(true);
     return this.http
       .get(httpParametersClass.url, {
         params: httpParametersClass.params,
@@ -58,13 +31,11 @@ export class HttpService {
           this.handleError(response)
         ),
         finalize(() => {
-          this.loadingService.setLoadingState(false);
         })
       );
   }
 
   post(httpParametersClass: HttpParametersClass): Observable<any> {
-    this.loadingService.setLoadingState(true);
     return this.http
       .post(httpParametersClass.url, httpParametersClass.body, {
         params: httpParametersClass.params,
@@ -76,7 +47,6 @@ export class HttpService {
           this.handleError(response)
         ),
         finalize(() => {
-          this.loadingService.setLoadingState(false);
         })
       );
   }
