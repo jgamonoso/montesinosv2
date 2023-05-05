@@ -1,34 +1,14 @@
 <div *ngIf="isNotEmpty(noticias)">
-  <div class="pagination">
-    <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
-      <span class="desktop-text">&lt;</span>
-      <span class="mobile-text">&lt;</span>
-    </button>
-    <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
-      <span class="desktop-text">&gt;</span>
-      <span class="mobile-text">&gt;</span>
-    </button>
-  </div>
 
-  <div *ngFor="let fecha of fechas">
-    <h2 mat-headline>{{ fecha | date: 'dd-MM-yyyy' }}</h2>
-    <hr />
-    <div *ngFor="let noticia of noticias[fecha]">
-      <div mat-body-2>{{ noticia.hora }}. <span [innerHTML]="noticia.texto"></span></div>
+  <div (swipeleft)="cambiarPagina(1)" (swiperight)="cambiarPagina(-1)">
+    <div *ngFor="let fecha of fechas">
+      <h2 mat-headline>{{ fecha | date: 'dd-MM-yyyy' }}</h2>
       <hr />
+      <div *ngFor="let noticia of noticias[fecha]">
+        <div mat-body-2>{{ noticia.hora }}. <span [innerHTML]="noticia.texto"></span></div>
+        <hr />
+      </div>
     </div>
-    <br/>
-  </div>
-
-  <div class="pagination">
-    <button mat-button (click)="cambiarPagina(-1)" *ngIf="pagina !== 1" class="btn-themecolor">
-      <span class="desktop-text">&lt;</span>
-      <span class="mobile-text">&lt;</span>
-    </button>
-    <button mat-button (click)="cambiarPagina(1)" class="btn-themecolor">
-      <span class="desktop-text">&gt;</span>
-      <span class="mobile-text">&gt;</span>
-    </button>
   </div>
 
   <div class="back-to-top">

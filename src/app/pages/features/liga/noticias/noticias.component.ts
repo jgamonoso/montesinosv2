@@ -51,8 +51,12 @@ export class NoticiasComponent implements OnInit {
   }
 
   cambiarPagina(incremento: number): void {
-    this.pagina += incremento;
-    this.cargarNoticias();
+    if (this.pagina === 1 && incremento === -1) {
+      // En este caso no hay cambio de pagina
+    } else {
+      this.pagina += incremento;
+      this.cargarNoticias();
+    }
   }
 
   scrollToTop(): void {
