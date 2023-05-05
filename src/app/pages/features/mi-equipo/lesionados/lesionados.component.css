@@ -6,7 +6,8 @@
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 767.98px) {
 
-  .fixed-column {
+  .fixed-column,
+  .fixed-column-ofs {
     position: sticky;
     opacity: 1;
     z-index: 10;

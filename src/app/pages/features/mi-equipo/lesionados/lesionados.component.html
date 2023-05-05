@@ -8,8 +8,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
+          <th scope="col">Equipo NBA</th>
+          <th scope="col">Posiciones</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
@@ -18,11 +18,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-default" *ngFor="let player of jugadoresLesionados; let e = index">
+        <tr class="table-dark" *ngFor="let player of jugadoresLesionados; let e = index">
           <td>{{e+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
-          <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+          <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
 
           <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
 

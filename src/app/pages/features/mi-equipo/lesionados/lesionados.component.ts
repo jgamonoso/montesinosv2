@@ -31,11 +31,9 @@ export class LesionadosComponent implements OnInit {
   }
 
   loadInitialData() {
-    debugger;
-    this.equiposService.obtenerJugadoresLesionados(this.managerEnSesion.equipo.pkEquipo)
+    this.equiposService.obtenerJugadoresLesionadosEquipo(this.managerEnSesion.equipo.pkEquipo)
       .subscribe(
         (listadoJugadoresLesionados) => {
-          debugger;
           this.jugadoresLesionados = listadoJugadoresLesionados;
           this.dataLoaded = true;
         },
