@@ -214,8 +214,10 @@
           <th scope="col">Posición</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
-          <th scope="col">Trading Block</th>
-          <th scope="col">Derecho</th>
+          <ng-container *ngIf="equipoPropio">
+            <th scope="col">Trading Block</th>
+            <th scope="col">Derecho</th>
+          </ng-container>
           <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th>
         </tr>
       </thead>
@@ -234,12 +236,14 @@
 
           <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
 
-          <ng-container [ngSwitch]="player.enTradingBlock">
-            <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
-            <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
-          </ng-container>
+          <ng-container *ngIf="equipoPropio">
+            <ng-container [ngSwitch]="player.enTradingBlock">
+              <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
+              <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
+            </ng-container>
 
-          <td>ejercer</td>
+            <td>ejercer</td>
+          </ng-container>
 
           <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>
         </tr>
@@ -257,7 +261,9 @@
           <th scope="col">Temporada</th>
           <th scope="col">Ronda</th>
           <th scope="col">Pick</th>
-          <th scope="col">Trading Block</th>
+          <ng-container *ngIf="equipoPropio">
+            <th scope="col">Trading Block</th>
+          </ng-container>
           <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th>
         </tr>
       </thead>
@@ -270,8 +276,10 @@
           <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
           <td *ngIf="pick.numPick == null"></td>
 
-          <td class="link-style" *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
-          <td class="link-style" *ngIf="pick.enTradingBlock == false">No (añadir)</td>
+          <ng-container *ngIf="equipoPropio">
+            <td class="link-style" *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
+            <td class="link-style" *ngIf="pick.enTradingBlock == false">No (añadir)</td>
+          </ng-container>
 
           <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>
         </tr>
