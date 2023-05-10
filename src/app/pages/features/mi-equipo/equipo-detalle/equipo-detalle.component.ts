@@ -5,6 +5,7 @@ import { EquipoDetalleService } from './equipo-detalle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-equipo-detalle',
@@ -33,7 +34,8 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     private equipoDetalleService: EquipoDetalleService,
     private route: ActivatedRoute,
     private router: Router,
-    private readonly loadingService: LoadingService
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -92,8 +94,11 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       ? of(this.managerParam)
       : this.equipoDetalleService.obtenerManager(this.managerEnSesion.pkManager);
 
-    return managerRequest.pipe(
-      tap(manager => {
+      return forkJoin([
+        managerRequest,
+        this.sharedService.obtenerListaEquiposNombre(),
+      ]).pipe(
+        tap(([manager, listaEquiposNombre]) => {
         // console.log('Manager:', manager);
         this.man = manager;
         this.dataLoaded = true;

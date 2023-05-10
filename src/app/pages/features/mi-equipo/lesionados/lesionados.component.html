@@ -19,8 +19,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-dark" *ngFor="let player of jugadoresLesionados; let e = index">
-            <td>{{e+1}}</td>
+          <tr class="table-dark" *ngFor="let player of jugadoresLesionados; let a = index">
+            <td>{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { xorEncryptDecrypt } from 'src/app/shared/functions/xor-encryption/xor-encryption.component';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { environment } from 'src/environments/environment';
+import { SharedService } from '../../services/shared.service';
 
 const SECRET_KEY = environment.SECRET_KEY;
 
@@ -23,7 +24,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private readonly loadingService: LoadingService
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService,
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +43,9 @@ export class DashboardComponent implements OnInit {
       this.authService.obtenerTemporadaActual(),
       this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
       this.authService.obtenerProximasTemporadas(),
+      this.sharedService.obtenerListaEquiposNombre(),
     ]).subscribe(
-      ([proximasTemporadas, temporadaActual, managerPorLogin]) => {
+      ([proximasTemporadas, temporadaActual, managerPorLogin, listaEquiposNombre]) => {
         this.setligaVisible();
         this.loadingService.setLoadingState(false);
       },

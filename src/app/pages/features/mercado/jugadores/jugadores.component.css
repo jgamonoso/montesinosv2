@@ -1,0 +1,36 @@
+.responsive-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Estilo para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+
+  .fixed-column {
+    position: sticky;
+    opacity: 1;
+    z-index: 10;
+    left: 0;
+  }
+
+  /* Estilos específicos para el encabezado - Color de los th de cabecera donde pone nombre(NO TOCAR) */
+  th.fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Filas pares fijadas de la tabla normal */
+  .fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Filas impares fijadas de la tabla normal*/
+  tr:nth-child(odd) td.fixed-column {
+    background-color: rgba(233, 237, 242, 1);
+  }
+}
+
+.link-style {
+  color: #007bff;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}

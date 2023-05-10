@@ -21,8 +21,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-dark" *ngFor="let player of listaJugadoresLLDConContrato; let e = index">
-            <td>{{e+1}}</td>
+          <tr class="table-dark" *ngFor="let player of listaJugadoresLLDConContrato; let a = index">
+            <td>{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -31,7 +31,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -65,8 +65,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-danger" *ngFor="let player of listaJugadoresILLiga; let e = index">
-            <td>{{e+1}}</td>
+          <tr class="table-danger" *ngFor="let player of listaJugadoresILLiga; let b = index">
+            <td>{{b+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
@@ -75,7 +75,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -109,8 +109,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="table-warning" *ngFor="let player of listaJugadoresCOVIDConContrato; let e = index">
-            <td>{{e+1}}</td>
+          <tr class="table-warning" *ngFor="let player of listaJugadoresCOVIDConContrato; let c = index">
+            <td>{{c+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-cov">{{ player.jugador.nombreAbreviado }}</td>
@@ -119,7 +119,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 

@@ -82,7 +82,7 @@
             <td class="link-style" *ngIf="player.contrato.salario >= 2">{{ player.contrato.salario / 2 | number:'1.0-1' }}</td>
           </ng-container>
 
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>
         </tr>
       </tbody>
     </table>
@@ -160,7 +160,7 @@
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-          <td>Recuperar</td>
+          <td class="link-style">Recuperar</td>
         </tr>
       </tbody>
     </table>
@@ -182,8 +182,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-dark" *ngFor="let player of man.equipo?.jugadoresLesionados; let e = index">
-          <td>{{e+1}}</td>
+        <tr class="table-dark" *ngFor="let player of man.equipo?.jugadoresLesionados; let d = index">
+          <td>{{d+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -220,8 +220,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-info" *ngFor="let player of man.equipo?.jugadoresConDerecho; let d = index">
-          <td>{{d+1}}</td>
+        <tr class="table-info" *ngFor="let player of man.equipo?.jugadoresConDerecho; let e = index">
+          <td>{{e+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
@@ -235,13 +235,13 @@
           <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
 
           <ng-container [ngSwitch]="player.enTradingBlock">
-            <td *ngSwitchCase="true">Si (quitar)</td>
-            <td *ngSwitchCase="false">No (añadir)</td>
+            <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
+            <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
           </ng-container>
 
           <td>ejercer</td>
 
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>
         </tr>
       </tbody>
     </table>
@@ -270,10 +270,10 @@
           <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
           <td *ngIf="pick.numPick == null"></td>
 
-          <td *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
-          <td *ngIf="pick.enTradingBlock == false">No (añadir)</td>
+          <td class="link-style" *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
+          <td class="link-style" *ngIf="pick.enTradingBlock == false">No (añadir)</td>
 
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>
         </tr>
       </tbody>
     </table>

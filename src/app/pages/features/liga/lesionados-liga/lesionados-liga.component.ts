@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquiposService } from '../equipos/equipos.service';
 import { forkJoin } from 'rxjs';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-lesionados-liga',
@@ -25,7 +26,8 @@ export class LesionadosLigaComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private equiposService: EquiposService,
-    private readonly loadingService: LoadingService
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService,
   ) { }
 
   ngOnInit(): void {
@@ -43,12 +45,12 @@ export class LesionadosLigaComponent implements OnInit {
       this.equiposService.obtenerJugadoresLLDConContrato(this.ligaGuardadaEnSesion.ligaVisible),
       this.equiposService.obtenerJugadoresCOVIDConContrato(this.ligaGuardadaEnSesion.ligaVisible),
       this.equiposService.obtenerJugadoresILLiga(this.ligaGuardadaEnSesion.ligaVisible),
+      this.sharedService.obtenerListaEquiposNombre(),
     ]).subscribe(
-      ([jugadoresLLDConContrato, jugadoresCOVIDConContrato, jugadoresILLiga]) => {
+      ([jugadoresLLDConContrato, jugadoresCOVIDConContrato, jugadoresILLiga, listaEquiposNombre]) => {
         this.listaJugadoresLLDConContrato = jugadoresLLDConContrato;
         this.listaJugadoresCOVIDConContrato = jugadoresCOVIDConContrato;
         this.listaJugadoresILLiga = jugadoresILLiga;
-        // this.setligaVisible();
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);
       },
