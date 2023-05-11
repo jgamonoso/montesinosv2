@@ -1,6 +1,6 @@
 <div *ngIf="dataLoaded" class="container animated fadeIn">
-  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Jugadores - MNBA </h2>
-  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Jugadores - DLEAGUE </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Agencia libre - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Agencia libre - DLEAGUE </h2>
 
   <ng-container *ngIf="listaJugadoresLibres && listaJugadoresLibres.length > 0">
     <h4>Jugadores FA (al-season)</h4>
@@ -39,7 +39,7 @@
   </ng-container>
 
   <ng-container *ngIf="(!listaJugadoresLibres || listaJugadoresLibres.length <= 0)">
-    <p>No hay jugadores con libres en la liga</p>
+    <p>No hay jugadores en la agencia libre</p>
   </ng-container>
 
 </div>

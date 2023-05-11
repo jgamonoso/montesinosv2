@@ -66,12 +66,12 @@ export class SidebarService {
       icono: 'mdi mdi-file',
       submenu: [
         {
-          titulo: 'Jugadores (AL)',
-          url: '/agencia-libre/jugadores-al',
-        },
-        {
           titulo: 'Jugadores (ALSeason)',
           url: '/agencia-libre/jugadores-al-season',
+        },
+        {
+          titulo: 'Jugadores (AL)',
+          url: '/agencia-libre/jugadores-al',
         },
         {
           titulo: 'Jugadores (ALOffseason)',
