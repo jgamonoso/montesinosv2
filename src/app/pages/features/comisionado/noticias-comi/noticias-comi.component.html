@@ -1,1 +1,32 @@
-<p>noticias-comi works!</p>
+<div class="container animated fadeIn">
+  <h2> Generador de noticias </h2>
+  <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="notificacion">Notificación:</label>
+            <textarea id="notificacion" class="form-control" formControlName="notificacion"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="equipo">Liga donde publicar:</label>
+            <select class="form-control" id="liga" formControlName="liga">
+              <option *ngFor="let liga of listaLigas" [value]="liga.value">
+                {{liga.viewValue}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button [disabled]="noticiaForm.invalid" type="submit" class="btn btn-primary">Publicar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
