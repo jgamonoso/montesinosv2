@@ -30,4 +30,7 @@ export const _API_ENDPOINTS: any = {
     liga: {
         start: '/liga',
     },
+    comisionado: {
+        start: '/comisionado',
+    },
 };
