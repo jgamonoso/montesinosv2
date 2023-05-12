@@ -1,5 +1,7 @@
 <div *ngIf="isNotEmpty(noticias)">
 
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Noticias - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Noticias - DLEAGUE </h2>
   <div (swipeleft)="cambiarPagina(1)" (swiperight)="cambiarPagina(-1)">
     <div *ngFor="let fecha of fechas">
       <h2 mat-headline>{{ fecha | date: 'dd-MM-yyyy' }}</h2>
