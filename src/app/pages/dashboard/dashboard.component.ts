@@ -14,6 +14,8 @@ const SECRET_KEY = environment.SECRET_KEY;
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  ligaGuardadaEnSesion: any;
+
   credencialesEnSesion: any;
   ligaGuardada: { ligaVisible: number; ligaPropia: boolean } = {
     ligaVisible: 1,
@@ -26,12 +28,18 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
     private readonly loadingService: LoadingService,
     private sharedService: SharedService,
-  ) { }
+  ) {
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+  }
 
   ngOnInit(): void {
-    this.ligaVisibleLoaded = false;
-    this.noticiasVisible = true;
-    this.loadInitialData();
+    if (!this.ligaGuardadaEnSesion) {
+      this.ligaVisibleLoaded = false;
+      this.noticiasVisible = true;
+      this.loadInitialData();
+    } else {
+      this.ligaVisibleLoaded = true;
+    }
   }
 
   loadInitialData() {
