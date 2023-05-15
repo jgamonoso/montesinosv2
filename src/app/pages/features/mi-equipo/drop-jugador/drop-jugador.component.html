@@ -1,0 +1,32 @@
+<div *ngIf="dataLoaded">
+
+  <div class="container" *ngIf="showConfirmation">
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-primary text-center">
+          <h4 class="alert-heading">Vas a soltar al jugador {{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}
+          </h4>
+          <p>Se anularán todas las ofertas y trades que lo incluyan. ¿Seguro que deseas realizar la operación?</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button (click)="confirm()" type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="!showConfirmation">
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-primary text-center">
+          <h4 class="alert-heading">Has dropado a {{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}
+          </h4>
+          <!-- <p>Se anularán todas las ofertas y trades que lo incluyan. ¿Seguro que deseas realizar la operación?</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

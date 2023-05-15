@@ -154,6 +154,13 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
   }
 
+  navegarDropPagina(pkJugadorliga: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+    };
+    this.router.navigate(['/mi-equipo/drop-jugador'], { queryParams });
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

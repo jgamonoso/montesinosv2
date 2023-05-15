@@ -128,7 +128,7 @@ export class EquipoDetalleService {
     );
   }
 
-  addTradingBlock(managerId: number, pkEquipo: number, jugadorId: number , derechoId: number, draftPickId: number): Observable<any> {
+  addTradingBlock(managerId: number, pkEquipo: number, jugadorId: number, derechoId: number, draftPickId: number): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
       body: {
@@ -147,7 +147,7 @@ export class EquipoDetalleService {
     );
   }
 
-  recuperarDeTradingBlock(managerId: number, pkEquipo: number, jugadorId: number , derechoId: number, draftPickId: number): Observable<any> {
+  recuperarDeTradingBlock(managerId: number, pkEquipo: number, jugadorId: number, derechoId: number, draftPickId: number): Observable<any> {
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
       body: {
@@ -157,6 +157,24 @@ export class EquipoDetalleService {
         derechoId: derechoId,
         draftPickId: draftPickId,
         pkEquipo: pkEquipo,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  dropJugador(managerId: number, jugadorId: number, pkEquipo: number, sancionAplicable: boolean): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'dropJugador',
+        managerId: managerId,
+        jugadorId: jugadorId,
+        pkEquipo: pkEquipo,
+        sancionAplicable: sancionAplicable
       }
     });
     return this.httpService.post(httpParametersClass).pipe(

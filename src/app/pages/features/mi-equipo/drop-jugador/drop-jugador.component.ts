@@ -6,21 +6,21 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
-  selector: 'app-activar-covid',
-  templateUrl: './activar-covid.component.html',
-  styleUrls: ['./activar-covid.component.css']
+  selector: 'app-drop-jugador',
+  templateUrl: './drop-jugador.component.html',
+  styleUrls: ['./drop-jugador.component.css']
 })
-export class ActivarCovidComponent implements OnInit {
+export class DropJugadorComponent implements OnInit {
 
   // Añade una propiedad para almacenar la suscripción
   queryParamsSubscription: Subscription;
   managerEnSesion: any;
   pkJugadorliga: any;
   jugadorliga: any;
-  recuperarCovid: any;
-  numeroCovid: number;
 
   dataLoaded: boolean;
+
+  showConfirmation: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,18 +37,18 @@ export class ActivarCovidComponent implements OnInit {
     this.managerEnSesion = this.authService.getStoredManager();
     this.queryParamsSubscription = this.route.queryParams.subscribe(params => {
       this.pkJugadorliga = +params['pkJugadorliga'];
-      this.recuperarCovid = +params['recuperarCovid'];
     });
     this.obtenerJugadorliga();
   }
 
   obtenerJugadorliga(): void {
+    this.loadingService.setLoadingState(true);
     this.equipoDetalleService.obtenerJugadorliga(this.pkJugadorliga).subscribe(
       (resp) => {
         if (resp) {
           this.jugadorliga = resp;
-          // Llamar a activarCovid() después de asignar el valor a this.numeroCovid
-          this.manejarCovid();
+          this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
         }
       },
       (err) => {
@@ -58,33 +58,17 @@ export class ActivarCovidComponent implements OnInit {
     );
   }
 
-  manejarCovid(): void {
-    if (this.recuperarCovid === 0) { // Se recupera jugador de la Covid
+  confirm() {
+    console.log('confirm');
 
-      this.equipoDetalleService.recuperarJugadordeCovid(this.managerEnSesion.pkManager,
-                                                     this.pkJugadorliga,
-                                                     this.managerEnSesion.equipo.fkLiga,
-                                                     this.managerEnSesion.equipo.pkEquipo ).subscribe(
+    this.equipoDetalleService.dropJugador(this.managerEnSesion.pkManager,
+                                                      this.pkJugadorliga,
+                                                      this.managerEnSesion.equipo.pkEquipo,
+                                                      true ).subscribe(
         (resp) => {
           this.dataLoaded = true;
           this.loadingService.setLoadingState(false);
-          setTimeout(() => {
-            this.verMiEquipo();
-          }, 3000);
-        },
-        (err) => {
-          this.loadingService.setLoadingState(false);
-          console.warn(err)
-          }
-        );
-    } else { // Se activa la Covid
-      this.equipoDetalleService.activarCovidDeJugador(this.managerEnSesion.pkManager,
-                                                    this.pkJugadorliga,
-                                                    this.managerEnSesion.equipo.fkLiga,
-                                                    this.managerEnSesion.equipo.pkEquipo ).subscribe(
-        (resp) => {
-          this.dataLoaded = true;
-          this.loadingService.setLoadingState(false);
+          this.showConfirmation = false;
           setTimeout(() => {
             this.verMiEquipo();
           }, 3000);
@@ -94,7 +78,6 @@ export class ActivarCovidComponent implements OnInit {
           console.warn(err)
         }
       );
-    }
   }
 
   verMiEquipo(): void {

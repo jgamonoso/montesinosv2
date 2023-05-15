@@ -77,9 +77,9 @@
 
             <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'" (click)="navegarCOVPagina(player.pkJugadorliga, 1)">COVID</td>
 
-            <td class="link-style" *ngIf="man.equipo.corteGratisHabilitado == 1">gratis</td>
-            <td class="link-style" *ngIf="player.contrato.salario < 2">gratis</td>
-            <td class="link-style" *ngIf="player.contrato.salario >= 2">{{ player.contrato.salario / 2 | number:'1.0-1' }}</td>
+            <td class="link-style" *ngIf="man.equipo.corteGratisHabilitado == 1" (click)="navegarDropPagina(player.pkJugadorliga)">gratis</td>
+            <td class="link-style" *ngIf="player.contrato.salario < 2" (click)="navegarDropPagina(player.pkJugadorliga)">gratis</td>
+            <td class="link-style" *ngIf="player.contrato.salario >= 2" (click)="navegarDropPagina(player.pkJugadorliga)">{{ player.contrato.salario / 2 | number:'1.0-1' }}</td>
           </ng-container>
 
           <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>

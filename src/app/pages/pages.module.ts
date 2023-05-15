@@ -60,6 +60,7 @@ import { NormativaBackupComponent } from './features/liga/normativa-backup/norma
 import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-jugadores/busqueda-jugadores.component';
 import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
 import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
+import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-tradi
     ActivarIlComponent,
     ActivarCovidComponent,
     ActivarTradingBlockComponent,
+    DropJugadorComponent,
     BusquedaJugadoresComponent
   ],
   exports: [

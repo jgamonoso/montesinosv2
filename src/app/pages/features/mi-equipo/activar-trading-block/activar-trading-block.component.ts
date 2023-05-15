@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { EquipoDetalleService } from '../equipo-detalle/equipo-detalle.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-activar-trading-block',
@@ -37,6 +36,7 @@ export class ActivarTradingBlockComponent implements OnInit {
   ngOnInit(): void {
 
     this.dataLoaded = false;
+    this.loadingService.setLoadingState(true);
 
     this.managerEnSesion = this.authService.getStoredManager();
     this.queryParamsSubscription = this.route.queryParams.subscribe(params => {
@@ -95,6 +95,7 @@ export class ActivarTradingBlockComponent implements OnInit {
                                                      this.pkDraftpick ).subscribe(
         (resp) => {
           this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
           setTimeout(() => {
             this.verMiEquipo();
           }, 3000);
@@ -112,6 +113,7 @@ export class ActivarTradingBlockComponent implements OnInit {
                                                     this.pkDraftpick ).subscribe(
         (resp) => {
           this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
           setTimeout(() => {
             this.verMiEquipo();
           }, 3000);

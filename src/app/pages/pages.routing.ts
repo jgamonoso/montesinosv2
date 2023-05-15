@@ -51,6 +51,7 @@ import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.c
 import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
 import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
+import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,7 @@ const routes: Routes = [
       { path: 'activar-il', component: ActivarIlComponent },
       { path: 'activar-covid', component: ActivarCovidComponent },
       { path: 'activar-trading-block', component: ActivarTradingBlockComponent },
+      { path: 'drop-jugador', component: DropJugadorComponent },
     ],
   },
   {

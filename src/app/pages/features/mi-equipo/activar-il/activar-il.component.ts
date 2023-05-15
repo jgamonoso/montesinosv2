@@ -36,6 +36,7 @@ export class ActivarIlComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadingService.setLoadingState(true);
     this.obtenerValorParametro();
 
     this.exito = false;
@@ -92,6 +93,7 @@ export class ActivarIlComponent implements OnInit {
         (resp) => {
           this.exito = true;
           this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
           setTimeout(() => {
             this.exito = false;
             this.verMiEquipo();
@@ -113,6 +115,7 @@ export class ActivarIlComponent implements OnInit {
           (resp) => {
             this.exito = true;
             this.dataLoaded = true;
+            this.loadingService.setLoadingState(false);
             setTimeout(() => {
               this.exito = false;
               this.verMiEquipo();
@@ -127,6 +130,7 @@ export class ActivarIlComponent implements OnInit {
       } else if (jugadoresILLength === this.numeroIL) {
         this.case = 2;
         this.dataLoaded = true;
+        this.loadingService.setLoadingState(false);
         console.log('HAY QUE SUSTITUIR JUGADORES IL')
       } else { // managerEnSesion.equipo.jugadoresIL?.length > numeroIL
         this.case = 3;
@@ -156,6 +160,7 @@ export class ActivarIlComponent implements OnInit {
           (resp) => {
             this.exito = true;
             this.dataLoaded = true;
+            this.loadingService.setLoadingState(false);
             setTimeout(() => {
               this.exito = false;
               this.verMiEquipo();
