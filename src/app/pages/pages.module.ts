@@ -58,6 +58,8 @@ import { ParametrosLigaAdminComponent } from './features/administrador/parametro
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
 import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-jugadores/busqueda-jugadores.component';
+import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
+import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +109,8 @@ import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-ju
     EquiposAdminComponent,
     ParametrosLigaAdminComponent,
     ActivarIlComponent,
+    ActivarCovidComponent,
+    ActivarTradingBlockComponent,
     BusquedaJugadoresComponent
   ],
   exports: [

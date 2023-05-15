@@ -122,6 +122,38 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     this.router.navigate(['/mi-equipo/activar-il'], { queryParams });
   }
 
+  navegarCOVPagina(pkJugadorliga: number, recuperarCovid: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+      recuperarCovid: recuperarCovid
+    };
+    this.router.navigate(['/mi-equipo/activar-covid'], { queryParams });
+  }
+
+  navegarTBJugador(pkJugadorliga: number, recuperarTB: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
+  navegarTBDerecho(pkDerecho: number, recuperarTB: number) {
+    const queryParams = {
+      pkDerecho: pkDerecho,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
+  navegarTBPick(pkDraftpick: number, recuperarTB: number) {
+    const queryParams = {
+      pkDraftpick: pkDraftpick,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();

@@ -1,0 +1,31 @@
+<div *ngIf="dataLoaded">
+
+  <div class="container">
+    <div class="row">
+      <!-- Jugador o derecho -->
+      <div class="col-12" *ngIf="jugadorliga">
+        <div *ngIf="recuperarTB === 0" class="alert alert-primary text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>Jugador eliminado del Trading block</p>
+        </div>
+        <div *ngIf="recuperarTB === 1" class="alert alert-success text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>Jugador añadido al Trading block</p>
+        </div>
+      </div>
+
+      <!-- Pick draft -->
+      <div class="col-12" *ngIf="!jugadorliga">
+        <div *ngIf="recuperarTB === 0" class="alert alert-primary text-center">
+          <h4 class="alert-heading">Pick eliminado del Trading block</h4>
+          <!-- <p>Pick eliminado del Trading block</p> -->
+        </div>
+        <div *ngIf="recuperarTB === 1" class="alert alert-success text-center">
+          <h4 class="alert-heading">Pick añadido al Trading block</h4>
+          <!-- <p>Pick añadido al Trading block</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

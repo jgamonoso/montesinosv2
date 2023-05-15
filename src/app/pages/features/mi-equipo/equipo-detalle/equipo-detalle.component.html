@@ -71,11 +71,11 @@
             <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'" (click)="navegarILPagina(player.pkJugadorliga, 0)">activar</td>
 
             <ng-container [ngSwitch]="player.enTradingBlock">
-              <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
-              <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
+              <td class="link-style" *ngSwitchCase="true" (click)="navegarTBJugador(player.pkJugadorliga, 0)">Si (quitar)</td>
+              <td class="link-style" *ngSwitchCase="false" (click)="navegarTBJugador(player.pkJugadorliga, 1)">No (añadir)</td>
             </ng-container>
 
-            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'">COVID</td>
+            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'" (click)="navegarCOVPagina(player.pkJugadorliga, 1)">COVID</td>
 
             <td class="link-style" *ngIf="man.equipo.corteGratisHabilitado == 1">gratis</td>
             <td class="link-style" *ngIf="player.contrato.salario < 2">gratis</td>
@@ -160,7 +160,7 @@
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-          <td class="link-style">Recuperar</td>
+          <td class="link-style" (click)="navegarCOVPagina(player.pkJugadorliga, 0)">Recuperar</td>
         </tr>
       </tbody>
     </table>
@@ -238,10 +238,9 @@
 
           <ng-container *ngIf="equipoPropio">
             <ng-container [ngSwitch]="player.enTradingBlock">
-              <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
-              <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
+              <td class="link-style" *ngSwitchCase="true" (click)="navegarTBDerecho(player.pkJugadorliga, 0)">Si (quitar)</td>
+              <td class="link-style" *ngSwitchCase="false" (click)="navegarTBDerecho(player.pkJugadorliga, 1)">No (añadir)</td>
             </ng-container>
-
             <td>ejercer</td>
           </ng-container>
 
@@ -277,8 +276,8 @@
           <td *ngIf="pick.numPick == null"></td>
 
           <ng-container *ngIf="equipoPropio">
-            <td class="link-style" *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
-            <td class="link-style" *ngIf="pick.enTradingBlock == false">No (añadir)</td>
+            <td class="link-style" *ngIf="pick.enTradingBlock == true" (click)="navegarTBPick(pick.pkDraftpick, 0)">Si (quitar)</td>
+            <td class="link-style" *ngIf="pick.enTradingBlock == false" (click)="navegarTBPick(pick.pkDraftpick, 1)">No (añadir)</td>
           </ng-container>
 
           <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style">proponer</td>

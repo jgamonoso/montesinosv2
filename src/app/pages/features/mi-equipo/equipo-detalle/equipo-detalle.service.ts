@@ -91,4 +91,78 @@ export class EquipoDetalleService {
       })
     );
   }
+
+  activarCovidDeJugador(managerId: number, jugadorId: number, fkLiga: number, pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'activarCovidDeJugador',
+        managerId: managerId,
+        jugadorId: jugadorId,
+        fkLiga: fkLiga,
+        pkEquipo: pkEquipo,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  recuperarJugadordeCovid(managerId: number, jugadorId: number, fkLiga: number, pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'recuperarJugadordeCovid',
+        managerId: managerId,
+        jugadorId: jugadorId,
+        fkLiga: fkLiga,
+        pkEquipo: pkEquipo,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  addTradingBlock(managerId: number, pkEquipo: number, jugadorId: number , derechoId: number, draftPickId: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'addTradingBlock',
+        managerId: managerId,
+        jugadorId: jugadorId,
+        derechoId: derechoId,
+        draftPickId: draftPickId,
+        pkEquipo: pkEquipo,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  recuperarDeTradingBlock(managerId: number, pkEquipo: number, jugadorId: number , derechoId: number, draftPickId: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'recuperarDeTradingBlock',
+        managerId: managerId,
+        jugadorId: jugadorId,
+        derechoId: derechoId,
+        draftPickId: draftPickId,
+        pkEquipo: pkEquipo,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
 }

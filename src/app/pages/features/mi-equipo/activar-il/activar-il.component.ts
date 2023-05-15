@@ -141,8 +141,6 @@ export class ActivarIlComponent implements OnInit {
   }
 
   sustituirPor(pkJugadorligaRecuperado: any){
-    console.log('sustituirPor:', pkJugadorligaRecuperado);
-
 
     this.equipoDetalleService.recuperarJugadordeIL(this.managerEnSesion.pkManager,
                                                    pkJugadorligaRecuperado,
@@ -168,17 +166,12 @@ export class ActivarIlComponent implements OnInit {
             console.warn(err)
           }
         );
-
-
-
       },
       (err) => {
         this.loadingService.setLoadingState(false);
         console.warn(err)
       }
     );
-
-
   }
 
   ngOnDestroy(): void {

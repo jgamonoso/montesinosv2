@@ -48,6 +48,8 @@ import { EquiposAdminComponent } from './features/administrador/equipos-admin/eq
 import { ManagersAdminComponent } from './features/administrador/managers-admin/managers-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
+import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
+import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
 
 const routes: Routes = [
@@ -74,6 +76,8 @@ const routes: Routes = [
       { path: 'lesionados', component: LesionadosComponent },
       { path: 'apuestas', component: ApuestasComponent },
       { path: 'activar-il', component: ActivarIlComponent },
+      { path: 'activar-covid', component: ActivarCovidComponent },
+      { path: 'activar-trading-block', component: ActivarTradingBlockComponent },
     ],
   },
   {
