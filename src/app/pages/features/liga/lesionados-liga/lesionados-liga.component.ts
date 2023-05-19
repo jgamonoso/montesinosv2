@@ -55,7 +55,7 @@ export class LesionadosLigaComponent implements OnInit {
         this.loadingService.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        console.error('Error en lesionados-liga', error.message);
       }
     );
   }

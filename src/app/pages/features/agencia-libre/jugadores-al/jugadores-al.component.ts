@@ -49,7 +49,7 @@ export class JugadoresAlComponent implements OnInit {
         this.loadingService.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        console.error('Error en jugadores-al', error.message);
       }
     );
   }

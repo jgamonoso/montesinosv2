@@ -51,7 +51,7 @@ export class DerechosComponent implements OnInit {
         this.loadingService.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        console.error('Error en derechos', error.message);
       }
     );
   }

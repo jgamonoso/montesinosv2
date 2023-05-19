@@ -65,7 +65,7 @@ export class RealizaOfertaComponent implements OnInit {
         console.log('this.equipoPorPk', this.equipoPorPk);
       },
       (error) => {
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        console.error('Error en realiza-oferta', error.message);
       }
     );
   }
