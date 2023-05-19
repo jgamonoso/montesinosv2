@@ -61,6 +61,7 @@ import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-ju
 import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
 import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
+import { RealizaOfertaComponent } from './features/mi-equipo/realiza-oferta/realiza-oferta.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jug
     ActivarCovidComponent,
     ActivarTradingBlockComponent,
     DropJugadorComponent,
+    RealizaOfertaComponent,
     BusquedaJugadoresComponent
   ],
   exports: [

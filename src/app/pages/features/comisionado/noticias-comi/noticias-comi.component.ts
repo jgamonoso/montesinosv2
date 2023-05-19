@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class NoticiasComiComponent implements OnInit {
 
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any;
   ligaGuardadaEnSesion: any;
@@ -46,7 +46,6 @@ export class NoticiasComiComponent implements OnInit {
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
   }
 
-
   onSubmit(): void {
     if (this.noticiaForm.valid) {
       console.log(this.noticiaForm.value);
@@ -64,6 +63,5 @@ export class NoticiasComiComponent implements OnInit {
         }
       );
     }
-
   }
 }

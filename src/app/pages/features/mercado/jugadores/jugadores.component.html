@@ -10,8 +10,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -22,7 +22,7 @@
         </thead>
         <tbody>
           <tr class="table-default" *ngFor="let player of listaJugadoresConContrato; let a = index">
-            <td>{{a+1}}</td>
+            <td class="num-column">{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
@@ -39,7 +39,10 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== player.contrato.fkEquipo)" class="link-style">Hacer oferta</td>
+            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== player.contrato.fkEquipo)"
+                class="link-style" (click)="navegarOfertaPagina(player.contrato.fkEquipo)">
+              Hacer oferta
+            </td>
             <td *ngIf="(managerEnSesion.equipo.pkEquipo === player.contrato.fkEquipo)"></td>
           </tr>
         </tbody>

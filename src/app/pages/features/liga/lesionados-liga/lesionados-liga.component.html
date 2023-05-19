@@ -10,8 +10,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -22,7 +22,7 @@
         </thead>
         <tbody>
           <tr class="table-dark" *ngFor="let player of listaJugadoresLLDConContrato; let a = index">
-            <td>{{a+1}}</td>
+            <td class="num-column">{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -54,8 +54,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -66,7 +66,7 @@
         </thead>
         <tbody>
           <tr class="table-danger" *ngFor="let player of listaJugadoresILLiga; let b = index">
-            <td>{{b+1}}</td>
+            <td class="num-column">{{b+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
@@ -98,8 +98,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -110,7 +110,7 @@
         </thead>
         <tbody>
           <tr class="table-warning" *ngFor="let player of listaJugadoresCOVIDConContrato; let c = index">
-            <td>{{c+1}}</td>
+            <td class="num-column">{{c+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-cov">{{ player.jugador.nombreAbreviado }}</td>

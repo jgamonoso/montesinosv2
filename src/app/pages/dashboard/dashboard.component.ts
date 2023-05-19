@@ -15,7 +15,6 @@ const SECRET_KEY = environment.SECRET_KEY;
 })
 export class DashboardComponent implements OnInit {
   ligaGuardadaEnSesion: any;
-
   credencialesEnSesion: any;
   ligaGuardada: { ligaVisible: number; ligaPropia: boolean } = {
     ligaVisible: 1,
@@ -30,6 +29,7 @@ export class DashboardComponent implements OnInit {
     private sharedService: SharedService,
   ) {
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+    this.credencialesEnSesion = this.authService.getStoredCredentials();
   }
 
   ngOnInit(): void {
@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit {
 
   loadInitialData() {
     this.loadingService.setLoadingState(true);
-    this.credencialesEnSesion = this.authService.getStoredCredentials();
     this.ligaGuardada.ligaVisible = Number(this.credencialesEnSesion.liga);
     this.ligaGuardada.ligaPropia = true;
     forkJoin([
@@ -72,6 +71,7 @@ export class DashboardComponent implements OnInit {
       sessionStorage.setItem('ligaGuardada', encryptedData);
     }
     this.ligaVisibleLoaded = true;
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
   }
 
   updateNoticiasVisibility(resultadosBusqueda: any): void {

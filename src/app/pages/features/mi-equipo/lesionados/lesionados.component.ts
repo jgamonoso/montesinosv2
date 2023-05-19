@@ -12,7 +12,7 @@ export class LesionadosComponent implements OnInit {
 
   dataLoaded: boolean;
 
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any
 

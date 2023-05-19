@@ -1,30 +1,30 @@
 <div class="container animated fadeIn">
-  <h2> Cambio de fase de la liga </h2>
+
   <form (ngSubmit)="onSubmit()">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label for="estado">Estado de la Liga:</label>
-            <select class="form-control" id="estado" [formControl]="estadoControl">
-              <option *ngFor="let estado of estados" [value]="estado.value">
-                {{estado.viewValue}}
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <button *ngIf="!showConfirmation" type="submit" class="btn btn-primary">Modificar</button>
-          <button *ngIf="showConfirmation" (click)="confirm()" type="button" class="btn btn-primary">Confirmar</button>
-        </div>
-      </div>
-      <div *ngIf="showConfirmation" class="row mt-3">
-        <div class="col-12">
-          {{confirmationMessage}}
+    <h2> Cambio de fase de la liga </h2>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div class="form-group">
+          <label for="estado">Estado de la Liga:</label>
+          <select class="form-control" id="estado" [formControl]="estadoControl">
+            <option *ngFor="let estado of estados" [value]="estado.value">
+              {{estado.viewValue}}
+            </option>
+          </select>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <button *ngIf="!showConfirmation" type="submit" class="btn btn-themecolor">Modificar</button>
+        <button *ngIf="showConfirmation" (click)="confirm()" type="button" class="btn btn-themecolor">Confirmar</button>
+      </div>
+    </div>
+    <div *ngIf="showConfirmation" class="row mt-3">
+      <div class="col-12">
+        {{confirmationMessage}}
+      </div>
+    </div>
   </form>
+
 </div>

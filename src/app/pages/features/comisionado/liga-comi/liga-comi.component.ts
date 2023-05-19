@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class LigaComiComponent implements OnInit {
 
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any;
   ligaGuardadaEnSesion: any;

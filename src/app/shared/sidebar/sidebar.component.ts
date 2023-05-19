@@ -15,7 +15,7 @@ const SECRET_KEY = environment.SECRET_KEY;
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   credencialesEnSesion: any;
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   ligaGuardadaEnSesion: {
     ligaVisible: number;
     ligaPropia: boolean;
@@ -37,6 +37,10 @@ export class SidebarComponent implements OnInit {
     if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);
     }
+    // Nos suscribimos al observable que nos dará el manager cuando esté listo
+    this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager).subscribe(manager => {
+      this.managerEnSesion = manager;
+    });
   }
 
   logout(){
@@ -61,8 +65,6 @@ export class SidebarComponent implements OnInit {
 
   verMiEquipo(): void {
     this.onSidebarLinkClick();
-
-    this.managerEnSesion = this.authService.getStoredManager();
     const queryParams = { mngr: this.managerEnSesion.pkManager };
     this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
   }

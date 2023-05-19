@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { MercadoService } from '../mercado.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trading-block',
@@ -14,7 +15,7 @@ export class TradingBlockComponent implements OnInit {
 
   dataLoaded: boolean;
 
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any;
   ligaGuardadaEnSesion: any;
@@ -28,6 +29,7 @@ export class TradingBlockComponent implements OnInit {
     private mercadoService: MercadoService,
     private readonly loadingService: LoadingService,
     private sharedService: SharedService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -58,5 +60,12 @@ export class TradingBlockComponent implements OnInit {
         console.error('Error al obtener la temporada actual o manager por login', error.message);
       }
     );
+  }
+
+  navegarOfertaPagina(pkEquipo: number) {
+    const queryParams = {
+      pkEquipo: pkEquipo,
+    };
+    this.router.navigate(['/mi-equipo/realiza-oferta'], { queryParams });
   }
 }

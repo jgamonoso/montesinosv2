@@ -9,10 +9,13 @@
   text-overflow: ellipsis;
 }
 
-.num-column {
+.checkbox-column {
   width: 30px;
-  max-width: 45px;
-  text-align: center;
+  max-width: 30px;
+}
+
+.checkbox-column label {
+  height: 9px;
 }
 
 /* Estilo para pantallas pequeñas (móviles) */

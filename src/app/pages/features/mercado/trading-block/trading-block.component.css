@@ -3,6 +3,18 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.table td, .table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.num-column {
+  width: 30px;
+  max-width: 45px;
+  text-align: center;
+}
+
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 767.98px) {
 

@@ -10,8 +10,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Waiver</th>
             <th scope="col">Puja max (CR)</th>
             <th scope="col">Equipo</th>
@@ -26,7 +26,7 @@
         <tbody>
           <tr class="table-default" *ngFor="let player of listaJugadoresLibresOffseason; let a = index">
 
-            <td>{{a+1}}</td>
+            <td class="num-column">{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>

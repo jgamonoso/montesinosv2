@@ -9,7 +9,7 @@
         <thead class="thead-dark">
           <tr>
             <!-- <th scope="col">#</th> -->
-            <th scope="col">Equipo original</th>
+            <th scope="col">Equipo origen</th>
             <th scope="col">Equipo actual</th>
             <th scope="col">Temporada</th>
             <th scope="col">Ronda</th>
@@ -31,7 +31,10 @@
 
             <td>{{ pick.numPick }}</td>
 
-            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== pick.fkEquipoDest)" class="link-style">Hacer oferta</td>
+            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== pick.fkEquipoDest)"
+                class="link-style" (click)="navegarOfertaPagina(pick.fkEquipoDest)">
+              Hacer oferta
+            </td>
             <td *ngIf="(managerEnSesion.equipo.pkEquipo === pick.fkEquipoDest)"></td>
 
           </tr>

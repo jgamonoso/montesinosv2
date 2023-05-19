@@ -21,7 +21,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
   dataLoaded: boolean;
 
   man: any;
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   managerParam: any; // Manager por parametro
   listaTemporadas: any[];
 
@@ -159,6 +159,13 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       pkJugadorliga: pkJugadorliga,
     };
     this.router.navigate(['/mi-equipo/drop-jugador'], { queryParams });
+  }
+
+  navegarOfertaPagina(pkEquipo: number) {
+    const queryParams = {
+      pkEquipo: pkEquipo,
+    };
+    this.router.navigate(['/mi-equipo/realiza-oferta'], { queryParams });
   }
 
   ngOnDestroy(): void {

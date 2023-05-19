@@ -1,0 +1,222 @@
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2>Oferta oficial</h2>
+  <hr>
+
+  <h2>¿Que te interesa de {{ equipoPorPk.nombre }}?</h2>
+  <h4>Roster</h4>
+  <div class="responsive-table">
+    <table class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="fixed-column">Nombre</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
+          <th scope="col">{{ listaTemporadas[0].nombre }}</th>
+          <th scope="col">{{ listaTemporadas[1].nombre }}</th>
+          <th scope="col">{{ listaTemporadas[2].nombre }}</th>
+          <th scope="col">{{ listaTemporadas[3].nombre }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-default" *ngFor="let player of equipoPorPk.jugadoresConContrato; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="jugadorB{{i}}" name="jugadores_equipo2[]" [value]="player.pkJugadorliga" (change)="onCheckChange($event, player.pkJugadorliga, listaJugadoresEquipo2)">
+            <label for="jugadorB{{i}}"></label>
+          </td>
+          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+          <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+          <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          <td>{{ player.contrato.salario }}</td>
+
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 *ngIf="equipoPorPk.jugadoresConDerecho">Derechos</h4>
+  <div class="responsive-table">
+    <table *ngIf="equipoPorPk.jugadoresConDerecho" class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="fixed-column">Nombre</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
+          <th scope="col">{{ listaTemporadas[0].nombre }}</th>
+          <th scope="col">{{ listaTemporadas[1].nombre }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-info" *ngFor="let player of equipoPorPk.jugadoresConDerecho; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="derechoB{{i}}" name="derechos_equipo2[]" [value]="player.pkJugadorliga" (change)="onCheckChange($event, player.pkJugadorliga, listaDerechosEquipo2)">
+            <label for="derechoB{{i}}"></label>
+          </td>
+          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+          <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
+          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+          <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          <td>{{ player.derecho.salario }}</td>
+          <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 *ngIf="equipoPorPk.draftpicks">Draft Picks</h4>
+  <div class="responsive-table">
+    <table *ngIf="equipoPorPk.draftpicks" class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Equipo origen</th>
+          <th scope="col">Temporada</th>
+          <th scope="col">Ronda</th>
+          <th scope="col">Pick</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light" *ngFor="let pick of equipoPorPk.draftpicks; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="pickB{{i}}" name="draftpicks_equipo2[]" [value]="pick.pkDraftpick" (change)="onCheckChange($event, pick.pkDraftpick, listaDraftpicksEquipo2)">
+            <label for="pickB{{i}}"></label>
+          </td>
+          <td>{{ pick.fkEquipoOri | equipoliga }}</td>
+          <td>{{ pick.fkTemporada | nombretemporada }}</td>
+          <td>{{ pick.numRonda }}</td>
+          <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
+          <td *ngIf="pick.numPick == null"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h2>¿Que ofreces desde {{ managerEnSesion.equipo.nombre }}?</h2>
+  <h4>Roster</h4>
+  <div class="responsive-table">
+    <table class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="fixed-column">Nombre</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
+          <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+          <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+          <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+          <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-default" *ngFor="let player of managerEnSesion.equipo.jugadoresConContrato; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="jugadorA{{i}}" name="jugadores_equipo1[]" [value]="player.pkJugadorliga" (change)="onCheckChange($event, player.pkJugadorliga, listaJugadoresEquipo1)">
+            <label for="jugadorA{{i}}"></label>
+          </td>
+          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+          <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+          <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          <td>{{ player.contrato.salario }}</td>
+
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+          <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 *ngIf="managerEnSesion.equipo.jugadoresConDerecho">Derechos</h4>
+  <div class="responsive-table">
+    <table *ngIf="managerEnSesion.equipo.jugadoresConDerecho" id="ofertaderechos" class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="fixed-column">Nombre</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
+          <th scope="col">{{ listaTemporadas[0].nombre }}</th>
+          <th scope="col">{{ listaTemporadas[1].nombre }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-info" *ngFor="let player of managerEnSesion.equipo.jugadoresConDerecho; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="derechoA{{i}}" name="derechos_equipo1[]" [value]="player.pkJugadorliga" (change)="onCheckChange($event, player.pkJugadorliga, listaDerechosEquipo1)">
+            <label for="derechoA{{i}}"></label>
+          </td>
+          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+          <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
+          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+          <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          <td>{{ player.derecho.salario }}</td>
+          <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 *ngIf="managerEnSesion.equipo.draftpicks">Draft Picks</h4>
+  <div class="responsive-table">
+    <table *ngIf="managerEnSesion.equipo.draftpicks" id="ofertadraftpicks" class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Equipo origen</th>
+          <th scope="col">Temporada</th>
+          <th scope="col">Ronda</th>
+          <th scope="col">Pick</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light" *ngFor="let pick of managerEnSesion.equipo.draftpicks; let i = index"
+          [class.even-row]="i % 2 === 0" [class.odd-row]="i % 2 !== 0">
+          <td class="checkbox-column">
+            <input type="checkbox" id="pickA{{i}}" name="draftpicks_equipo1[]" [value]="pick.pkDraftpick" (change)="onCheckChange($event, pick.pkDraftpick, listaDraftpicksEquipo1)">
+            <label for="pickA{{i}}"></label>
+          </td>
+          <td>{{ pick.fkEquipoOri | equipoliga }}</td>
+          <td>{{ pick.fkTemporada | nombretemporada }}</td>
+          <td>{{ pick.numRonda }}</td>
+          <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
+          <td *ngIf="pick.numPick == null"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="back-to-top">
+    <button mat-button [disabled]="isDisabledButtonOferta()" (click)="crearOferta()" title="Hacer oferta" class="btn btn-themecolor">
+      Hacer oferta
+    </button>
+  </div>
+
+</div>
+
+
+<!-- <pre>listaJugadoresEquipo1: {{listaJugadoresEquipo1 | json}}</pre>
+<pre>listaDerechosEquipo1: {{listaDerechosEquipo1 | json}}</pre>
+<pre>listaDraftpicksEquipo1: {{listaDraftpicksEquipo1 | json}}</pre>
+<pre>listaJugadoresEquipo2: {{listaJugadoresEquipo2 | json}}</pre>
+<pre>listaDerechosEquipo2: {{listaDerechosEquipo2 | json}}</pre>
+<pre>listaDraftpicksEquipo2: {{listaDraftpicksEquipo2 | json}}</pre> -->

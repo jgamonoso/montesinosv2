@@ -14,7 +14,7 @@ export class JugadoresRenovacionesComponent implements OnInit {
 
   dataLoaded: boolean;
 
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any;
   ligaGuardadaEnSesion: any;

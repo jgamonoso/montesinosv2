@@ -38,7 +38,7 @@
               <a routerLinkActive="active" routerLink="/mi-equipo/apuestas" (click)="onSidebarLinkClick()">Apuestas</a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/dashboard/account-settings" (click)="onSidebarLinkClick()">Configuración App</a>
+              <a routerLinkActive="active" routerLink="/dashboard/account-settings" (click)="onSidebarLinkClick()">Ajustes web</a>
             </li>
             <li>
               <a class="navi-link" (click)="logout()">
@@ -76,86 +76,90 @@
           </ul>
         </li>
 
-        <li class="nav-devider"></li>
-        <!-- <li class="nav-small-cap">COMISIONADO</li> -->
-        <li>
-          <a
-            class="has-arrow waves-effect waves-dark"
-            href="#"
-            aria-expanded="false"
-          >
-            <i class="mdi mdi-file"></i>
-            <span class="hide-menu">
-              Comisionado
-              <!-- <span class="label label-rouded label-themecolor pull-right">2</span> -->
-            </span>
-          </a>
-          <ul aria-expanded="false" class="collapse">
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/liga" (click)="onSidebarLinkClick()">Liga</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/equipos" (click)="onSidebarLinkClick()">Equipos</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/jugadores" (click)="onSidebarLinkClick()">Jugadores</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/entrenadores" (click)="onSidebarLinkClick()">Entrenadores</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/draft" (click)="onSidebarLinkClick()">Draft</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/trades" (click)="onSidebarLinkClick()">Trades</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/subastas" (click)="onSidebarLinkClick()">Subastas</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/waivers" (click)="onSidebarLinkClick()">Waivers</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/sanciones" (click)="onSidebarLinkClick()">Sanciones</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/bonus" (click)="onSidebarLinkClick()">Bonus</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/noticias" (click)="onSidebarLinkClick()">Noticias</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/comisionado/matchup" (click)="onSidebarLinkClick()">Matchup</a>
-            </li>
-          </ul>
-        </li>
+        <ng-container *ngIf="(!managerEnSesion || managerEnSesion?.grupo?.pkGrupo === '1' || managerEnSesion?.grupo?.pkGrupo === '3')">
+          <li class="nav-devider"></li>
+          <!-- <li class="nav-small-cap">COMISIONADO</li> -->
+          <li>
+            <a
+              class="has-arrow waves-effect waves-dark"
+              href="#"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-file"></i>
+              <span class="hide-menu">
+                Comisionado
+                <!-- <span class="label label-rouded label-themecolor pull-right">2</span> -->
+              </span>
+            </a>
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/liga" (click)="onSidebarLinkClick()">Liga</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/equipos" (click)="onSidebarLinkClick()">Equipos</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/jugadores" (click)="onSidebarLinkClick()">Jugadores</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/entrenadores" (click)="onSidebarLinkClick()">Entrenadores</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/draft" (click)="onSidebarLinkClick()">Draft</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/trades" (click)="onSidebarLinkClick()">Trades</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/subastas" (click)="onSidebarLinkClick()">Subastas</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/waivers" (click)="onSidebarLinkClick()">Waivers</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/sanciones" (click)="onSidebarLinkClick()">Sanciones</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/bonus" (click)="onSidebarLinkClick()">Bonus</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/noticias" (click)="onSidebarLinkClick()">Noticias</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/comisionado/matchup" (click)="onSidebarLinkClick()">Matchup</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
 
-        <li class="nav-devider"></li>
-        <!-- <li class="nav-small-cap">ADMINISTRADOR</li> -->
-        <li>
-          <a
-            class="has-arrow waves-effect waves-dark"
-            href="#"
-            aria-expanded="false"
-          >
-            <i class="mdi mdi-arrange-send-backward"></i>
-            <span class="hide-menu">
-              Administrador
-              <!-- <span class="label label-rouded label-themecolor pull-right">2</span> -->
-            </span>
-          </a>
-          <ul aria-expanded="false" class="collapse">
-            <li>
-              <a routerLinkActive="active" routerLink="/administrador/managers" (click)="onSidebarLinkClick()">Managers</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/administrador/equipos" (click)="onSidebarLinkClick()">Equipos</a>
-            </li>
-            <li>
-              <a routerLinkActive="active" routerLink="/administrador/parametros-liga" (click)="onSidebarLinkClick()">Parametros Liga</a>
-            </li>
-          </ul>
-        </li>
+        <ng-container *ngIf="(!managerEnSesion || managerEnSesion?.grupo?.pkGrupo === '3')">
+          <li class="nav-devider"></li>
+          <!-- <li class="nav-small-cap">ADMINISTRADOR</li> -->
+          <li>
+            <a
+              class="has-arrow waves-effect waves-dark"
+              href="#"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-arrange-send-backward"></i>
+              <span class="hide-menu">
+                Administrador
+                <!-- <span class="label label-rouded label-themecolor pull-right">2</span> -->
+              </span>
+            </a>
+            <ul aria-expanded="false" class="collapse">
+              <li>
+                <a routerLinkActive="active" routerLink="/administrador/managers" (click)="onSidebarLinkClick()">Managers</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/administrador/equipos" (click)="onSidebarLinkClick()">Equipos</a>
+              </li>
+              <li>
+                <a routerLinkActive="active" routerLink="/administrador/parametros-liga" (click)="onSidebarLinkClick()">Parametros Liga</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
       </ul>
     </nav>
     <!-- End Sidebar navigation -->

@@ -22,6 +22,7 @@ export class SharedService {
     'background-11.jpg',
     'background-12.jpg',
     'background-13.jpg',
+    'background-14.jpg',
   ];
 
   equiposMap: { [key: string]: string } = {};
