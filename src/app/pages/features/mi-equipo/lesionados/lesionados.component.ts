@@ -43,6 +43,7 @@ export class LesionadosComponent implements OnInit {
         },
         (error) => {
           console.error('Error en las llamadas', error.message);
+          this.loadingService.setLoadingState(false);
         }
       );
   }

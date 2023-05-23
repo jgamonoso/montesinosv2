@@ -109,6 +109,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error('Error en las llamadas', error.message);
+          this.loadingService.setLoadingState(false);
         }
       )
     );

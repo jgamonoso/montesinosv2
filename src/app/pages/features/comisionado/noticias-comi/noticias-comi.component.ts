@@ -58,7 +58,6 @@ export class NoticiasComiComponent implements OnInit {
         },
         (error) => {
           // this.loading = false;
-          // console.error('Error de inicio de sesión', error.message);
           console.error('Error de creación de noticia', error.message);
         }
       );

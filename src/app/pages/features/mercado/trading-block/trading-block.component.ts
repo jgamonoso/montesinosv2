@@ -58,6 +58,7 @@ export class TradingBlockComponent implements OnInit {
       },
       (error) => {
         console.error('Error en trading-block', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

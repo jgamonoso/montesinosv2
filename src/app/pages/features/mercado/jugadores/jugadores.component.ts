@@ -52,6 +52,7 @@ export class JugadoresComponent implements OnInit {
       },
       (error) => {
         console.error('Error en jugadores', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

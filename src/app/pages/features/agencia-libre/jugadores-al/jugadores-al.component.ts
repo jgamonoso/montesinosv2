@@ -50,6 +50,7 @@ export class JugadoresAlComponent implements OnInit {
       },
       (error) => {
         console.error('Error en jugadores-al', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

@@ -50,6 +50,7 @@ export class JugadoresAlOffseasonComponent implements OnInit {
       },
       (error) => {
         console.error('Error en jugadores-al-offseason', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

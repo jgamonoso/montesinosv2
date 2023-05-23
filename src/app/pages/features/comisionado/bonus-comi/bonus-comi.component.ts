@@ -52,6 +52,7 @@ export class BonusComiComponent implements OnInit {
         },
         (error) => {
           console.error('Error en las llamadas', error.message);
+          this.loadingService.setLoadingState(false);
         }
       );
   }

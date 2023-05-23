@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
       },
       (error) => {
         console.error('Error en dashboard', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

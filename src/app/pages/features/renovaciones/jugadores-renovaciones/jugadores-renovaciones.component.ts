@@ -50,6 +50,7 @@ export class JugadoresRenovacionesComponent implements OnInit {
       },
       (error) => {
         console.error('Error en jugadores-renovaciones', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

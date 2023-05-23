@@ -56,6 +56,7 @@ export class LesionadosLigaComponent implements OnInit {
       },
       (error) => {
         console.error('Error en lesionados-liga', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

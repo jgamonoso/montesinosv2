@@ -50,6 +50,7 @@ export class JugadoresAlSeasonComponent implements OnInit {
       },
       (error) => {
         console.error('Error en jugadore-al-season', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

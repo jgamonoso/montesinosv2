@@ -52,6 +52,7 @@ export class DraftPicksMercadoComponent implements OnInit {
       },
       (error) => {
         console.error('Error en draft-picks', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }

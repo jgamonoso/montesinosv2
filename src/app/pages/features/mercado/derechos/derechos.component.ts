@@ -52,6 +52,7 @@ export class DerechosComponent implements OnInit {
       },
       (error) => {
         console.error('Error en derechos', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }
