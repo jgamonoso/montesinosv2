@@ -33,4 +33,7 @@ export const _API_ENDPOINTS: any = {
     comisionado: {
         start: '/comisionado',
     },
+    sidebar: {
+        start: '/sidebar',
+    },
 };

@@ -22,26 +22,38 @@
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-enviadas" (click)="onSidebarLinkClick()">Ofertas enviadas
-                <span class="label label-rouded label-themecolor pull-right">
-                  2
+                <span *ngIf="numOfertasEnviadasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                  {{numOfertasEnviadasEquipo}}
                 </span>
               </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas
-                <span class="label label-rouded label-themecolor pull-right">
-                  2
+                <span *ngIf="numOfertasRecibidasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                  {{numOfertasRecibidasEquipo}}
                 </span>
               </a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas
+                <span *ngIf="numPujasActivasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                  {{numPujasActivasEquipo}}
+                </span>
+              </a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/waivers" (click)="onSidebarLinkClick()">Waivers</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/waivers" (click)="onSidebarLinkClick()">Waivers
+                <span *ngIf="numWaiversEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                  {{numWaiversEquipo}}
+                </span>
+              </a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/lesionados" (click)="onSidebarLinkClick()">Lesionados</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/lesionados" (click)="onSidebarLinkClick()">Lesionados
+                <span *ngIf="numLesionadosEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                  {{numLesionadosEquipo}}
+                </span>
+              </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/apuestas" (click)="onSidebarLinkClick()">Apuestas</a>
@@ -80,6 +92,9 @@
                  [routerLink]="subMenuItem.url"
                  routerLinkActive="active">
                 {{ subMenuItem.titulo }}
+                <span *ngIf="subMenuItem.titulo === 'Pujas Activas'" class="label label-rouded label-themecolor pull-right">
+                  {{numPujasActivas}}
+                </span>
               </a>
             </li>
           </ul>

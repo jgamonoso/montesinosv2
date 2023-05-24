@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { _API_ENDPOINTS } from 'src/app/services/api/api-settings';
+import { HttpParametersClass } from '../../modules/http.module/service/http-parameters.class';
+import { HttpService } from '../../modules/http.module/service/http.service';
+import { LoadingService } from '../../modules/loading.module/service/loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -92,7 +98,7 @@ export class SidebarService {
           url: '/renovaciones/jugadores-renovaciones',
         },
         {
-          titulo: 'Pujas Activas (x)',
+          titulo: 'Pujas Activas',
           url: '/renovaciones/pujas-activas-renovaciones',
         },
       ],
@@ -109,6 +115,129 @@ export class SidebarService {
     }
   ];
 
-  constructor() {
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly loadingService: LoadingService
+  ) {
+  }
+
+  obtenerNumOfertasRealizadasEquipo(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumOfertasRealizadasEquipo',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerNumOfertasRecibidasEquipo(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumOfertasRecibidasEquipo',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerNumSubastasAbiertasEquipo(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumSubastasAbiertasEquipo',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerNumClaimsEquipo(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumClaimsEquipo',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerNumLLDEquipo(pkEquipo: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumLLDEquipo',
+        pkEquipo: pkEquipo
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerNumSubastasAbiertas(pkLiga: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.sidebar.start}`,
+      body: {
+        action: 'obtenerNumSubastasAbiertas',
+        pkLiga: pkLiga
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
   }
 }

@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { SidebarService } from 'src/app/shared/sidebar/services/sidebar.service';
 import { xorEncryptDecrypt } from '../functions/xor-encryption/xor-encryption.component';
 import { environment } from 'src/environments/environment';
+import { LoadingService } from '../modules/loading.module/service/loading.service';
+import { forkJoin } from 'rxjs';
 
 const SECRET_KEY = environment.SECRET_KEY;
 
@@ -34,17 +36,10 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService,
     private authService: AuthService,
     private router: Router,
+    private readonly loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
-
-    // $numOfertasEnviadasEquipo = obtenerNumOfertasRealizadasEquipo($manager->equipo->pkEquipo);
-    // $numOfertasRecibidasEquipo = obtenerNumOfertasRecibidasEquipo($manager->equipo->pkEquipo);
-    // $numPujasActivasEquipo = obtenerNumSubastasAbiertasEquipo($manager->equipo->pkEquipo);
-    // $numWaiversEquipo = obtenerNumClaimsEquipo($manager->equipo->pkEquipo);
-    // $numLesionadosEquipo = obtenerNumLLDEquipo($manager->equipo->pkEquipo);
-    // $numPujasActivas = obtenerNumSubastasAbiertas($liga->pkLiga);
-
     this.menuItems = this.sidebarService.menu;
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada() || this.ligaGuardadaEnSesion;
     this.credencialesEnSesion = this.authService.getStoredCredentials();
@@ -54,7 +49,35 @@ export class SidebarComponent implements OnInit {
     // Nos suscribimos al observable que nos dará el manager cuando esté listo
     this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager).subscribe(manager => {
       this.managerEnSesion = manager;
+      this.loadInitialData();
     });
+  }
+
+  loadInitialData() {
+    this.loadingService.setLoadingState(true);
+    forkJoin([
+      this.sidebarService.obtenerNumOfertasRealizadasEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sidebarService.obtenerNumOfertasRecibidasEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sidebarService.obtenerNumSubastasAbiertasEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sidebarService.obtenerNumClaimsEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sidebarService.obtenerNumLLDEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sidebarService.obtenerNumSubastasAbiertas(this.ligaGuardadaEnSesion.ligaVisible),
+    ]).subscribe(
+      ([numOfertasRealizadasEquipo, numOfertasRecibidasEquipo, numSubastasAbiertasEquipo, numClaimsEquipo, numLLDEquipo, numSubastasAbiertas]) => {
+        this.numOfertasEnviadasEquipo = numOfertasRealizadasEquipo;
+        this.numOfertasRecibidasEquipo = numOfertasRecibidasEquipo;
+        this.numPujasActivasEquipo = numSubastasAbiertasEquipo;
+        this.numWaiversEquipo = numClaimsEquipo;
+        this.numLesionadosEquipo = numLLDEquipo;
+        this.numPujasActivas = numSubastasAbiertas;
+
+        this.loadingService.setLoadingState(false);
+      },
+      (error) => {
+        console.error('Error en initialdataSidebar', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
   logout(){
