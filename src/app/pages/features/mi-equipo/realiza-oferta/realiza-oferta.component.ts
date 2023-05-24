@@ -108,7 +108,7 @@ export class RealizaOfertaComponent implements OnInit {
         // this.loading = false;
         this.loadingService.setLoadingState(false);
         if (response.status === 'ok') {
-          this.navegarOfertasEnviadas()
+          this.navegarOfertaRealizada()
         }
       },
       (error) => {
@@ -119,8 +119,8 @@ export class RealizaOfertaComponent implements OnInit {
     );
   }
 
-  navegarOfertasEnviadas() {
-    this.router.navigate(['/mi-equipo/ofertas-enviadas']);
+  navegarOfertaRealizada() {
+    this.router.navigate(['/mi-equipo/oferta-realizada']);
   }
 
   ngOnDestroy(): void {
