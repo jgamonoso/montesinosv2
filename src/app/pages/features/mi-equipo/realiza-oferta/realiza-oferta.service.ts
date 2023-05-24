@@ -30,4 +30,45 @@ export class RealizaOfertaService {
       })
     );
   }
+
+  crearOferta(
+    pkManager: number,
+    pkEquipo1: number,
+    listaJugadoresEquipo1: any,
+    listaDerechosEquipo1: any,
+    listaDraftpicksEquipo1: any,
+    pkEquipo2: number,
+    listaJugadoresEquipo2: any,
+    listaDerechosEquipo2: any,
+    listaDraftpicksEquipo2: any,
+  ): Observable<any> {
+    const prioridad = 1;
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'crearOferta',
+        pkManager: pkManager,
+        pkEquipo1: pkEquipo1,
+        listaJugadoresEquipo1: listaJugadoresEquipo1,
+        listaDerechosEquipo1: listaDerechosEquipo1,
+        listaDraftpicksEquipo1: listaDraftpicksEquipo1,
+        pkEquipo2: pkEquipo2,
+        listaJugadoresEquipo2: listaJugadoresEquipo2,
+        listaDerechosEquipo2: listaDerechosEquipo2,
+        listaDraftpicksEquipo2: listaDraftpicksEquipo2,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }

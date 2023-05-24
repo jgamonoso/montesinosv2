@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { OfertasRecibidasService } from './ofertas-recibidas.service';
 
 @Component({
   selector: 'app-ofertas-recibidas',
@@ -7,9 +13,67 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfertasRecibidasComponent implements OnInit {
 
-  constructor() { }
+  dataLoaded: boolean;
+
+  managerEnSesion: any;
+  listaTemporadas: any[];
+  temporadaEnSesion: any;
+  ligaGuardadaEnSesion: any;
+
+  listaOfertasRecibidas: any[];
+
+  constructor(
+    private authService: AuthService,
+    private ofertasRecibidasService: OfertasRecibidasService,
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
+    this.dataLoaded = false;
+    this.temporadaEnSesion = this.authService.getStoredTemporada();
+    this.managerEnSesion = this.authService.getStoredManager();
+    this.listaTemporadas = this.authService.getStoredProximasTemporadas();
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+    this.loadInitialData();
   }
 
+  loadInitialData() {
+    this.loadingService.setLoadingState(true);
+    forkJoin([
+      this.ofertasRecibidasService.obtenerListaOfertasRecibidas(this.managerEnSesion.equipo.pkEquipo),
+      this.sharedService.obtenerListaEquiposNombre(),
+    ]).subscribe(
+      ([listaOfertasRecibidas, listaEquiposNombre]) => {
+        this.listaOfertasRecibidas = listaOfertasRecibidas;
+        this.dataLoaded = true;
+        this.loadingService.setLoadingState(false);
+      },
+      (error) => {
+        console.error('Error en ofertas-enviadas', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
+  }
+
+  aceptar(pkOferta: number) {
+    console.log('aceptarOferta- pkOferta:', pkOferta);
+    this.verOfertaAceptada();
+    // aceptarOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta'],$liga->pkLiga);
+  }
+
+  rechazar(pkOferta: number) {
+    console.log('rechazarOferta - pkOferta:', pkOferta);
+    this.verOfertaRechazada();
+    // rechazarOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta']);
+  }
+
+  verOfertaAceptada(): void {
+    this.router.navigate(['/mi-equipo/oferta-aceptada']);
+  }
+
+  verOfertaRechazada(): void {
+    this.router.navigate(['/mi-equipo/oferta-rechazada']);
+  }
 }

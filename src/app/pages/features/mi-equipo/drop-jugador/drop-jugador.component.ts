@@ -59,8 +59,6 @@ export class DropJugadorComponent implements OnInit {
   }
 
   confirm() {
-    console.log('confirm');
-
     this.equipoDetalleService.dropJugador(this.managerEnSesion.pkManager,
                                                       this.pkJugadorliga,
                                                       this.managerEnSesion.equipo.pkEquipo,

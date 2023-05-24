@@ -61,8 +61,6 @@ export class RealizaOfertaComponent implements OnInit {
         this.equipoPorPk = equipoPorPk;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);
-        console.log('this.managerEnSesion', this.managerEnSesion);
-        console.log('this.equipoPorPk', this.equipoPorPk);
       },
       (error) => {
         console.error('Error en realiza-oferta', error.message);
@@ -71,7 +69,6 @@ export class RealizaOfertaComponent implements OnInit {
   }
 
   onCheckChange(event, id: number, lista: any[]) {
-    console.log('onCheckChange', event, id);
     /* Si el checkbox está seleccionado, añadimos el valor a la lista,
     de lo contrario lo eliminamos de la lista. */
     if (event.target.checked) {
@@ -95,12 +92,35 @@ export class RealizaOfertaComponent implements OnInit {
   }
 
   crearOferta(): void {
-    console.log('crearOferta()');
+    this.loadingService.setLoadingState(true);
+    this.realizaOfertaService.crearOferta(
+      this.managerEnSesion.pkManager,
+      this.managerEnSesion.equipo.pkEquipo,
+      this.listaJugadoresEquipo1,
+      this.listaDerechosEquipo1,
+      this.listaDraftpicksEquipo1,
+      this.pkEquipo,
+      this.listaJugadoresEquipo2,
+      this.listaDerechosEquipo2,
+      this.listaDraftpicksEquipo2,
+    ).subscribe(
+      (response) => {
+        // this.loading = false;
+        this.loadingService.setLoadingState(false);
+        if (response.status === 'ok') {
+          this.navegarOfertasEnviadas()
+        }
+      },
+      (error) => {
+        // this.loading = false;
+        console.error('Error de creación de oferta', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
-  verMiEquipo(): void {
-    const queryParams = { mngr: this.managerEnSesion.pkManager };
-    this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
+  navegarOfertasEnviadas() {
+    this.router.navigate(['/mi-equipo/ofertas-enviadas']);
   }
 
   ngOnDestroy(): void {
