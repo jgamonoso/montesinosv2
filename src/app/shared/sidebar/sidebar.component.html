@@ -17,13 +17,22 @@
           </a>
           <ul aria-expanded="false" class="collapse">
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/equipo-detalle" (click)="verMiEquipo()">Mi equipo</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/equipo-detalle" (click)="verMiEquipo()">Mi equipo
+              </a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-enviadas" (click)="onSidebarLinkClick()">Ofertas enviadas</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-enviadas" (click)="onSidebarLinkClick()">Ofertas enviadas
+                <span class="label label-rouded label-themecolor pull-right">
+                  2
+                </span>
+              </a>
             </li>
             <li>
-              <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas</a>
+              <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas
+                <span class="label label-rouded label-themecolor pull-right">
+                  2
+                </span>
+              </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas</a>
@@ -60,9 +69,9 @@
             <i class="{{ item.icono }}"></i>
             <span class="hide-menu">
               {{ item.titulo }}
-              <span class="label label-rouded label-themecolor pull-right">
+              <!-- <span class="label label-rouded label-themecolor pull-right">
                 {{ item.submenu.length }}
-              </span>
+              </span> -->
             </span>
           </a>
           <ul aria-expanded="false" class="collapse">

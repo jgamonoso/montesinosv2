@@ -23,6 +23,12 @@ export class SidebarComponent implements OnInit {
     ligaVisible: 1,
     ligaPropia: true
   };
+  numOfertasEnviadasEquipo: any;
+  numOfertasRecibidasEquipo: any;
+  numPujasActivasEquipo: any;
+  numWaiversEquipo: any;
+  numLesionadosEquipo: any;
+  numPujasActivas: any;
 
   constructor(
     private sidebarService: SidebarService,
@@ -31,6 +37,14 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    // $numOfertasEnviadasEquipo = obtenerNumOfertasRealizadasEquipo($manager->equipo->pkEquipo);
+    // $numOfertasRecibidasEquipo = obtenerNumOfertasRecibidasEquipo($manager->equipo->pkEquipo);
+    // $numPujasActivasEquipo = obtenerNumSubastasAbiertasEquipo($manager->equipo->pkEquipo);
+    // $numWaiversEquipo = obtenerNumClaimsEquipo($manager->equipo->pkEquipo);
+    // $numLesionadosEquipo = obtenerNumLLDEquipo($manager->equipo->pkEquipo);
+    // $numPujasActivas = obtenerNumSubastasAbiertas($liga->pkLiga);
+
     this.menuItems = this.sidebarService.menu;
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada() || this.ligaGuardadaEnSesion;
     this.credencialesEnSesion = this.authService.getStoredCredentials();
