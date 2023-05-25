@@ -62,10 +62,7 @@ import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activa
 import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
 import { RealizaOfertaComponent } from './features/mi-equipo/realiza-oferta/realiza-oferta.component';
-import { OfertaRealizadaComponent } from './features/mi-equipo/oferta-realizada/oferta-realizada.component';
-import { OfertaAceptadaComponent } from './features/mi-equipo/oferta-aceptada/oferta-aceptada.component';
-import { OfertaCanceladaComponent } from './features/mi-equipo/oferta-cancelada/oferta-cancelada.component';
-import { OfertaRechazadaComponent } from './features/mi-equipo/oferta-rechazada/oferta-rechazada.component';
+import { ShowInfoComponent } from '../shared/show-info/show-info.component';
 
 @NgModule({
   declarations: [
@@ -120,10 +117,7 @@ import { OfertaRechazadaComponent } from './features/mi-equipo/oferta-rechazada/
     DropJugadorComponent,
     RealizaOfertaComponent,
     BusquedaJugadoresComponent,
-    OfertaAceptadaComponent,
-    OfertaRealizadaComponent,
-    OfertaCanceladaComponent,
-    OfertaRechazadaComponent,
+    ShowInfoComponent
   ],
   exports: [
     DashboardComponent,

@@ -70,10 +70,22 @@ export class OfertasRecibidasComponent implements OnInit {
   }
 
   verOfertaAceptada(): void {
-    this.router.navigate(['/mi-equipo/oferta-aceptada']);
+    this.router.navigate(['/mi-equipo/show-data'], {
+      state: {
+        titulo: 'Oferta aceptada',
+        subtitulo: 'Ahora a esperar que la acepte el comisionado',
+        redirectUrl: '/mi-equipo/ofertas-recibidas'
+      }
+    });
   }
 
   verOfertaRechazada(): void {
-    this.router.navigate(['/mi-equipo/oferta-rechazada']);
+    this.router.navigate(['/mi-equipo/show-data'], {
+      state: {
+        titulo: 'Oferta rechazada',
+        subtitulo: 'A esperar que llegue una oferta mejor',
+        redirectUrl: '/mi-equipo/ofertas-recibidas'
+      }
+    });
   }
 }

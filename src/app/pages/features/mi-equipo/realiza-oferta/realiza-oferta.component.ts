@@ -120,7 +120,13 @@ export class RealizaOfertaComponent implements OnInit {
   }
 
   navegarOfertaRealizada() {
-    this.router.navigate(['/mi-equipo/oferta-realizada']);
+    this.router.navigate(['/mi-equipo/show-data'], {
+      state: {
+        titulo: 'Oferta realizada',
+        subtitulo: 'Ahora espera que el otro manager la acepte',
+        redirectUrl: '/mi-equipo/ofertas-enviadas'
+      }
+    });
   }
 
   ngOnDestroy(): void {

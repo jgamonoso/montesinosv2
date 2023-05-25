@@ -59,11 +59,17 @@ export class OfertasEnviadasComponent implements OnInit {
 
   cancel(pkOferta: number) {
     console.log('anularOferta- pkOferta:', pkOferta);
-    this.verOfertaCancelada();
     // anularOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta']);
+    this.verOfertaCancelada();
   }
 
   verOfertaCancelada(): void {
-    this.router.navigate(['/mi-equipo/oferta-cancelada']);
+    this.router.navigate(['/mi-equipo/show-data'], {
+      state: {
+        titulo: 'Oferta cancelada',
+        subtitulo: 'Ya no le aparecerá al otro manager',
+        redirectUrl: '/mi-equipo/ofertas-enviadas'
+      }
+    });
   }
 }

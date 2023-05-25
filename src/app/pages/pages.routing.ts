@@ -53,10 +53,7 @@ import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-tradi
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
 import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
 import { RealizaOfertaComponent } from './features/mi-equipo/realiza-oferta/realiza-oferta.component';
-import { OfertaRealizadaComponent } from './features/mi-equipo/oferta-realizada/oferta-realizada.component';
-import { OfertaAceptadaComponent } from './features/mi-equipo/oferta-aceptada/oferta-aceptada.component';
-import { OfertaCanceladaComponent } from './features/mi-equipo/oferta-cancelada/oferta-cancelada.component';
-import { OfertaRechazadaComponent } from './features/mi-equipo/oferta-rechazada/oferta-rechazada.component';
+import { ShowInfoComponent } from '../shared/show-info/show-info.component';
 
 const routes: Routes = [
   {
@@ -86,10 +83,7 @@ const routes: Routes = [
       { path: 'activar-trading-block', component: ActivarTradingBlockComponent },
       { path: 'drop-jugador', component: DropJugadorComponent },
       { path: 'realiza-oferta', component: RealizaOfertaComponent },
-      { path: 'oferta-realizada', component: OfertaRealizadaComponent },
-      { path: 'oferta-aceptada', component: OfertaAceptadaComponent },
-      { path: 'oferta-cancelada', component: OfertaCanceladaComponent },
-      { path: 'oferta-rechazada', component: OfertaRechazadaComponent },
+      { path: 'show-data', component: ShowInfoComponent },
     ]
   },
   {

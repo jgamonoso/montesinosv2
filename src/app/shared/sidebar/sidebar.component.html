@@ -29,28 +29,28 @@
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/ofertas-recibidas" (click)="onSidebarLinkClick()">Ofertas recibidas
-                <span *ngIf="numOfertasRecibidasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                <span *ngIf="numOfertasRecibidasEquipo && numOfertasRecibidasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
                   {{numOfertasRecibidasEquipo}}
                 </span>
               </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/pujas-activas" (click)="onSidebarLinkClick()">Pujas activas
-                <span *ngIf="numPujasActivasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                <span *ngIf="numPujasActivasEquipo && numPujasActivasEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
                   {{numPujasActivasEquipo}}
                 </span>
               </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/waivers" (click)="onSidebarLinkClick()">Waivers
-                <span *ngIf="numWaiversEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                <span *ngIf="numWaiversEquipo && numWaiversEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
                   {{numWaiversEquipo}}
                 </span>
               </a>
             </li>
             <li>
               <a routerLinkActive="active" routerLink="/mi-equipo/lesionados" (click)="onSidebarLinkClick()">Lesionados
-                <span *ngIf="numLesionadosEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
+                <span *ngIf="numLesionadosEquipo && numLesionadosEquipo !== '0'" class="label label-rouded label-themecolor pull-right">
                   {{numLesionadosEquipo}}
                 </span>
               </a>
@@ -92,7 +92,7 @@
                  [routerLink]="subMenuItem.url"
                  routerLinkActive="active">
                 {{ subMenuItem.titulo }}
-                <span *ngIf="subMenuItem.titulo === 'Pujas Activas'" class="label label-rouded label-themecolor pull-right">
+                <span *ngIf="subMenuItem.titulo === 'Pujas Activas' && numPujasActivas" class="label label-rouded label-themecolor pull-right">
                   {{numPujasActivas}}
                 </span>
               </a>
