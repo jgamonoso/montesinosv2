@@ -55,21 +55,41 @@ export class SidebarComponent implements OnInit {
 
   loadInitialData() {
     this.loadingService.setLoadingState(true);
-    forkJoin([
-      this.sidebarService.obtenerNumOfertasRealizadasEquipo(this.managerEnSesion.equipo.pkEquipo),
-      this.sidebarService.obtenerNumOfertasRecibidasEquipo(this.managerEnSesion.equipo.pkEquipo),
-      this.sidebarService.obtenerNumSubastasAbiertasEquipo(this.managerEnSesion.equipo.pkEquipo),
-      this.sidebarService.obtenerNumClaimsEquipo(this.managerEnSesion.equipo.pkEquipo),
-      this.sidebarService.obtenerNumLLDEquipo(this.managerEnSesion.equipo.pkEquipo),
-      this.sidebarService.obtenerNumSubastasAbiertas(this.ligaGuardadaEnSesion.ligaVisible),
-    ]).subscribe(
-      ([numOfertasRealizadasEquipo, numOfertasRecibidasEquipo, numSubastasAbiertasEquipo, numClaimsEquipo, numLLDEquipo, numSubastasAbiertas]) => {
-        this.numOfertasEnviadasEquipo = numOfertasRealizadasEquipo;
-        this.numOfertasRecibidasEquipo = numOfertasRecibidasEquipo;
-        this.numPujasActivasEquipo = numSubastasAbiertasEquipo;
-        this.numWaiversEquipo = numClaimsEquipo;
-        this.numLesionadosEquipo = numLLDEquipo;
+
+    const observables = [
+      this.sidebarService.obtenerNumSubastasAbiertas(this.ligaGuardadaEnSesion.ligaVisible)
+    ];
+
+    if (this.ligaGuardadaEnSesion.ligaPropia) {
+      observables.unshift(
+        this.sidebarService.obtenerNumOfertasRealizadasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumOfertasRecibidasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumSubastasAbiertasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumClaimsEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumLLDEquipo(this.managerEnSesion.equipo.pkEquipo)
+      );
+    }
+
+    forkJoin(observables).subscribe(
+      (responses) => {
+        const numSubastasAbiertas = responses.pop();
         this.numPujasActivas = numSubastasAbiertas;
+
+        if (this.ligaGuardadaEnSesion.ligaPropia) {
+          const [
+            numOfertasRealizadasEquipo,
+            numOfertasRecibidasEquipo,
+            numSubastasAbiertasEquipo,
+            numClaimsEquipo,
+            numLLDEquipo
+          ] = responses;
+
+          this.numOfertasEnviadasEquipo = numOfertasRealizadasEquipo;
+          this.numOfertasRecibidasEquipo = numOfertasRecibidasEquipo;
+          this.numPujasActivasEquipo = numSubastasAbiertasEquipo;
+          this.numWaiversEquipo = numClaimsEquipo;
+          this.numLesionadosEquipo = numLLDEquipo;
+        }
 
         this.loadingService.setLoadingState(false);
       },
