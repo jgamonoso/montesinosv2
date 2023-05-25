@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { EquiposService } from '../../liga/equipos/equipos.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { ComisionadoService } from '../comisionado.service';
 import { Router } from '@angular/router';
@@ -28,7 +27,6 @@ export class NoticiasComiComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private equiposService: EquiposService,
     private readonly loadingService: LoadingService,
     private comisionadoService: ComisionadoService,
     private router: Router,
@@ -48,19 +46,43 @@ export class NoticiasComiComponent implements OnInit {
 
   onSubmit(): void {
     if (this.noticiaForm.valid) {
-      console.log(this.noticiaForm.value);
+      this.loadingService.setLoadingState(true);
       this.comisionadoService.altaNoticiaComi(this.noticiaForm.value.notificacion, this.noticiaForm.value.liga, this.managerEnSesion.pkManager).subscribe(
         (response) => {
           // this.loading = false;
+          this.loadingService.setLoadingState(false);
           if (response.status === 'ok') {
-            this.router.navigateByUrl('/dashboard');
+            this.verNoticiaEnviadaOK();
           }
         },
         (error) => {
+          this.verNoticiaEnviadaKO();
           // this.loading = false;
-          console.error('Error de creación de noticia', error.message);
+          this.loadingService.setLoadingState(false);
+          console.error('Error de creación de noticia');
         }
       );
     }
   }
+
+  verNoticiaEnviadaOK(): void {
+    this.router.navigate(['/comisionado/show-info'], {
+      state: {
+        titulo: 'Noticia enviada',
+        subtitulo: 'Ahora una cervecita y a descansar',
+        redirectUrl: '/comisionado/noticias'
+      }
+    });
+  }
+
+  verNoticiaEnviadaKO(): void {
+    this.router.navigate(['/comisionado/show-info'], {
+      state: {
+        titulo: 'Noticia no enviada',
+        subtitulo: 'Habrá ocurrido algun error en el proceso',
+        redirectUrl: '/comisionado/noticias'
+      }
+    });
+  }
+
 }

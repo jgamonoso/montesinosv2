@@ -70,7 +70,7 @@ export class OfertasRecibidasComponent implements OnInit {
   }
 
   verOfertaAceptada(): void {
-    this.router.navigate(['/mi-equipo/show-data'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Oferta aceptada',
         subtitulo: 'Ahora a esperar que la acepte el comisionado',
@@ -80,7 +80,7 @@ export class OfertasRecibidasComponent implements OnInit {
   }
 
   verOfertaRechazada(): void {
-    this.router.navigate(['/mi-equipo/show-data'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Oferta rechazada',
         subtitulo: 'A esperar que llegue una oferta mejor',

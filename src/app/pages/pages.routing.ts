@@ -83,7 +83,7 @@ const routes: Routes = [
       { path: 'activar-trading-block', component: ActivarTradingBlockComponent },
       { path: 'drop-jugador', component: DropJugadorComponent },
       { path: 'realiza-oferta', component: RealizaOfertaComponent },
-      { path: 'show-data', component: ShowInfoComponent },
+      { path: 'show-info', component: ShowInfoComponent },
     ]
   },
   {
@@ -157,6 +157,7 @@ const routes: Routes = [
       { path: 'bonus', component: BonusComiComponent },
       { path: 'noticias', component: NoticiasComiComponent },
       { path: 'matchup', component: MatchupComiComponent },
+      { path: 'show-info', component: ShowInfoComponent },
     ],
   },
   {

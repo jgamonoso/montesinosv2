@@ -64,7 +64,7 @@ export class OfertasEnviadasComponent implements OnInit {
   }
 
   verOfertaCancelada(): void {
-    this.router.navigate(['/mi-equipo/show-data'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Oferta cancelada',
         subtitulo: 'Ya no le aparecerá al otro manager',

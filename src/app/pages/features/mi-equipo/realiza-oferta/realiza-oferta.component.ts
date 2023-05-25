@@ -120,7 +120,7 @@ export class RealizaOfertaComponent implements OnInit {
   }
 
   navegarOfertaRealizada() {
-    this.router.navigate(['/mi-equipo/show-data'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Oferta realizada',
         subtitulo: 'Ahora espera que el otro manager la acepte',
