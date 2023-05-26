@@ -1,1 +1,48 @@
-<p>sanciones-comi works!</p>
+<div class="container animated fadeIn">
+  <h2> Generador de sanciones </h2>
+  <form *ngIf="dataLoaded" [formGroup]="sancionForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="equipo">Equipo:</label>
+            <select class="form-control" id="equipo" formControlName="equipo">
+              <option *ngFor="let manager of listaManagers" [value]="manager.equipo.pkEquipo">
+                {{manager.equipo.nombre}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="text" id="cantidad" class="form-control" formControlName="cantidad">
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="temporada">Temporada:</label>
+            <select class="form-control" id="temporada" formControlName="temporada">
+              <option *ngFor="let temporada of listaTemporadas" [value]="temporada.pkTemporada">
+                {{temporada.nombre}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="motivo">Motivo:</label>
+            <textarea id="motivo" class="form-control" formControlName="motivo"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button [disabled]="sancionForm.invalid" type="submit" class="btn btn-themecolor">Aplicar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

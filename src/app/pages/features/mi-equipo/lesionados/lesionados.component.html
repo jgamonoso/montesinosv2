@@ -1,1 +1,48 @@
-<p>lesionados works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2> Jugadores Lesionados LLD/OFS - {{ managerEnSesion?.equipo?.nombre }} </h2>
+
+  <ng-container *ngIf="jugadoresLesionados && jugadoresLesionados.length > 0">
+    <h4>OFS</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-dark" *ngFor="let player of jugadoresLesionados; let a = index">
+            <td class="num-column">{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!jugadoresLesionados || jugadoresLesionados.length <= 0)">
+    <p>No hay jugadores lesionados OFS en {{ managerEnSesion?.equipo?.nombre }}</p>
+  </ng-container>
+</div>

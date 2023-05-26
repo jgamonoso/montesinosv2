@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquipoDetalleService } from './equipo-detalle.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-equipo-detalle',
@@ -19,7 +21,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
   dataLoaded: boolean;
 
   man: any;
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   managerParam: any; // Manager por parametro
   listaTemporadas: any[];
 
@@ -32,6 +34,8 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
     private equipoDetalleService: EquipoDetalleService,
     private route: ActivatedRoute,
     private router: Router,
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +44,9 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
 
     this.dataLoaded = false;
 
+    this.loadingService.setLoadingState(true);
     this.temporadaEnSesion = this.authService.getStoredTemporada();
     this.listaTemporadas = this.authService.getStoredProximasTemporadas();
-
     this.subscription = this.route.queryParamMap.pipe(
       tap(params => {
         this.mngr = params.get('mngr');
@@ -90,17 +94,22 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       ? of(this.managerParam)
       : this.equipoDetalleService.obtenerManager(this.managerEnSesion.pkManager);
 
-    return managerRequest.pipe(
-      tap(manager => {
+      return forkJoin([
+        managerRequest,
+        this.sharedService.obtenerListaEquiposNombre(),
+      ]).pipe(
+        tap(([manager, listaEquiposNombre]) => {
         // console.log('Manager:', manager);
         this.man = manager;
         this.dataLoaded = true;
+        this.loadingService.setLoadingState(false);
       }),
       tap(
         () => {
         },
         (error) => {
           console.error('Error en las llamadas', error.message);
+          this.loadingService.setLoadingState(false);
         }
       )
     );
@@ -112,6 +121,52 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       recuperarIL: recuperarIL
     };
     this.router.navigate(['/mi-equipo/activar-il'], { queryParams });
+  }
+
+  navegarCOVPagina(pkJugadorliga: number, recuperarCovid: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+      recuperarCovid: recuperarCovid
+    };
+    this.router.navigate(['/mi-equipo/activar-covid'], { queryParams });
+  }
+
+  navegarTBJugador(pkJugadorliga: number, recuperarTB: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
+  navegarTBDerecho(pkDerecho: number, recuperarTB: number) {
+    const queryParams = {
+      pkDerecho: pkDerecho,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
+  navegarTBPick(pkDraftpick: number, recuperarTB: number) {
+    const queryParams = {
+      pkDraftpick: pkDraftpick,
+      recuperarTB: recuperarTB
+    };
+    this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
+
+  navegarDropPagina(pkJugadorliga: number) {
+    const queryParams = {
+      pkJugadorliga: pkJugadorliga,
+    };
+    this.router.navigate(['/mi-equipo/drop-jugador'], { queryParams });
+  }
+
+  navegarOfertaPagina(pkEquipo: number) {
+    const queryParams = {
+      pkEquipo: pkEquipo,
+    };
+    this.router.navigate(['/mi-equipo/realiza-oferta'], { queryParams });
   }
 
   ngOnDestroy(): void {

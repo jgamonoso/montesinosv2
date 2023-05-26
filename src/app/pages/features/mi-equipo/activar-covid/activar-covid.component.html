@@ -1,0 +1,18 @@
+<div *ngIf="dataLoaded">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="recuperarCovid === 0" class="alert alert-primary text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>Recuperado de la Covid con éxito</p>
+        </div>
+        <div *ngIf="recuperarCovid === 1" class="alert alert-success text-center">
+          <h4 class="alert-heading">{{jugadorliga.jugador.nombre}} {{jugadorliga.jugador.apellido}}</h4>
+          <p>Covid activada con éxito</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

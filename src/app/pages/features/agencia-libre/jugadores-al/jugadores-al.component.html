@@ -1,1 +1,39 @@
-<p>jugadores-al works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Agencia libre - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Agencia libre - DLEAGUE </h2>
+
+  <ng-container *ngIf="listaJugadoresLibres && listaJugadoresLibres.length > 0">
+    <h4>Jugadores FA (al)</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-default" *ngFor="let player of listaJugadoresLibres; let a = index">
+
+            <td class="num-column">{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaJugadoresLibres || listaJugadoresLibres.length <= 0)">
+    <p>No hay jugadores en la agencia libre</p>
+  </ng-container>
+
+</div>

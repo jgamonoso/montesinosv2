@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquiposService } from './equipos.service';
-import { forkJoin } from 'rxjs';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 
 @Component({
   selector: 'app-equipos',
@@ -17,28 +17,30 @@ export class EquiposComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private equiposService: EquiposService
+    private equiposService: EquiposService,
+    private readonly loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.dataLoaded = false;
+    this.loadingService.setLoadingState(true);
     this.loadInitialData();
   }
 
   loadInitialData() {
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
-    forkJoin([
-      this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible),
-    ]).subscribe(
-      ([listadoManagersConEquipo]) => {
-        // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
-        this.listadoManagersConEquipo = listadoManagersConEquipo;
-        this.dataLoaded = true;
-      },
-      (error) => {
-        console.error('Error en las llamadas', error.message);
-      }
-    );
+    this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible)
+      .subscribe(
+        (listadoManagersConEquipo) => {
+          // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
+          this.listadoManagersConEquipo = listadoManagersConEquipo;
+          this.dataLoaded = true;
+          this.loadingService.setLoadingState(false);
+        },
+        (error) => {
+          console.error('Error en las llamadas', error.message);
+          this.loadingService.setLoadingState(false);
+        }
+      );
   }
-
 }

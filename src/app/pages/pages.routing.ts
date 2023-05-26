@@ -48,7 +48,12 @@ import { EquiposAdminComponent } from './features/administrador/equipos-admin/eq
 import { ManagersAdminComponent } from './features/administrador/managers-admin/managers-admin.component';
 import { ParametrosLigaAdminComponent } from './features/administrador/parametros-liga-admin/parametros-liga-admin.component';
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
+import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
+import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
+import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
+import { RealizaOfertaComponent } from './features/mi-equipo/realiza-oferta/realiza-oferta.component';
+import { ShowInfoComponent } from '../shared/show-info/show-info.component';
 
 const routes: Routes = [
   {
@@ -74,7 +79,12 @@ const routes: Routes = [
       { path: 'lesionados', component: LesionadosComponent },
       { path: 'apuestas', component: ApuestasComponent },
       { path: 'activar-il', component: ActivarIlComponent },
-    ],
+      { path: 'activar-covid', component: ActivarCovidComponent },
+      { path: 'activar-trading-block', component: ActivarTradingBlockComponent },
+      { path: 'drop-jugador', component: DropJugadorComponent },
+      { path: 'realiza-oferta', component: RealizaOfertaComponent },
+      { path: 'show-info', component: ShowInfoComponent },
+    ]
   },
   {
     path: 'liga', // Crear una nueva instancia de PagesComponent para la ruta /liga
@@ -147,6 +157,7 @@ const routes: Routes = [
       { path: 'bonus', component: BonusComiComponent },
       { path: 'noticias', component: NoticiasComiComponent },
       { path: 'matchup', component: MatchupComiComponent },
+      { path: 'show-info', component: ShowInfoComponent },
     ],
   },
   {

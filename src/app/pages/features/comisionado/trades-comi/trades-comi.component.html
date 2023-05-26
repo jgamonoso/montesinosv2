@@ -1,1 +1,83 @@
-<p>trades-comi works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2> Ofertas pendientes </h2>
+  <hr>
+  <br>
+
+  <ng-container *ngIf="listaTradesPendientes && listaTradesPendientes.length > 0">
+    <ng-container *ngFor="let trade of listaTradesPendientes; let i = index">
+      <h4>Oferta {{i + 1}}: {{ trade.fkEquipo1 | equipoliga }} - {{ trade.fkEquipo2 | equipoliga }}</h4>
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngIf="trade.jugadoresConContrato1 && trade.jugadoresConContrato1.length > 0">
+            <li class="list-group-item" *ngFor="let player of trade.jugadoresConContrato1; let a = index">
+              <span class="d-none d-md-inline">{{ player.jugador.nombre }} {{player.jugador.apellido }}</span>
+              <span class="d-md-none">{{ player.jugador.nombreAbreviado }}</span>
+              - Salario: {{ player.contrato.salario }}M hasta ({{player.contrato.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="trade.jugadoresConDerecho1 && trade.jugadoresConDerecho1.length > 0">
+            <li class="list-group-item derecho" *ngFor="let derecho of trade.jugadoresConDerecho1; let a = index">
+              <span class="d-none d-md-inline">{{ derecho.jugador.nombre }} {{derecho.jugador.apellido }}</span>
+              <span class="d-md-none">{{ derecho.jugador.nombreAbreviado }}</span>
+              - {{ derecho.derecho.salario }}M derecho hasta ({{derecho.derecho.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="trade.draftpicks1 && trade.draftpicks1.length > 0">
+            <li class="list-group-item pick" *ngFor="let pick of trade.draftpicks1; let c = index">
+
+              {{ pick.numRonda }}ª Ronda {{pick.fkTemporada | nombretemporada }}
+              <ng-container *ngIf="pick.numPick > 0">
+                (#{{ pick.numPick }})
+              </ng-container>
+              de {{ pick.fkEquipoOri | equipoliga }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <h5>A cambio de:</h5>
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngIf="trade.jugadoresConContrato2 && trade.jugadoresConContrato2.length > 0">
+            <li class="list-group-item" *ngFor="let player of trade.jugadoresConContrato2; let a = index">
+              <span class="d-none d-md-inline">{{ player.jugador.nombre }} {{player.jugador.apellido }}</span>
+              <span class="d-md-none">{{ player.jugador.nombreAbreviado }}</span>
+              - Salario: {{ player.contrato.salario }}M hasta ({{player.contrato.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="trade.jugadoresConDerecho2 && trade.jugadoresConDerecho2.length > 0">
+            <li class="list-group-item derecho" *ngFor="let derecho of trade.jugadoresConDerecho2; let a = index">
+              <span class="d-none d-md-inline">{{ derecho.jugador.nombre }} {{derecho.jugador.apellido }}</span>
+              <span class="d-md-none">{{ derecho.jugador.nombreAbreviado }}</span>
+              - {{ derecho.derecho.salario }}M derecho hasta ({{derecho.derecho.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="trade.draftpicks2 && trade.draftpicks2.length > 0">
+            <li class="list-group-item pick" *ngFor="let pick of trade.draftpicks2; let c = index">
+
+              {{ pick.numRonda }}ª Ronda {{pick.fkTemporada | nombretemporada }}
+              <ng-container *ngIf="pick.numPick > 0">
+                (#{{ pick.numPick }})
+              </ng-container>
+              de {{ pick.fkEquipoOri | equipoliga }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="validarTrade(trade.pkTrade)" class="btn btn-themecolor button-margin">Validar</button>
+          <button (click)="vetarTrade(trade.pkTrade)" class="btn btn-themecolor button-margin">Vetar</button>
+        </div>
+      </div>
+      <hr>
+      <br>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaTradesPendientes || listaTradesPendientes.length <= 0)">
+    <p>No hay ningún trade pendiente de validar o vetar</p>
+  </ng-container>
+</div>

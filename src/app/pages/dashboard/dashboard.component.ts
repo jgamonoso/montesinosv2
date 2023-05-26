@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { xorEncryptDecrypt } from 'src/app/shared/functions/xor-encryption/xor-encryption.component';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { environment } from 'src/environments/environment';
+import { SharedService } from '../../services/shared.service';
 
 const SECRET_KEY = environment.SECRET_KEY;
 
@@ -13,6 +14,7 @@ const SECRET_KEY = environment.SECRET_KEY;
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+  ligaGuardadaEnSesion: any;
   credencialesEnSesion: any;
   ligaGuardada: { ligaVisible: number; ligaPropia: boolean } = {
     ligaVisible: 1,
@@ -23,31 +25,40 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private readonly loadingService: LoadingService
-  ) { }
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService,
+  ) {
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+    this.credencialesEnSesion = this.authService.getStoredCredentials();
+  }
 
   ngOnInit(): void {
-    this.ligaVisibleLoaded = false;
-    this.noticiasVisible = true;
-    this.loadInitialData();
+    if (!this.ligaGuardadaEnSesion) {
+      this.ligaVisibleLoaded = false;
+      this.noticiasVisible = true;
+      this.loadInitialData();
+    } else {
+      this.ligaVisibleLoaded = true;
+    }
   }
 
   loadInitialData() {
     this.loadingService.setLoadingState(true);
-    this.credencialesEnSesion = this.authService.getStoredCredentials();
     this.ligaGuardada.ligaVisible = Number(this.credencialesEnSesion.liga);
     this.ligaGuardada.ligaPropia = true;
     forkJoin([
       this.authService.obtenerTemporadaActual(),
       this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
       this.authService.obtenerProximasTemporadas(),
+      this.sharedService.obtenerListaEquiposNombre(),
     ]).subscribe(
-      ([proximasTemporadas, temporadaActual, managerPorLogin]) => {
+      ([proximasTemporadas, temporadaActual, managerPorLogin, listaEquiposNombre]) => {
         this.setligaVisible();
         this.loadingService.setLoadingState(false);
       },
       (error) => {
-        console.error('Error al obtener la temporada actual o manager por login', error.message);
+        console.error('Error en dashboard', error.message);
+        this.loadingService.setLoadingState(false);
       }
     );
   }
@@ -61,6 +72,7 @@ export class DashboardComponent implements OnInit {
       sessionStorage.setItem('ligaGuardada', encryptedData);
     }
     this.ligaVisibleLoaded = true;
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
   }
 
   updateNoticiasVisibility(resultadosBusqueda: any): void {

@@ -9,16 +9,16 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Waiver</th>
-            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia && temporadaEnSesion.estado==='SEASON')">ADD</th>
+            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia && temporadaEnSesion.estado === 'SEASON')">ADD</th>
           </tr>
         </thead>
         <tbody>
           <tr class="table-default" *ngFor="let player of resultadosBusqueda.listaALJugadores; let a = index">
 
-            <td>{{a+1}}</td>
+            <td class="num-column">{{a+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
@@ -30,7 +30,7 @@
             <td *ngIf="player.waiver"> Si - {{ player.waiver.fechaFin }}</td>
             <td *ngIf="!player.waiver"> No</td>
 
-            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'">Add</td>
+            <td class="link-style" *ngIf="(ligaGuardadaEnSesion.ligaPropia && temporadaEnSesion.estado === 'SEASON')">Add</td>
           </tr>
         </tbody>
       </table>
@@ -48,19 +48,19 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
-            <th scope="col">Oferta</th>
+            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia)">Oferta</th>
           </tr>
         </thead>
         <tbody>
           <tr class="table-primary" *ngFor="let player of resultadosBusqueda.listaJugadores; let b = index">
-            <td>{{b+1}}</td>
+            <td class="num-column">{{b+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
@@ -69,7 +69,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -77,7 +77,11 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-            <td class="link-style">{{ ((managerEnSesion.equipo.pkEquipo === player.contrato.fkEquipo)) ? '' : 'Hacer oferta' }}</td>
+            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== player.contrato.fkEquipo)"
+                class="link-style" (click)="navegarOfertaPagina(player.contrato.fkEquipo)">
+              Hacer oferta
+            </td>
+            <td *ngIf="(managerEnSesion.equipo.pkEquipo === player.contrato.fkEquipo)"></td>
           </tr>
         </tbody>
       </table>
@@ -95,17 +99,17 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">Salario</th>
             <th scope="col">Última temp.</th>
-            <th scope="col">Oferta</th>
+            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia)">Oferta</th>
           </tr>
         </thead>
         <tbody>
           <tr class="table-info" *ngFor="let player of resultadosBusqueda.listaDerechos; let c = index">
-            <td>{{c+1}}</td>
+            <td class="num-column">{{c+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
@@ -114,13 +118,17 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.derecho.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.derecho.salario }}</td>
 
             <td>{{ player.derecho.temporadaFin.nombre }}</td>
 
-            <td class="link-style">{{ ((managerEnSesion.equipo.pkEquipo === player.derecho.fkEquipo)) ? '' : 'Hacer oferta' }}</td>
+            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== player.derecho.fkEquipo)"
+                class="link-style" (click)="navegarOfertaPagina(player.derecho.fkEquipo)">
+              Hacer oferta
+            </td>
+            <td *ngIf="(managerEnSesion.equipo.pkEquipo === player.derecho.fkEquipo)"></td>
           </tr>
         </tbody>
       </table>
@@ -138,8 +146,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -149,7 +157,7 @@
         </thead>
         <tbody>
           <tr class="table-dark" *ngFor="let player of resultadosBusqueda.listaOFS; let d = index">
-            <td>{{d+1}}</td>
+            <td class="num-column">{{d+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -158,7 +166,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 
@@ -183,8 +191,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col" class="fixed-column">Nombre</th>
-            <th scope="col">Equipo NBA</th>
-            <th scope="col">Posiciones</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
             <th scope="col">Equipo</th>
             <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
@@ -194,7 +202,7 @@
         </thead>
         <tbody>
           <tr class="table-warning" *ngFor="let player of resultadosBusqueda.listaCOVID; let e = index">
-            <td>{{e+1}}</td>
+            <td class="num-column">{{e+1}}</td>
 
             <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
             <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -203,7 +211,7 @@
 
             <td>{{ player.jugador.posiciones | concatPositions }}</td>
 
-            <td>{{ player.equipoLiga }}</td>
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
 
             <td>{{ player.contrato.salario }}</td>
 

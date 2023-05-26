@@ -18,7 +18,22 @@ export const _API_ENDPOINTS: any = {
     miequipo: {
         start: '/miequipo',
     },
+    mercado: {
+        start: '/mercado',
+    },
+    agencialibre: {
+        start: '/agencialibre',
+    },
+    renovaciones: {
+        start: '/renovaciones',
+    },
     liga: {
         start: '/liga',
+    },
+    comisionado: {
+        start: '/comisionado',
+    },
+    sidebar: {
+        start: '/sidebar',
     },
 };

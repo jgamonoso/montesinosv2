@@ -1,0 +1,79 @@
+.responsive-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table td, .table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkbox-column {
+  width: 30px;
+  max-width: 30px;
+}
+
+.checkbox-column label {
+  height: 9px;
+}
+
+/* Estilo para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+
+  .fixed-column,
+  .fixed-column-les,
+  .fixed-column-cov,
+  .fixed-column-der,
+  .fixed-column-ofs {
+    position: sticky;
+    opacity: 1;
+    z-index: 10;
+    left: 0;
+  }
+
+  /* Estilos específicos para el encabezado - Color de los th de cabecera donde pone nombre(NO TOCAR) */
+  th.fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Filas pares fijadas de la tabla normal */
+  .fixed-column {
+    background-color: rgba(244, 246, 249, 1);
+  }
+
+  /* Filas impares fijadas de la tabla normal*/
+  tr:nth-child(odd) td.fixed-column {
+    background-color: rgba(233, 237, 242, 1);
+  }
+
+  /* Estilos específicos para las filas pares de la tabla covid */
+  /* .fixed-column-cov {
+    background-color: rgba(209, 210, 213, 1);
+  } */
+
+  /* Estilos específicos para las filas impares de la tabla covid*/
+  /* tr:nth-child(odd) td.fixed-column-cov {
+    background-color: rgba(216, 219, 224, 1);
+  } */
+}
+
+.link-style {
+  color: #007bff;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+/* Estilos para el botón "Volver arriba" */
+.back-to-top button {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 60px;
+  padding: 5px 10px;
+  z-index: 999;
+}
+
+.back-to-top button:hover {
+  opacity: 1;
+}

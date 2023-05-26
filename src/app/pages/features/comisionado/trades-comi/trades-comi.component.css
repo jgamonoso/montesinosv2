@@ -1,0 +1,49 @@
+.responsive-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table td, .table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.num-column {
+  width: 30px;
+  max-width: 45px;
+  text-align: center;
+}
+
+/* Estilo para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+
+  .fixed-column,
+  .fixed-column-les,
+  .fixed-column-cov,
+  .fixed-column-der,
+  .fixed-column-ofs {
+    position: sticky;
+    opacity: 1;
+    z-index: 10;
+    left: 0;
+  }
+}
+
+.link-style {
+  color: #007bff;
+  /* text-decoration: underline; */
+  cursor: pointer;
+}
+
+.derecho {
+  background-color: #f0f8ff;  /* un color de fondo azul claro */
+}
+
+.pick {
+  background-color: #e0ffff;  /* un color de fondo celeste */
+}
+
+.button-margin {
+  margin: 10px; /* Ajusta el valor según tus necesidades */
+}

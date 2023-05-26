@@ -3,6 +3,18 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.table td, .table th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.num-column {
+  width: 30px;
+  max-width: 45px;
+  text-align: center;
+}
+
 /* Estilo para pantallas pequeñas (móviles) */
 @media (max-width: 767.98px) {
 
@@ -47,4 +59,18 @@
   color: #007bff;
   /* text-decoration: underline; */
   cursor: pointer;
+}
+
+/* Estilos para el botón "Volver arriba" */
+.back-to-top button {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 60px;
+  padding: 5px 10px;
+  z-index: 999;
+}
+
+.back-to-top button:hover {
+  opacity: 1;
 }

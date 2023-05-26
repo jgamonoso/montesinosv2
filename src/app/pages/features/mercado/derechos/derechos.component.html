@@ -1,1 +1,53 @@
-<p>derechos works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Derechos - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Derechos - DLEAGUE </h2>
+
+  <ng-container *ngIf="listaJugadoresConDerecho && listaJugadoresConDerecho.length > 0">
+    <h4>Derechos</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Salario</th>
+            <th scope="col">Última temp.</th>
+            <th scope="col" *ngIf="(ligaGuardadaEnSesion.ligaPropia)">Oferta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-default" *ngFor="let player of listaJugadoresConDerecho; let a = index">
+            <td class="num-column">{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.derecho.fkEquipo | equipoliga }}</td>
+
+            <td>{{ player.derecho.salario }}</td>
+
+            <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? listaTemporadas[1].nombre : listaTemporadas[0].nombre }}</td>
+
+            <td *ngIf="(ligaGuardadaEnSesion.ligaPropia && managerEnSesion.equipo.pkEquipo !== player.derecho.fkEquipo)"
+                class="link-style" (click)="navegarOfertaPagina(player.derecho.fkEquipo)">
+              Hacer oferta
+            </td>
+            <td *ngIf="(managerEnSesion.equipo.pkEquipo === player.derecho.fkEquipo)"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaJugadoresConDerecho || listaJugadoresConDerecho.length <= 0)">
+    <p>No hay jugadores con derechos en la liga</p>
+  </ng-container>
+
+</div>

@@ -1,1 +1,83 @@
-<p>ofertas-recibidas works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2> Ofertas recibidas - {{managerEnSesion.equipo.nombre}} </h2>
+  <hr>
+  <br>
+
+  <ng-container *ngIf="listaOfertasRecibidas && listaOfertasRecibidas.length > 0">
+    <ng-container *ngFor="let oferta of listaOfertasRecibidas; let i = index">
+      <h4>Oferta {{i + 1}}: {{ oferta.fkEquipo1 | equipoliga }} - {{ oferta.fkEquipo2 | equipoliga }}</h4>
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngIf="oferta.jugadoresConContrato1 && oferta.jugadoresConContrato1.length > 0">
+            <li class="list-group-item" *ngFor="let player of oferta.jugadoresConContrato1; let a = index">
+              <span class="d-none d-md-inline">{{ player.jugador.nombre }} {{player.jugador.apellido }}</span>
+              <span class="d-md-none">{{ player.jugador.nombreAbreviado }}</span>
+              - Salario: {{ player.contrato.salario }}M hasta ({{player.contrato.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="oferta.jugadoresConDerecho1 && oferta.jugadoresConDerecho1.length > 0">
+            <li class="list-group-item derecho" *ngFor="let derecho of oferta.jugadoresConDerecho1; let a = index">
+              <span class="d-none d-md-inline">{{ derecho.jugador.nombre }} {{derecho.jugador.apellido }}</span>
+              <span class="d-md-none">{{ derecho.jugador.nombreAbreviado }}</span>
+              - {{ derecho.derecho.salario }}M derecho hasta ({{derecho.derecho.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="oferta.draftpicks1 && oferta.draftpicks1.length > 0">
+            <li class="list-group-item pick" *ngFor="let pick of oferta.draftpicks1; let c = index">
+
+              {{ pick.numRonda }}ª Ronda {{pick.fkTemporada | nombretemporada }}
+              <ng-container *ngIf="pick.numPick > 0">
+                (#{{ pick.numPick }})
+              </ng-container>
+              de {{ pick.fkEquipoOri | equipoliga }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <h5>A cambio de:</h5>
+
+      <div class="card">
+        <ul class="list-group list-group-flush">
+          <ng-container *ngIf="oferta.jugadoresConContrato2 && oferta.jugadoresConContrato2.length > 0">
+            <li class="list-group-item" *ngFor="let player of oferta.jugadoresConContrato2; let a = index">
+              <span class="d-none d-md-inline">{{ player.jugador.nombre }} {{player.jugador.apellido }}</span>
+              <span class="d-md-none">{{ player.jugador.nombreAbreviado }}</span>
+              - Salario: {{ player.contrato.salario }}M hasta ({{player.contrato.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="oferta.jugadoresConDerecho2 && oferta.jugadoresConDerecho2.length > 0">
+            <li class="list-group-item derecho" *ngFor="let derecho of oferta.jugadoresConDerecho2; let a = index">
+              <span class="d-none d-md-inline">{{ derecho.jugador.nombre }} {{derecho.jugador.apellido }}</span>
+              <span class="d-md-none">{{ derecho.jugador.nombreAbreviado }}</span>
+              - {{ derecho.derecho.salario }}M derecho hasta ({{derecho.derecho.temporadaFin.nombre}})
+            </li>
+          </ng-container>
+          <ng-container *ngIf="oferta.draftpicks2 && oferta.draftpicks2.length > 0">
+            <li class="list-group-item pick" *ngFor="let pick of oferta.draftpicks2; let c = index">
+
+              {{ pick.numRonda }}ª Ronda {{pick.fkTemporada | nombretemporada }}
+              <ng-container *ngIf="pick.numPick > 0">
+                (#{{ pick.numPick }})
+              </ng-container>
+              de {{ pick.fkEquipoOri | equipoliga }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button (click)="aceptar(oferta.pkOferta)" class="btn btn-themecolor button-margin">Aceptar</button>
+          <button (click)="rechazar(oferta.pkOferta)" class="btn btn-themecolor button-margin">Rechazar</button>
+        </div>
+      </div>
+      <hr>
+      <br>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaOfertasRecibidas || listaOfertasRecibidas.length <= 0)">
+    <p>No hay ninguna oferta recibida pendiente de aceptar por ti</p>
+  </ng-container>
+</div>

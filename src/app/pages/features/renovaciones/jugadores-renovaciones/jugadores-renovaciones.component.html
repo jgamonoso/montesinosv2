@@ -1,1 +1,73 @@
-<p>jugadores-renovaciones works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Renovaciones - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Renovaciones - DLEAGUE </h2>
+
+  <ng-container *ngIf="listaJugadoresRenovables && listaJugadoresRenovables.length > 0">
+    <h4>Jugadores Renovables</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">Waiver</th>
+            <th scope="col">Puja max (CR)</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Fecha fin</th>
+            <ng-container *ngIf="ligaGuardadaEnSesion.ligaPropia">
+              <th scope="col">Pujas Rest.</th>
+              <th scope="col">Pujar</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-default" *ngFor="let player of listaJugadoresRenovables; let a = index">
+
+            <td class="num-column">{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td *ngIf="player.waiver"> Si - {{ player.waiver.fechaFin }}</td>
+            <td *ngIf="!player.waiver"> No</td>
+
+            <td *ngIf="(player.subasta && player.subasta.pujas)">{{ player.subasta.pujas[player.subasta.pujas.length-1].valor }} ({{ player.subasta.pujas[player.subasta.pujas.length-1].anyos }}) - CR: {{ player.subasta.pujas[player.subasta.pujas.length-1].cr }}</td>
+            <td *ngIf="(!player.subasta || !player.subasta.pujas)"></td>
+
+            <td *ngIf="(player.subasta && player.subasta.pujas)">{{ player.subasta.pujas[player.subasta.pujas.length-1].fkEquipo | equipoliga }}</td>
+            <td *ngIf="(!player.subasta || !player.subasta.pujas)"></td>
+
+            <td *ngIf="(player.subasta && player.subasta.pujas)">{{ player.subasta.pujas[player.subasta.pujas.length-1].fecha }}</td>
+            <td *ngIf="(!player.subasta || !player.subasta.pujas)"></td>
+
+            <td *ngIf="player.subasta">{{ player.subasta.fechaFin }}</td>
+            <td *ngIf="!player.subasta"></td>
+
+            <ng-container *ngIf="!ligaGuardadaEnSesion.ligaPropia">
+              <td></td>
+            </ng-container>
+            <ng-container *ngIf="ligaGuardadaEnSesion.ligaPropia">
+              <td *ngIf="player.subasta">{{ player.subasta.numPujasRestantes }}</td>
+              <td *ngIf="!player.subasta">4</td>
+
+              <td class="link-style" *ngIf="ligaGuardadaEnSesion.ligaPropia">Pujar</td>
+            </ng-container>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaJugadoresRenovables || listaJugadoresRenovables.length <= 0)">
+    <p>No hay jugadores en renovaciones</p>
+  </ng-container>
+
+</div>

@@ -1,1 +1,143 @@
-<p>lesionados-liga works!</p>
+<div *ngIf="dataLoaded" class="container animated fadeIn">
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 1"> Jugadores Lesionados - MNBA </h2>
+  <h2 *ngIf="ligaGuardadaEnSesion.ligaVisible === 2"> Jugadores Lesionados - DLEAGUE </h2>
+
+  <ng-container *ngIf="listaJugadoresLLDConContrato && listaJugadoresLLDConContrato.length > 0">
+    <h4>Jugadores OFS</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-dark" *ngFor="let player of listaJugadoresLLDConContrato; let a = index">
+            <td class="num-column">{{a+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="listaJugadoresILLiga && listaJugadoresILLiga.length > 0">
+    <h4>Jugadores IL</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-danger" *ngFor="let player of listaJugadoresILLiga; let b = index">
+            <td class="num-column">{{b+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="listaJugadoresCOVIDConContrato && listaJugadoresCOVIDConContrato.length > 0">
+    <h4>Jugadores Covid</h4>
+    <div class="responsive-table">
+      <table class="table table-striped table-bordered table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="fixed-column">Nombre</th>
+            <th scope="col">Eq.NBA</th>
+            <th scope="col">Pos.</th>
+            <th scope="col">Equipo</th>
+            <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
+            <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
+            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-warning" *ngFor="let player of listaJugadoresCOVIDConContrato; let c = index">
+            <td class="num-column">{{c+1}}</td>
+
+            <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+            <td class="d-md-none fixed-column-cov">{{ player.jugador.nombreAbreviado }}</td>
+
+            <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+            <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+            <td>{{ player.contrato.fkEquipo | equipoliga }}</td>
+
+            <td>{{ player.contrato.salario }}</td>
+
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+            <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
+
+            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(!listaJugadoresLLDConContrato || listaJugadoresLLDConContrato.length <= 0) &&
+                       (!listaJugadoresILLiga || listaJugadoresILLiga.length <= 0) &&
+                       (!listaJugadoresCOVIDConContrato || listaJugadoresCOVIDConContrato.length <= 0)">
+    <p>No hay jugadores lesionados en la liga</p>
+  </ng-container>
+
+</div>

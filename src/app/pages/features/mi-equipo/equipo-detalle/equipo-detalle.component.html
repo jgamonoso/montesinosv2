@@ -34,8 +34,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
@@ -46,12 +46,12 @@
             <th scope="col" *ngIf="temporadaEnSesion.estado==='SEASON'">COVID</th>
             <th scope="col">Drop</th>
           </ng-container>
-          <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th>
+          <!-- <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th> -->
         </tr>
       </thead>
       <tbody>
         <tr class="table-default" *ngFor="let player of man.equipo?.jugadoresConContrato; let a = index">
-          <td>{{a+1}}</td>
+          <td class="num-column">{{a+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column">{{ player.jugador.nombreAbreviado }}</td>
@@ -71,18 +71,18 @@
             <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'" (click)="navegarILPagina(player.pkJugadorliga, 0)">activar</td>
 
             <ng-container [ngSwitch]="player.enTradingBlock">
-              <td class="link-style" *ngSwitchCase="true">Si (quitar)</td>
-              <td class="link-style" *ngSwitchCase="false">No (añadir)</td>
+              <td class="link-style" *ngSwitchCase="true" (click)="navegarTBJugador(player.pkJugadorliga, 0)">Si (quitar)</td>
+              <td class="link-style" *ngSwitchCase="false" (click)="navegarTBJugador(player.pkJugadorliga, 1)">No (añadir)</td>
             </ng-container>
 
-            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'">COVID</td>
+            <td class="link-style" *ngIf="temporadaEnSesion.estado==='SEASON'" (click)="navegarCOVPagina(player.pkJugadorliga, 1)">COVID</td>
 
-            <td class="link-style" *ngIf="man.equipo.corteGratisHabilitado == 1">gratis</td>
-            <td class="link-style" *ngIf="player.contrato.salario < 2">gratis</td>
-            <td class="link-style" *ngIf="player.contrato.salario >= 2">{{ player.contrato.salario / 2 | number:'1.0-1' }}</td>
+            <td class="link-style" *ngIf="man.equipo.corteGratisHabilitado == 1" (click)="navegarDropPagina(player.pkJugadorliga)">gratis</td>
+            <td class="link-style" *ngIf="player.contrato.salario < 2" (click)="navegarDropPagina(player.pkJugadorliga)">gratis</td>
+            <td class="link-style" *ngIf="player.contrato.salario >= 2" (click)="navegarDropPagina(player.pkJugadorliga)">{{ player.contrato.salario / 2 | number:'1.0-1' }}</td>
           </ng-container>
 
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <!-- <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style" (click)="navegarOfertaPagina(player.contrato.fkEquipo)">proponer</td> -->
         </tr>
       </tbody>
     </table>
@@ -95,8 +95,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
@@ -106,7 +106,7 @@
       </thead>
       <tbody>
         <tr class="table-danger" *ngFor="let player of man.equipo?.jugadoresIL; let b = index">
-          <td>{{b+1}}</td>
+          <td class="num-column">{{b+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column-les">{{ player.jugador.nombreAbreviado }}</td>
@@ -134,8 +134,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
@@ -145,7 +145,7 @@
       </thead>
       <tbody>
         <tr class="table-warning" *ngFor="let player of man.equipo?.jugadoresCovid; let c = index">
-          <td>{{c+1}}</td>
+          <td class="num-column">{{c+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column-cov">{{ player.jugador.nombreAbreviado }}</td>
@@ -160,51 +160,7 @@
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
           <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-          <td>Recuperar</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h4 *ngIf="man.equipo?.jugadoresConDerecho">Derechos</h4>
-  <div class="responsive-table">
-    <table *ngIf="man.equipo?.jugadoresConDerecho" class="table table-striped table-bordered table-sm">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
-          <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
-          <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
-          <th scope="col">Trading Block</th>
-          <th scope="col">Derecho</th>
-          <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-info" *ngFor="let player of man.equipo?.jugadoresConDerecho; let d = index">
-          <td>{{d+1}}</td>
-
-          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
-          <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
-
-          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
-
-          <td>{{ player.jugador.posiciones | concatPositions }}</td>
-
-          <td>{{ player.derecho.salario }}</td>
-
-          <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
-
-          <ng-container [ngSwitch]="player.enTradingBlock">
-            <td *ngSwitchCase="true">Si (quitar)</td>
-            <td *ngSwitchCase="false">No (añadir)</td>
-          </ng-container>
-
-          <td>ejercer</td>
-
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <td class="link-style" (click)="navegarCOVPagina(player.pkJugadorliga, 0)">Recuperar</td>
         </tr>
       </tbody>
     </table>
@@ -217,8 +173,8 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col" class="fixed-column">Nombre</th>
-          <th scope="col">Equipo</th>
-          <th scope="col">Posición</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
           <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
           <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
@@ -226,8 +182,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="table-dark" *ngFor="let player of man.equipo?.jugadoresLesionados; let e = index">
-          <td>{{e+1}}</td>
+        <tr class="table-dark" *ngFor="let player of man.equipo?.jugadoresLesionados; let d = index">
+          <td class="num-column">{{d+1}}</td>
 
           <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
           <td class="d-md-none fixed-column-ofs">{{ player.jugador.nombreAbreviado }}</td>
@@ -247,33 +203,84 @@
     </table>
   </div>
 
+  <h4 *ngIf="man.equipo?.jugadoresConDerecho">Derechos</h4>
+  <div class="responsive-table">
+    <table *ngIf="man.equipo?.jugadoresConDerecho" class="table table-striped table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="fixed-column">Nombre</th>
+          <th scope="col">Eq.NBA</th>
+          <th scope="col">Pos.</th>
+          <th scope="col">{{ listaTemporadas[0]?.nombre }}</th>
+          <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
+          <ng-container *ngIf="equipoPropio">
+            <th scope="col">Trading Block</th>
+            <th scope="col">Derecho</th>
+          </ng-container>
+          <!-- <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-info" *ngFor="let player of man.equipo?.jugadoresConDerecho; let e = index">
+          <td class="num-column">{{e+1}}</td>
+
+          <td class="d-none d-md-table-cell">{{ player.jugador.nombre }} {{player.jugador.apellido }}</td>
+          <td class="d-md-none fixed-column-der">{{ player.jugador.nombreAbreviado }}</td>
+
+          <td>{{ player.jugador.fkEquipoNba | equiponba }}</td>
+
+          <td>{{ player.jugador.posiciones | concatPositions }}</td>
+
+          <td>{{ player.derecho.salario }}</td>
+
+          <td>{{ ((player.derecho.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada)) ? player.derecho.salario : '' }}</td>
+
+          <ng-container *ngIf="equipoPropio">
+            <ng-container [ngSwitch]="player.enTradingBlock">
+              <td class="link-style" *ngSwitchCase="true" (click)="navegarTBDerecho(player.pkJugadorliga, 0)">Si (quitar)</td>
+              <td class="link-style" *ngSwitchCase="false" (click)="navegarTBDerecho(player.pkJugadorliga, 1)">No (añadir)</td>
+            </ng-container>
+            <td>ejercer</td>
+          </ng-container>
+
+          <!-- <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style" (click)="navegarOfertaPagina(player.derecho.fkEquipo)">proponer</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <h4 *ngIf="man.equipo?.draftpicks">Draft Picks</h4>
   <div class="responsive-table">
     <table *ngIf="man.equipo?.draftpicks" class="table table-striped table-bordered table-sm">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Equipo original</th>
+          <th scope="col">Equipo origen</th>
           <th scope="col">Temporada</th>
           <th scope="col">Ronda</th>
           <th scope="col">Pick</th>
-          <th scope="col">Trading Block</th>
-          <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th>
+          <ng-container *ngIf="equipoPropio">
+            <th scope="col">Trading Block</th>
+          </ng-container>
+          <!-- <th scope="col" *ngIf="(ligaPropia && !equipoPropio)">TRADE</th> -->
         </tr>
       </thead>
       <tbody>
         <tr class="table-light" *ngFor="let pick of man.equipo?.draftpicks; let f = index">
-          <td>{{f+1}}</td>
+          <td class="num-column">{{f+1}}</td>
           <td>{{ pick.fkEquipoOri | equipoliga }}</td>
           <td>{{ pick.fkTemporada | nombretemporada }}</td>
           <td>{{ pick.numRonda }}</td>
           <td *ngIf="pick.numPick">{{ pick.numPick }}</td>
           <td *ngIf="pick.numPick == null"></td>
 
-          <td *ngIf="pick.enTradingBlock == true">Si (quitar)</td>
-          <td *ngIf="pick.enTradingBlock == false">No (añadir)</td>
+          <ng-container *ngIf="equipoPropio">
+            <td class="link-style" *ngIf="pick.enTradingBlock == true" (click)="navegarTBPick(pick.pkDraftpick, 0)">Si (quitar)</td>
+            <td class="link-style" *ngIf="pick.enTradingBlock == false" (click)="navegarTBPick(pick.pkDraftpick, 1)">No (añadir)</td>
+          </ng-container>
 
-          <td *ngIf="(ligaPropia && !equipoPropio)">proponer</td>
+          <!-- <td *ngIf="(ligaPropia && !equipoPropio)" class="link-style" (click)="navegarOfertaPagina(pick.fkEquipoDest)">proponer</td> -->
         </tr>
       </tbody>
     </table>
@@ -293,7 +300,7 @@
       </thead>
       <tbody>
         <tr class="table-success" *ngFor="let bonus of man.equipo?.bonus; let g = index">
-          <td>{{g+1}}</td>
+          <td class="num-column">{{g+1}}</td>
           <td>{{ bonus.fkTemporada | nombretemporada  }}</td>
           <td>{{ bonus.cantidad }}</td>
           <td>{{ bonus.motivo }}</td>
@@ -317,7 +324,7 @@
       </thead>
       <tbody>
         <tr class="table-danger" *ngFor="let sancion of man.equipo?.sanciones; let h = index">
-          <td>{{h+1}}</td>
+          <td class="num-column">{{h+1}}</td>
           <td>{{ sancion.fkTemporada | nombretemporada  }}</td>
           <td>{{ sancion.cantidad }}</td>
           <td>{{ sancion.motivo }}</td>
@@ -326,4 +333,11 @@
       </tbody>
     </table>
   </div>
+
+  <div class="back-to-top" *ngIf="(ligaPropia && !equipoPropio)">
+    <button mat-button (click)="navegarOfertaPagina(man.equipo.pkEquipo)" title="Proponer oferta" class="btn-themecolor">
+      Proponer oferta
+    </button>
+  </div>
+
 </div>

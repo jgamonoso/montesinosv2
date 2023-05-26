@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 //Módulos
@@ -58,6 +58,11 @@ import { ParametrosLigaAdminComponent } from './features/administrador/parametro
 import { ActivarIlComponent } from './features/mi-equipo/activar-il/activar-il.component';
 import { NormativaBackupComponent } from './features/liga/normativa-backup/normativa-backup.component';
 import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-jugadores/busqueda-jugadores.component';
+import { ActivarCovidComponent } from './features/mi-equipo/activar-covid/activar-covid.component';
+import { ActivarTradingBlockComponent } from './features/mi-equipo/activar-trading-block/activar-trading-block.component';
+import { DropJugadorComponent } from './features/mi-equipo/drop-jugador/drop-jugador.component';
+import { RealizaOfertaComponent } from './features/mi-equipo/realiza-oferta/realiza-oferta.component';
+import { ShowInfoComponent } from '../shared/show-info/show-info.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +112,12 @@ import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-ju
     EquiposAdminComponent,
     ParametrosLigaAdminComponent,
     ActivarIlComponent,
-    BusquedaJugadoresComponent
+    ActivarCovidComponent,
+    ActivarTradingBlockComponent,
+    DropJugadorComponent,
+    RealizaOfertaComponent,
+    BusquedaJugadoresComponent,
+    ShowInfoComponent
   ],
   exports: [
     DashboardComponent,
@@ -122,7 +132,8 @@ import { BusquedaJugadoresComponent } from './features/agencia-libre/busqueda-ju
     RouterModule,
     ComponentsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
   ],
 })
 export class PagesModule {}

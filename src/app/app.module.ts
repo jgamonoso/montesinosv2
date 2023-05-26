@@ -13,6 +13,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { HammerModule } from "../../node_modules/@angular/platform-browser";
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json?_v_=' + environment.version);
@@ -29,6 +30,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     PagesModule,
     AuthModule,
     MaterialModule,
+    HammerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

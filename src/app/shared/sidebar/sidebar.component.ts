@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { SidebarService } from 'src/app/shared/sidebar/services/sidebar.service';
 import { xorEncryptDecrypt } from '../functions/xor-encryption/xor-encryption.component';
 import { environment } from 'src/environments/environment';
+import { LoadingService } from '../modules/loading.module/service/loading.service';
+import { forkJoin } from 'rxjs';
 
 const SECRET_KEY = environment.SECRET_KEY;
 
@@ -15,7 +17,7 @@ const SECRET_KEY = environment.SECRET_KEY;
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   credencialesEnSesion: any;
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   ligaGuardadaEnSesion: {
     ligaVisible: number;
     ligaPropia: boolean;
@@ -23,11 +25,18 @@ export class SidebarComponent implements OnInit {
     ligaVisible: 1,
     ligaPropia: true
   };
+  numOfertasEnviadasEquipo: any;
+  numOfertasRecibidasEquipo: any;
+  numPujasActivasEquipo: any;
+  numWaiversEquipo: any;
+  numLesionadosEquipo: any;
+  numPujasActivas: any;
 
   constructor(
     private sidebarService: SidebarService,
     private authService: AuthService,
     private router: Router,
+    private readonly loadingService: LoadingService,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +46,58 @@ export class SidebarComponent implements OnInit {
     if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);
     }
+    // Nos suscribimos al observable que nos dará el manager cuando esté listo
+    this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager).subscribe(manager => {
+      this.managerEnSesion = manager;
+      this.loadInitialData();
+    });
+  }
+
+  loadInitialData() {
+    this.loadingService.setLoadingState(true);
+
+    const observables = [
+      this.sidebarService.obtenerNumSubastasAbiertas(this.ligaGuardadaEnSesion.ligaVisible)
+    ];
+
+    if (this.ligaGuardadaEnSesion.ligaPropia) {
+      observables.unshift(
+        this.sidebarService.obtenerNumOfertasRealizadasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumOfertasRecibidasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumSubastasAbiertasEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumClaimsEquipo(this.managerEnSesion.equipo.pkEquipo),
+        this.sidebarService.obtenerNumLLDEquipo(this.managerEnSesion.equipo.pkEquipo)
+      );
+    }
+
+    forkJoin(observables).subscribe(
+      (responses) => {
+        const numSubastasAbiertas = responses.pop();
+        this.numPujasActivas = numSubastasAbiertas;
+
+        if (this.ligaGuardadaEnSesion.ligaPropia) {
+          const [
+            numOfertasRealizadasEquipo,
+            numOfertasRecibidasEquipo,
+            numSubastasAbiertasEquipo,
+            numClaimsEquipo,
+            numLLDEquipo
+          ] = responses;
+
+          this.numOfertasEnviadasEquipo = numOfertasRealizadasEquipo;
+          this.numOfertasRecibidasEquipo = numOfertasRecibidasEquipo;
+          this.numPujasActivasEquipo = numSubastasAbiertasEquipo;
+          this.numWaiversEquipo = numClaimsEquipo;
+          this.numLesionadosEquipo = numLLDEquipo;
+        }
+
+        this.loadingService.setLoadingState(false);
+      },
+      (error) => {
+        console.error('Error en initialdataSidebar', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
   logout(){
@@ -61,8 +122,6 @@ export class SidebarComponent implements OnInit {
 
   verMiEquipo(): void {
     this.onSidebarLinkClick();
-
-    this.managerEnSesion = this.authService.getStoredManager();
     const queryParams = { mngr: this.managerEnSesion.pkManager };
     this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
   }

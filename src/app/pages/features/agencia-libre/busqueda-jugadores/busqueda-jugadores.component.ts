@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -14,13 +15,14 @@ export class BusquedaJugadoresComponent implements OnInit {
   @Output() resultadosBusquedaChange = new EventEmitter<any>();
   ligaGuardadaEnSesion: any;
   temporadaEnSesion: any
-  managerEnSesion: any; // Manager logueado
+  managerEnSesion: any;
   listaTemporadas: any[];
   private searchSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
     private sharedService: SharedService,
+    private router: Router,
   ) {
     this.resultadosBusqueda = []
   }
@@ -38,5 +40,12 @@ export class BusquedaJugadoresComponent implements OnInit {
         this.resultadosBusquedaChange.emit(this.resultadosBusqueda);
       }
     );
+  }
+
+  navegarOfertaPagina(pkEquipo: number) {
+    const queryParams = {
+      pkEquipo: pkEquipo,
+    };
+    this.router.navigate(['/mi-equipo/realiza-oferta'], { queryParams });
   }
 }

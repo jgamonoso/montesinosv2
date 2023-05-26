@@ -29,11 +29,13 @@ export class NoticiasComponent implements OnInit {
   }
 
   cargarNoticias(): void {
+    this.loadingService.setLoadingState(true);
     this.noticiasService.obtenerNoticias(this.pagina, this.liga).subscribe(
       (resp) => {
         if (resp) {
           this.noticias = resp;
           this.fechas = Object.keys(resp);
+          this.loadingService.setLoadingState(false);
           if (this.noticias.length === 0) {
             setTimeout(() => {
               this.cambiarPagina(1);
@@ -49,8 +51,12 @@ export class NoticiasComponent implements OnInit {
   }
 
   cambiarPagina(incremento: number): void {
-    this.pagina += incremento;
-    this.cargarNoticias();
+    if (this.pagina === 1 && incremento === -1) {
+      // En este caso no hay cambio de pagina
+    } else {
+      this.pagina += incremento;
+      this.cargarNoticias();
+    }
   }
 
   scrollToTop(): void {
