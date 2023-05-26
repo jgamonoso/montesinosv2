@@ -30,4 +30,51 @@ export class OfertasRecibidasService {
       })
     );
   }
+
+  aceptarOferta(pkManager: number, pkEquipo: number, pkOferta: any, pkLiga: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'aceptarOferta',
+        pkManager: pkManager,
+        pkEquipo: pkEquipo,
+        pkOferta: pkOferta,
+        pkLiga: pkLiga
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  rechazarOferta(pkManager: number, pkEquipo: number, pkOferta: any): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'rechazarOferta',
+        pkManager: pkManager,
+        pkEquipo: pkEquipo,
+        pkOferta: pkOferta,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }

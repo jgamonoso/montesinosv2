@@ -42,7 +42,6 @@ export class RealizaOfertaService {
     listaDerechosEquipo2: any,
     listaDraftpicksEquipo2: any,
   ): Observable<any> {
-    const prioridad = 1;
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
       body: {

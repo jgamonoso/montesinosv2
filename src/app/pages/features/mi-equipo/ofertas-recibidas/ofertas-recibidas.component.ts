@@ -58,15 +58,44 @@ export class OfertasRecibidasComponent implements OnInit {
   }
 
   aceptar(pkOferta: number) {
-    console.log('aceptarOferta- pkOferta:', pkOferta);
-    this.verOfertaAceptada();
-    // aceptarOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta'],$liga->pkLiga);
+    this.loadingService.setLoadingState(true);
+    this.ofertasRecibidasService.aceptarOferta(
+      this.managerEnSesion.pkManager,
+      this.managerEnSesion.equipo.pkEquipo,
+      pkOferta,
+      this.ligaGuardadaEnSesion.ligaVisible
+    ).subscribe(
+      (response) => {
+        this.loadingService.setLoadingState(false);
+        if (response.status === 'ok') {
+          this.verOfertaAceptada();
+        }
+      },
+      (error) => {
+        console.error('Error al aceptar oferta', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
   rechazar(pkOferta: number) {
-    console.log('rechazarOferta - pkOferta:', pkOferta);
-    this.verOfertaRechazada();
-    // rechazarOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta']);
+    this.loadingService.setLoadingState(true);
+    this.ofertasRecibidasService.rechazarOferta(
+      this.managerEnSesion.pkManager,
+      this.managerEnSesion.equipo.pkEquipo,
+      pkOferta
+    ).subscribe(
+      (response) => {
+        this.loadingService.setLoadingState(false);
+        if (response.status === 'ok') {
+          this.verOfertaRechazada();
+        }
+      },
+      (error) => {
+        console.error('Error al rechazar oferta', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
   verOfertaAceptada(): void {

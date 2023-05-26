@@ -58,9 +58,23 @@ export class OfertasEnviadasComponent implements OnInit {
   }
 
   cancel(pkOferta: number) {
-    console.log('anularOferta- pkOferta:', pkOferta);
-    // anularOferta($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['pkOferta']);
-    this.verOfertaCancelada();
+    this.loadingService.setLoadingState(true);
+    this.ofertasEnviadasService.anularOferta(
+      this.managerEnSesion.pkManager,
+      this.managerEnSesion.equipo.pkEquipo,
+      pkOferta
+    ).subscribe(
+      (response) => {
+        this.loadingService.setLoadingState(false);
+        if (response.status === 'ok') {
+          this.verOfertaCancelada();
+        }
+      },
+      (error) => {
+        console.error('Error al cancelar oferta', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 
   verOfertaCancelada(): void {

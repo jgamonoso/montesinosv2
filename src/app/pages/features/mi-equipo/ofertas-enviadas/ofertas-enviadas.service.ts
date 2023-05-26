@@ -30,4 +30,27 @@ export class OfertasEnviadasService {
       })
     );
   }
+
+  anularOferta(pkManager: number, pkEquipo: number, pkOferta: any): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.miequipo.start}`,
+      body: {
+        action: 'anularOferta',
+        pkManager: pkManager,
+        pkEquipo: pkEquipo,
+        pkOferta: pkOferta,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }
