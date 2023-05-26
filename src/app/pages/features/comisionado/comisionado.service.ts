@@ -41,4 +41,67 @@ export class ComisionadoService {
       )
     );
   }
+
+  obtenerListaTradesPendientes(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'obtenerListaTradesPendientes'
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  validarTrade(pkTrade: number, pkManager: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'validarTrade',
+        pkTrade: pkTrade,
+        pkManager: pkManager,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  vetarTrade(pkTrade: number, pkManager: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'vetarTrade',
+        pkTrade: pkTrade,
+        pkManager: pkManager,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }
