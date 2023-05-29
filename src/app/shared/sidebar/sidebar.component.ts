@@ -90,7 +90,7 @@ export class SidebarComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error en initialdataSidebar', error.message);s
+        console.error('Error en initialdataSidebar', error.message);
       }
     );
   }
