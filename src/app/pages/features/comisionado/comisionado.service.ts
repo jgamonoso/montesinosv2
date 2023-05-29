@@ -16,7 +16,7 @@ export class ComisionadoService {
     private readonly loadingService: LoadingService
   ) { }
 
-  altaNoticiaComi(notificacion: string, pkLiga: string , pkManager: number): Observable<any> {
+  altaNoticiaComi(notificacion: string, pkLiga: string, pkManager: number): Observable<any> {
     const prioridad = 1;
     const httpParametersClass = new HttpParametersClass({
       url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
@@ -31,7 +31,6 @@ export class ComisionadoService {
     return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
-          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
           if (response.status === 'ok') {
           }
         },
@@ -90,6 +89,58 @@ export class ComisionadoService {
         action: 'vetarTrade',
         pkTrade: pkTrade,
         pkManager: pkManager,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  altaBonusComi(pkManager: number, pkEquipo: number, cantidad: number, temporada: string, motivo: string, pkLiga: string): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'altaBonusComi',
+        pkManager: pkManager,
+        pkEquipo: pkEquipo,
+        cantidad: cantidad,
+        temporada: temporada,
+        motivo: motivo,
+        pkLiga: pkLiga,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  altaSancionComi(pkManager: number, pkEquipo: number, cantidad: number, temporada: number, motivo: string, pkLiga: string): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'altaSancionComi',
+        pkManager: pkManager,
+        pkEquipo: pkEquipo,
+        cantidad: cantidad,
+        temporada: Number(temporada),
+        motivo: motivo,
+        pkLiga: pkLiga,
       }
     });
     return this.httpService.post(httpParametersClass).pipe(
