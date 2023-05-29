@@ -60,7 +60,6 @@ export class RealizaOfertaService {
     return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
-          // Guardar las credenciales en el localStorage o sessionStorage cuando la respuesta sea exitosa
           if (response.status === 'ok') {
           }
         },
