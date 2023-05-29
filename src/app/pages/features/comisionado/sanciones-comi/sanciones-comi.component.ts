@@ -81,7 +81,7 @@ export class SancionesComiComponent implements OnInit {
       this.loadingService.setLoadingState(true);
       this.comisionadoService.altaSancionComi(this.managerEnSesion.pkManager,
                                         this.sancionForm.value.equipo,
-                                        this.sancionForm.value.cantidad,
+                                        this.sancionForm.value.cantidad || 0,
                                         this.listaTemporadas[0].pkTemporada,
                                         this.sancionForm.value.motivo,
                                         this.ligaGuardadaEnSesion.ligaVisible)
