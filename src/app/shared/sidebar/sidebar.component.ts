@@ -54,8 +54,6 @@ export class SidebarComponent implements OnInit {
   }
 
   loadInitialData() {
-    this.loadingService.setLoadingState(true);
-
     const observables = [
       this.sidebarService.obtenerNumSubastasAbiertas(this.ligaGuardadaEnSesion.ligaVisible)
     ];
@@ -90,12 +88,9 @@ export class SidebarComponent implements OnInit {
           this.numWaiversEquipo = numClaimsEquipo;
           this.numLesionadosEquipo = numLLDEquipo;
         }
-
-        this.loadingService.setLoadingState(false);
       },
       (error) => {
-        console.error('Error en initialdataSidebar', error.message);
-        this.loadingService.setLoadingState(false);
+        console.error('Error en initialdataSidebar', error.message);s
       }
     );
   }
