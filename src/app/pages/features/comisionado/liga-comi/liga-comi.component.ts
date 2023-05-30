@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { ComisionadoService } from '../comisionado.service';
+import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-liga-comi',
@@ -16,19 +20,25 @@ export class LigaComiComponent implements OnInit {
 
   estadoControl = new FormControl();
   estados = [
-    { value: 'RENOVACIONES', viewValue: '1 - Renovaciones' },
-    { value: 'AL_OFFSEASON', viewValue: '2 - AL Offseason' },
-    { value: 'SEASON', viewValue: '3 - Season' },
-    { value: 'TEAM_OPTION', viewValue: '4 - Team Option / LLD' },
-    { value: 'CORTE_GRATIS', viewValue: '5 - Corte Gratis' },
+    { value: 'RENOVACIONES', viewValue: '1 - Renovaciones', next: 'AL_OFFSEASON' },
+    { value: 'AL_OFFSEASON', viewValue: '2 - AL Offseason', next: 'SEASON' },
+    { value: 'SEASON', viewValue: '3 - Season', next: 'TEAM_OPTION' },
+    { value: 'TEAM_OPTION', viewValue: '4 - Team Option / LLD', next: 'CORTE_GRATIS' },
+    { value: 'CORTE_GRATIS', viewValue: '5 - Corte Gratis', next: 'RENOVACIONES' },
   ];
+  estadoActual: any;
+  estadoSiguiente: any;
 
   confirmationMessage: string = '';
   showConfirmation: boolean = false;
 
   constructor(
     private authService: AuthService,
-  ) { }
+    private readonly loadingService: LoadingService,
+    private comisionadoService: ComisionadoService,
+    private router: Router,
+  ) {
+  }
 
   ngOnInit() {
     this.temporadaEnSesion = this.authService.getStoredTemporada();
@@ -38,10 +48,15 @@ export class LigaComiComponent implements OnInit {
 
     // Aquí tendrías que obtener el estado actual de la temporada y asignarlo al control:
     this.estadoControl.setValue(this.temporadaEnSesion.estado);
+    this.estadoActual = this.estados.find(estado => estado.value === this.temporadaEnSesion.estado);
+    this.estadoSiguiente = this.estados.find(estado => estado.value === this.estadoActual.next);
+    this.estadoControl.valueChanges.subscribe(() => {
+      this.showConfirmation = false;
+    });
   }
 
-  onSubmit() {
-    console.log(this.estadoControl.value);
+  modificar() {
+    this.estadoControl.setValue(this.estadoSiguiente.value);
     this.showConfirmation = true;
 
     switch (this.estadoControl.value) {
@@ -67,12 +82,58 @@ export class LigaComiComponent implements OnInit {
     }
   }
 
-  confirm() {
-    console.log(this.estadoControl.value);
-    // Aquí enviarías el nuevo estado al backend.
-
-    // Ocultar el botón de confirmación y el mensaje de confirmación.
+  onSubmit() {
     this.showConfirmation = false;
     this.confirmationMessage = '';
+
+    this.loadingService.setLoadingState(true);
+      this.comisionadoService.cambiarEstadoTemporadaActual(this.managerEnSesion.pkManager, this.estadoControl.value)
+      .subscribe(
+        (response) => {
+          if (response.status === 'ok') {
+            forkJoin([
+              this.authService.obtenerTemporadaActual(),
+              this.authService.obtenerProximasTemporadas(),
+            ]).subscribe(
+              ([temporadaActual, proximasTemporadas]) => {
+                this.loadingService.setLoadingState(false);
+                this.verCambioEstadoOK();
+              },
+              (error) => {
+                console.log(error)
+                this.verCambioEstadoKO();
+                console.error('Error de inicio de sesión');
+                this.loadingService.setLoadingState(false);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.log(error)
+          this.verCambioEstadoKO();
+          this.loadingService.setLoadingState(false);
+          console.error('Error de cambio de estado de liga');
+        }
+      );
+  }
+
+  verCambioEstadoOK(): void {
+    this.router.navigate(['/comisionado/show-info'], {
+      state: {
+        titulo: 'Estado de liga cambiado',
+        subtitulo: 'Se aplicó el cambio de estado',
+        redirectUrl: '/comisionado/liga'
+      }
+    });
+  }
+
+  verCambioEstadoKO(): void {
+    this.router.navigate(['/comisionado/show-info'], {
+      state: {
+        titulo: 'Estado de liga NO cambiado',
+        subtitulo: 'Ha ocurrido un error en el proceso',
+        redirectUrl: '/comisionado/liga'
+      }
+    });
   }
 }

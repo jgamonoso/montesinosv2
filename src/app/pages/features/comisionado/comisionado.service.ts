@@ -155,4 +155,26 @@ export class ComisionadoService {
       )
     );
   }
+
+  cambiarEstadoTemporadaActual(pkManager: number, estado: string): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.comisionado.start}`,
+      body: {
+        action: 'cambiarEstadoTemporadaActual',
+        pkManager: pkManager,
+        estado: estado,
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          if (response.status === 'ok') {
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }

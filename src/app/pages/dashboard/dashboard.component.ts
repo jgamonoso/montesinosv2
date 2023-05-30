@@ -48,11 +48,11 @@ export class DashboardComponent implements OnInit {
     this.ligaGuardada.ligaPropia = true;
     forkJoin([
       this.authService.obtenerTemporadaActual(),
-      this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
       this.authService.obtenerProximasTemporadas(),
+      this.authService.obtenerManagerPorLogin(this.credencialesEnSesion.manager),
       this.sharedService.obtenerListaEquiposNombre(),
     ]).subscribe(
-      ([proximasTemporadas, temporadaActual, managerPorLogin, listaEquiposNombre]) => {
+      ([temporadaActual, proximasTemporadas, managerPorLogin, listaEquiposNombre]) => {
         this.setligaVisible();
         this.loadingService.setLoadingState(false);
       },

@@ -5,19 +5,19 @@
     <div class="row">
       <div class="col-12 col-md-4">
         <div class="form-group">
-          <label for="estado">Estado de la Liga:</label>
-          <select class="form-control" id="estado" [formControl]="estadoControl">
-            <option *ngFor="let estado of estados" [value]="estado.value">
+          <label>Estado posibles de la Liga</label>
+          <ul class="list-group">
+            <li *ngFor="let estado of estados" [ngClass]="{'btn-themecolor': estado.value === estadoActual.value}" class="list-group-item">
               {{estado.viewValue}}
-            </option>
-          </select>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <button *ngIf="!showConfirmation" type="submit" class="btn btn-themecolor">Modificar</button>
-        <button *ngIf="showConfirmation" (click)="confirm()" type="button" class="btn btn-themecolor">Confirmar</button>
+        <button *ngIf="!showConfirmation" (click)="modificar()" type="button" class="btn btn-themecolor">Modificar al siguiente estado</button>
+        <button *ngIf="showConfirmation" type="submit" class="btn btn-themecolor">Confirmar</button>
       </div>
     </div>
     <div *ngIf="showConfirmation" class="row mt-3">
@@ -26,5 +26,4 @@
       </div>
     </div>
   </form>
-
 </div>
