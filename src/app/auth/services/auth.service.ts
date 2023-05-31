@@ -189,7 +189,6 @@ export class AuthService {
   getStoredPkManager(): Observable<any> {
     return new Observable((observer) => {
       const intervalId = setInterval(() => {
-        console.log('Comprueba cada décima de segundo');
         let encryptedData = this.getRemember()
           ? localStorage.getItem('pkManager')
           : sessionStorage.getItem('pkManager');
