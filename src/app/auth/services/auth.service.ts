@@ -169,16 +169,66 @@ export class AuthService {
     return JSON.parse(decryptedData);
   }
 
-  // Método para almacenar el manager en el storage:
+  // Método para almacenar el manager y pkManager en el storage:
   setManagerToStore(param: any): any {
+    let pkManager = param.pkManager
     const encryptedData = xorEncryptDecrypt(JSON.stringify(param), SECRET_KEY);
+    const encryptedpkManager = xorEncryptDecrypt(JSON.stringify(pkManager), SECRET_KEY);
     const remember = this.getRemember();
 
     if (remember) {
       localStorage.setItem('manager', encryptedData);
+      localStorage.setItem('pkManager', encryptedpkManager)
     } else {
       sessionStorage.setItem('manager', encryptedData);
+      sessionStorage.setItem('pkManager', encryptedpkManager)
     }
+  }
+
+  // Método para obtener el pkManager almacenado:
+  getStoredPkManager(): Observable<any> {
+    return new Observable((observer) => {
+      const intervalId = setInterval(() => {
+        console.log('Comprueba cada décima de segundo');
+        let encryptedData = this.getRemember()
+          ? localStorage.getItem('pkManager')
+          : sessionStorage.getItem('pkManager');
+
+        if (encryptedData) {
+          const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+          observer.next(JSON.parse(decryptedData));
+        }
+      }, 100);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    });
+  }
+
+  // Método para almacenar la imagenPerfil en el storage:
+  setImagenPerfilToStore(param: any): any {
+    const encryptedData = xorEncryptDecrypt(JSON.stringify(param), SECRET_KEY);
+    const remember = this.getRemember();
+
+    if (remember) {
+      localStorage.setItem('imagenPerfil', encryptedData);
+    } else {
+      sessionStorage.setItem('imagenPerfil', encryptedData);
+    }
+  }
+
+  // Método para obtener la imagenPerfil almacenado:
+  getStoredImagenPerfil(): any {
+    const encryptedData = this.getRemember()
+      ? localStorage.getItem('imagenPerfil')
+      : sessionStorage.getItem('imagenPerfil');
+
+    if (!encryptedData) {
+      return null;
+    }
+    const decryptedData = xorEncryptDecrypt(encryptedData, SECRET_KEY);
+    return JSON.parse(decryptedData);
   }
 
   // Método para obtener datos de la liga guardada:
@@ -215,6 +265,8 @@ export class AuthService {
       localStorage.removeItem('manager');
       localStorage.removeItem('ligaGuardada');
       localStorage.removeItem('proximasTemporadas');
+      localStorage.removeItem('pkManager');
+      localStorage.removeItem('imagenPerfil');
       this.deleteRemember();
     } else {
       sessionStorage.removeItem('credentials');
@@ -222,6 +274,8 @@ export class AuthService {
       sessionStorage.removeItem('manager');
       sessionStorage.removeItem('ligaGuardada');
       sessionStorage.removeItem('proximasTemporadas');
+      sessionStorage.removeItem('pkManager');
+      sessionStorage.removeItem('imagenPerfil');
     }
   }
 

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SidebarService } from 'src/app/shared/sidebar/services/sidebar.service';
 import { xorEncryptDecrypt } from '../functions/xor-encryption/xor-encryption.component';
 import { environment } from 'src/environments/environment';
-import { LoadingService } from '../modules/loading.module/service/loading.service';
-import { forkJoin } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 
 const SECRET_KEY = environment.SECRET_KEY;
 
@@ -14,7 +13,7 @@ const SECRET_KEY = environment.SECRET_KEY;
   templateUrl: './sidebar.component.html',
   styles: [],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   menuItems: any[];
   credencialesEnSesion: any;
   managerEnSesion: any;
@@ -32,12 +31,22 @@ export class SidebarComponent implements OnInit {
   numLesionadosEquipo: any;
   numPujasActivas: any;
 
+  private subscription: Subscription;
+  pkManagerEnSesion: string;
+  imagenPerfil = './assets/images/users/null.jpg';
+
   constructor(
     private sidebarService: SidebarService,
     private authService: AuthService,
     private router: Router,
-    private readonly loadingService: LoadingService,
-  ) {}
+  ) {
+    const storedImagePath = this.authService.getStoredImagenPerfil();
+    if (storedImagePath) {
+      this.imagenPerfil = storedImagePath; // Usa la ruta de la imagen almacenada si está disponible.
+    } else {
+      this.asignarImagenPerfil(); // Si no, obtén pkManager para crear la ruta de la imagen.
+    }
+  }
 
   ngOnInit(): void {
     this.menuItems = this.sidebarService.menu;
@@ -95,11 +104,6 @@ export class SidebarComponent implements OnInit {
     );
   }
 
-  logout(){
-    this.authService.removeStoredData();
-    this.router.navigateByUrl('/');
-  }
-
   onSidebarLinkClick(): void {
     // Compruebe si el menú está abierto en dispositivos móviles
     if (window.innerWidth < 1170 && document.body.classList.contains('show-sidebar')) {
@@ -144,6 +148,36 @@ export class SidebarComponent implements OnInit {
       localStorage.setItem('ligaGuardada', encryptedData);
     } else {
       sessionStorage.setItem('ligaGuardada', encryptedData);
+    }
+  }
+
+  asignarImagenPerfil() {
+    const pathBase = './assets/images/users/';
+    const pkManager$ = this.authService.getStoredPkManager();
+
+    this.subscription = pkManager$.subscribe(
+      imagen => {
+        if(imagen !== null){
+          this.pkManagerEnSesion = imagen;
+          this.imagenPerfil = pathBase + imagen + '.jpg';
+          this.authService.setImagenPerfilToStore(this.imagenPerfil); // Almacena la ruta de la imagen.
+          this.subscription.unsubscribe(); // Desuscribirse una vez que se obtenga el valor.
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  logout(){
+    this.authService.removeStoredData();
+    this.router.navigateByUrl('/');
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe(); // Limpiar la suscripción.
     }
   }
 }

@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { LangService } from '../modules/lang.module/service/lang.service';
 import { DashboardService } from 'src/app/pages/dashboard/dashboard.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LoadingService } from '../modules/loading.module/service/loading.service';
+import { Subscription, from } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   ligaGuardadaEnSesion: any;
+
+  private subscription: Subscription;
+  pkManagerEnSesion: string;
+  imagenPerfil = './assets/images/users/null.jpg';
 
   constructor(
     private authService: AuthService,
@@ -22,9 +27,35 @@ export class HeaderComponent implements OnInit {
     private dashboardService: DashboardService,
     private sharedService: SharedService,
     private readonly loadingService: LoadingService
-  ) { }
+  ) {
+    const storedImagePath = this.authService.getStoredImagenPerfil();
+    if (storedImagePath) {
+      this.imagenPerfil = storedImagePath; // Usa la ruta de la imagen almacenada si está disponible.
+    } else {
+      this.asignarImagenPerfil(); // Si no, obtén pkManager para crear la ruta de la imagen.
+    }
+  }
 
   ngOnInit(): void {
+  }
+
+  asignarImagenPerfil() {
+    const pathBase = './assets/images/users/';
+    const pkManager$ = this.authService.getStoredPkManager();
+
+    this.subscription = pkManager$.subscribe(
+      imagen => {
+        if(imagen !== null){
+          this.pkManagerEnSesion = imagen;
+          this.imagenPerfil = pathBase + imagen + '.jpg';
+          this.authService.setImagenPerfilToStore(this.imagenPerfil); // Almacena la ruta de la imagen.
+          this.subscription.unsubscribe(); // Desuscribirse una vez que se obtenga el valor.
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   onSubmit(event: Event): void {
@@ -80,6 +111,12 @@ export class HeaderComponent implements OnInit {
         menuButton.classList.remove('ti-close');
         menuButton.classList.add('ti-menu');
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe(); // Limpiar la suscripción.
     }
   }
 }
