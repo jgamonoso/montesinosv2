@@ -1,1 +1,22 @@
-<p>historico works!</p>
+<div class="container animated fadeIn">
+  <h2>Palmarés</h2>
+  <!-- <hr> -->
+
+  <div class="content" *ngFor="let temporadaNombre of objectKeys(listaPalmares)">
+    <h4>{{ temporadaNombre }}</h4>
+    <div class="content-item" *ngFor="let palmares of listaPalmares[temporadaNombre]">
+      <strong>{{ palmares.logro }}:</strong> {{ palmares.fkEquipo | equipoliga }}
+    </div>
+    <br>
+  </div>
+
+  <br>
+  <hr>
+  <h2>Records</h2>
+
+  <div class="content">
+    <div class="content-item" *ngFor="let record of listaRecords">
+      <strong>{{ record.categoria.nombre }}:</strong> {{ record.valor }} ({{ record.fkEquipo | equipoliga }} - {{ record.temporada.nombre }})
+    </div>
+  </div>
+</div>
