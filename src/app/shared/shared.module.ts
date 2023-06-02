@@ -17,8 +17,10 @@ import { AccountSettingsComponent } from 'src/app/pages/account-settings/account
 // Pipes
 import { EquipoligaPipe } from './pipes/equipoliga.pipe';
 import { EquiponbaPipe } from './pipes/equiponba.pipe';
+import { EquiponbacompletoPipe } from './pipes/equiponbacompleto.pipe';
 import { NombretemporadaPipe } from './pipes/nombretemporada.pipe';
 import { ConcatPositionsPipe } from './pipes/concatPositions.pipe';
+import { EntrenadornbaPipe } from './pipes/entrenadornba.pipe';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { ConcatPositionsPipe } from './pipes/concatPositions.pipe';
     AccountSettingsComponent,
     Error404Component,
     EquiponbaPipe,
+    EquiponbacompletoPipe,
     EquipoligaPipe,
+    EntrenadornbaPipe,
     NombretemporadaPipe,
     ConcatPositionsPipe
   ],
@@ -48,7 +52,9 @@ import { ConcatPositionsPipe } from './pipes/concatPositions.pipe';
     HttpModule,
     LoadingModule,
     EquiponbaPipe,
+    EquiponbacompletoPipe,
     EquipoligaPipe,
+    EntrenadornbaPipe,
     NombretemporadaPipe,
     ConcatPositionsPipe
   ],

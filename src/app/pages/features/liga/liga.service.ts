@@ -75,4 +75,24 @@ export class LigaService {
       )
     );
   }
+
+  obtenerListaEquiposLigaApuestas(pkLiga: number): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
+      body: {
+        action: 'obtenerListaEquiposLigaApuestas',
+        pkLiga: pkLiga
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          // Respuesta OK
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
 }

@@ -1,9 +1,9 @@
 <div class="container animated fadeIn">
   <h2>Palmarés</h2>
-  <!-- <hr> -->
 
   <div class="content" *ngFor="let temporadaNombre of objectKeys(listaPalmares)">
     <h4>{{ temporadaNombre }}</h4>
+
     <div class="content-item" *ngFor="let palmares of listaPalmares[temporadaNombre]">
       <strong>{{ palmares.logro }}:</strong> {{ palmares.fkEquipo | equipoliga }}
     </div>

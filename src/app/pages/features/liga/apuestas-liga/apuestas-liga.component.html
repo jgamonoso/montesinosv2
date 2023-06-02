@@ -1,1 +1,91 @@
-<p>apuestas-liga works!</p>
+<div class="container animated fadeIn">
+  <h2>Apuestas</h2>
+
+  <div class="content" *ngIf="apuestasAbiertas">
+
+    <h4> MVP </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkJugadorMVP }}
+    </div>
+    <br>
+
+    <h4> Rookie del año </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkJugadorROY }}
+    </div>
+    <br>
+
+    <h4> Sexto Hombre </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkJugadorSexto }}
+    </div>
+    <br>
+
+    <h4> Mejor Defensor </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkJugadorDefensor }}
+    </div>
+    <br>
+
+    <h4> MIP </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkJugadorMIP }}
+    </div>
+    <br>
+
+    <h4> Mejor Entrenador </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEntrenador | entrenadornba }}
+    </div>
+    <br>
+
+    <h4> Campeón NBA </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquiponbaCampeon | equiponbacompleto }}
+    </div>
+    <br>
+
+    <h4> Peor Equipo NBA </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquiponbaPeor | equiponbacompleto }}
+    </div>
+    <br>
+
+    <h4> Campeón </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoCampeon | equipoliga }}
+    </div>
+    <br>
+
+    <h4> Finalista </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoFinalista | equipoliga }}
+    </div>
+    <br>
+
+    <h4> Campeón RS </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoRegular | equipoliga }}
+    </div>
+    <br>
+
+    <h4> Peor franquicia </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoPeor | equipoliga }}
+    </div>
+    <br>
+
+    <h4> Campeón Copa Montesina </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoCopa | equipoliga }}
+    </div>
+    <br>
+
+    <h4> Campeón Supercopa Montesina </h4>
+    <div class="content-item" *ngFor="let equipo of listaEquiposLiga">
+      <strong>{{ equipo.nombre }}:</strong> {{ equipo.apuesta?.fkEquipoSupercopa | equipoliga }}
+    </div>
+    <br>
+
+  </div>
+</div>
