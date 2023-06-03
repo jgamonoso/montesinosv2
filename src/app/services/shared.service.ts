@@ -25,7 +25,10 @@ export class SharedService {
     'background-14.jpg',
   ];
 
-  equiposMap: { [key: string]: string } = {};
+  equiposLigaMap: { [key: string]: string } = {};
+  equiposNbaMap: { [key: string]: string } = {};
+  equiposNbaAbrevMap: { [key: string]: string } = {};
+  entrenadoresNbaMap: { [key: string]: string } = {};
 
   private searchResultsSource = new Subject<any>();
   searchResults$ = this.searchResultsSource.asObservable();
@@ -52,7 +55,56 @@ export class SharedService {
         response => {
           if (Array.isArray(response)) {
             response.forEach(equipo => {
-              this.equiposMap[equipo.pkEquipo] = equipo.nombre;
+              this.equiposLigaMap[equipo.pkEquipo] = equipo.nombre;
+            });
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerListaEquiposNba(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
+      body: {
+        action: 'obtenerListaEquiposNba'
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          console.log('response:', response);
+          if (Array.isArray(response)) {
+            response.forEach(equiponba => {
+              this.equiposNbaMap[equiponba.pkEquipoNba] = equiponba.nombre;
+              this.equiposNbaAbrevMap[equiponba.pkEquipoNba] = equiponba.abrev;
+            });
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerListaEntrenadores(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
+      body: {
+        action: 'obtenerListaEntrenadores'
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          console.log('response:', response);
+          if (Array.isArray(response)) {
+            response.forEach(entrenadornba => {
+              this.entrenadoresNbaMap[entrenadornba.pkEntrenador] = entrenadornba.nombre + " ("+ entrenadornba.equipo +")";
             });
           }
         },

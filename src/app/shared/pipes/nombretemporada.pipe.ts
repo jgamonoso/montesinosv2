@@ -1,15 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-// import { ManagerService } from '../services/manager.service';
 
 @Pipe({
   name: 'nombretemporada'
 })
 export class NombretemporadaPipe implements PipeTransform {
-
-  // pruebaTemporadas: any = {};
-
-  // constructor(private _manager: ManagerService) {
-  // }
 
   transform( fkTemporada: string ): any {
 

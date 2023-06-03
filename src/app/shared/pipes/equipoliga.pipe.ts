@@ -11,6 +11,6 @@ export class EquipoligaPipe implements PipeTransform {
   ) {}
 
   transform(fkEquipoOri: string): any {
-    return this.sharedService.equiposMap[fkEquipoOri] || 'OTR';
+    return this.sharedService.equiposLigaMap[fkEquipoOri] || 'OTR';
   }
 }

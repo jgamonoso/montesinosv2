@@ -38,8 +38,10 @@ export class ApuestasLigaComponent implements OnInit {
       this.parametrosService.obtenerValorParametro("APUESTAS_ABIERTAS"),
       this.ligaService.obtenerListaEquiposLigaApuestas(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
+      this.sharedService.obtenerListaEntrenadores(),
     ]).subscribe(
-      ([valorParametroApuestasAbiertas, obtenerListaEquiposLigaApuestas, listaEquiposNombre]) => {
+      ([valorParametroApuestasAbiertas, obtenerListaEquiposLigaApuestas, listaEquiposNombre, listaEquiposNba, listaEntrenadoresNba]) => {
         this.apuestasAbiertas = valorParametroApuestasAbiertas;
         this.listaEquiposLiga = obtenerListaEquiposLigaApuestas;
         this.dataLoaded = true;
