@@ -97,9 +97,9 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
       return forkJoin([
         managerRequest,
         this.sharedService.obtenerListaEquiposNombre(),
+        this.sharedService.obtenerListaTemporadas(),
       ]).pipe(
-        tap(([manager, listaEquiposNombre]) => {
-        // console.log('Manager:', manager);
+        tap(([manager, listaEquiposNombre, listaTemporadas]) => {
         this.man = manager;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

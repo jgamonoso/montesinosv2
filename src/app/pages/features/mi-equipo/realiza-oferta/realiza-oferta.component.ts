@@ -56,8 +56,9 @@ export class RealizaOfertaComponent implements OnInit {
     forkJoin([
       this.realizaOfertaService.obtenerEquipoPorPk(this.pkEquipo),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaTemporadas(),
     ]).subscribe(
-      ([equipoPorPk]) => {
+      ([equipoPorPk, listaEquiposNombre, listaTemporadas]) => {
         this.equipoPorPk = equipoPorPk;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

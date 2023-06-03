@@ -44,8 +44,9 @@ export class TradesComiComponent implements OnInit {
     forkJoin([
       this.comisionadoService.obtenerListaTradesPendientes(),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaTemporadas(),
     ]).subscribe(
-      ([listaTradesPendientes, listaEquiposNombre]) => {
+      ([listaTradesPendientes, listaEquiposNombre, listaTemporadas]) => {
         this.listaTradesPendientes = listaTradesPendientes;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

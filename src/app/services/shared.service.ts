@@ -29,6 +29,7 @@ export class SharedService {
   equiposNbaMap: { [key: string]: string } = {};
   equiposNbaAbrevMap: { [key: string]: string } = {};
   entrenadoresNbaMap: { [key: string]: string } = {};
+  temporadasMap: { [key: string]: string } = {};
 
   private searchResultsSource = new Subject<any>();
   searchResults$ = this.searchResultsSource.asObservable();
@@ -105,6 +106,30 @@ export class SharedService {
           if (Array.isArray(response)) {
             response.forEach(entrenadornba => {
               this.entrenadoresNbaMap[entrenadornba.pkEntrenador] = entrenadornba.nombre + " ("+ entrenadornba.equipo +")";
+            });
+          }
+        },
+        error => {
+          this.loadingService.setLoadingState(false);
+        }
+      )
+    );
+  }
+
+  obtenerListaTemporadas(): Observable<any> {
+    const httpParametersClass = new HttpParametersClass({
+      url: `${_API_ENDPOINTS.host}${_API_ENDPOINTS.liga.start}`,
+      body: {
+        action: 'obtenerListaTemporadas'
+      }
+    });
+    return this.httpService.post(httpParametersClass).pipe(
+      tap(
+        response => {
+          console.log('response:', response);
+          if (Array.isArray(response)) {
+            response.forEach(temporada => {
+              this.temporadasMap[temporada.pkTemporada] = temporada.nombre;
             });
           }
         },

@@ -44,8 +44,9 @@ export class OfertasRecibidasComponent implements OnInit {
     forkJoin([
       this.ofertasRecibidasService.obtenerListaOfertasRecibidas(this.managerEnSesion.equipo.pkEquipo),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaTemporadas(),
     ]).subscribe(
-      ([listaOfertasRecibidas, listaEquiposNombre]) => {
+      ([listaOfertasRecibidas, listaEquiposNombre, listaTemporadas]) => {
         this.listaOfertasRecibidas = listaOfertasRecibidas;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);
