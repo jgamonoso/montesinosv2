@@ -28,7 +28,7 @@ import { TradingBlockComponent } from './features/mercado/trading-block/trading-
 import { JugadoresAlOffseasonComponent } from './features/agencia-libre/jugadores-al-offseason/jugadores-al-offseason.component';
 import { JugadoresAlSeasonComponent } from './features/agencia-libre/jugadores-al-season/jugadores-al-season.component';
 import { JugadoresAlComponent } from './features/agencia-libre/jugadores-al/jugadores-al.component';
-import { PujasActivasAlComponent } from './features/agencia-libre/pujas-activas-al/pujas-activas-al.component';
+import { PujasActivasAlOffseasonComponent } from './features/agencia-libre/pujas-activas-al-offseason/pujas-activas-al-offseason.component';
 import { JugadoresRenovacionesComponent } from './features/renovaciones/jugadores-renovaciones/jugadores-renovaciones.component';
 import { PujasActivasRenovacionesComponent } from './features/renovaciones/pujas-activas-renovaciones/pujas-activas-renovaciones.component';
 import { DraftPicksComponent } from './features/draft/draft-picks/draft-picks.component';
@@ -120,7 +120,7 @@ const routes: Routes = [
       { path: 'jugadores-al', component: JugadoresAlComponent },
       { path: 'jugadores-al-season', component: JugadoresAlSeasonComponent },
       { path: 'jugadores-al-offseason', component: JugadoresAlOffseasonComponent },
-      { path: 'pujas-activas-al', component: PujasActivasAlComponent },
+      { path: 'pujas-activas-al-offseason', component: PujasActivasAlOffseasonComponent },
     ],
   },
   {

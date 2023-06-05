@@ -72,20 +72,20 @@ export class SidebarService {
       icono: 'mdi mdi-file',
       submenu: [
         {
-          titulo: 'Jugadores (ALSeason)',
+          titulo: 'Jugadores',
           url: '/agencia-libre/jugadores-al-season',
         },
         {
-          titulo: 'Jugadores (AL)',
+          titulo: 'Jugadores',
           url: '/agencia-libre/jugadores-al',
         },
         {
-          titulo: 'Jugadores (ALOffseason)',
+          titulo: 'Jugadores',
           url: '/agencia-libre/jugadores-al-offseason',
         },
         {
           titulo: 'Pujas Activas',
-          url: '/agencia-libre/pujas-activas-al',
+          url: '/agencia-libre/pujas-activas-al-offseason',
         },
       ],
     },

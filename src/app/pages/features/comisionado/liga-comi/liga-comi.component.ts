@@ -118,7 +118,7 @@ export class LigaComiComponent implements OnInit {
   }
 
   verCambioEstadoOK(): void {
-    this.router.navigate(['/comisionado/show-info'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Estado de liga cambiado',
         subtitulo: 'Se aplicó el cambio de estado',
@@ -128,7 +128,7 @@ export class LigaComiComponent implements OnInit {
   }
 
   verCambioEstadoKO(): void {
-    this.router.navigate(['/comisionado/show-info'], {
+    this.router.navigate(['/mi-equipo/show-info'], {
       state: {
         titulo: 'Estado de liga NO cambiado',
         subtitulo: 'Ha ocurrido un error en el proceso',

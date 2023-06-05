@@ -17,6 +17,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   menuItems: any[];
   credencialesEnSesion: any;
   managerEnSesion: any;
+  temporadaEnSesion: any
   ligaGuardadaEnSesion: {
     ligaVisible: number;
     ligaPropia: boolean;
@@ -52,6 +53,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.menuItems = this.sidebarService.menu;
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada() || this.ligaGuardadaEnSesion;
     this.credencialesEnSesion = this.authService.getStoredCredentials();
+    this.temporadaEnSesion = this.authService.getStoredTemporada();
     if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);
     }
@@ -168,6 +170,35 @@ export class SidebarComponent implements OnInit, OnDestroy {
         console.error(error);
       }
     );
+  }
+
+  shouldDisplayItem(item): boolean {
+    if (item.titulo === 'Renovaciones' || item.titulo === 'Draft') {
+      return this.temporadaEnSesion.estado === 'RENOVACIONES';
+    }
+    if (item.titulo === 'Agencia Libre') {
+      return this.temporadaEnSesion.estado !== 'TEAM_OPTION';
+    }
+    return true;
+  }
+
+  shouldDisplaySubItem(item, subItem): boolean {
+    if (item.titulo === 'Agencia Libre') {
+      switch(this.temporadaEnSesion.estado) {
+        case 'RENOVACIONES':
+          return subItem.url === '/agencia-libre/jugadores-al';
+        case 'AL_OFFSEASON':
+          return subItem.url === '/agencia-libre/jugadores-al-offseason' ||
+                 subItem.url === '/agencia-libre/pujas-activas-al-offseason';
+        case 'SEASON':
+          return subItem.url === '/agencia-libre/jugadores-al-season';
+        case 'CORTE_GRATIS':
+          return subItem.url === '/agencia-libre/jugadores-al';
+        default:
+          return false;
+      }
+    }
+    return true;
   }
 
   logout(){

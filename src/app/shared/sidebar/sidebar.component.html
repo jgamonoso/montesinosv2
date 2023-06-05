@@ -72,33 +72,37 @@
         <li class="nav-devider" *ngIf="ligaGuardadaEnSesion.ligaPropia"></li>
         <li class="nav-small-cap">PANEL DE CONTROL</li>
 
-        <li *ngFor="let item of menuItems">
-          <a
-            class="has-arrow waves-effect waves-dark"
-            href="#"
-            aria-expanded="false"
-          >
-            <i class="{{ item.icono }}"></i>
-            <span class="hide-menu">
-              {{ item.titulo }}
-              <!-- <span class="label label-rouded label-themecolor pull-right">
-                {{ item.submenu.length }}
-              </span> -->
-            </span>
-          </a>
-          <ul aria-expanded="false" class="collapse">
-            <li *ngFor="let subMenuItem of item.submenu">
-              <a (click)="subMenuItem.titulo === 'Cambiar de liga' ? cambiarDeLiga() : onSidebarLinkClick()"
-                 [routerLink]="subMenuItem.url"
-                 routerLinkActive="active">
-                {{ subMenuItem.titulo }}
-                <span *ngIf="subMenuItem.titulo === 'Pujas Activas' && numPujasActivas" class="label label-rouded label-themecolor pull-right">
-                  {{numPujasActivas}}
-                </span>
-              </a>
-            </li>
-          </ul>
-        </li>
+        <ng-container *ngFor="let item of menuItems">
+          <li *ngIf="shouldDisplayItem(item)">
+            <a
+              class="has-arrow waves-effect waves-dark"
+              href="#"
+              aria-expanded="false"
+            >
+              <i class="{{ item.icono }}"></i>
+              <span class="hide-menu">
+                {{ item.titulo }}
+                <!-- <span class="label label-rouded label-themecolor pull-right">
+                  {{ item.submenu.length }}
+                </span> -->
+              </span>
+            </a>
+            <ul aria-expanded="false" class="collapse">
+              <ng-container *ngFor="let subMenuItem of item.submenu">
+                <li *ngIf="shouldDisplaySubItem(item, subMenuItem)">
+                  <a (click)="subMenuItem.titulo === 'Cambiar de liga' ? cambiarDeLiga() : onSidebarLinkClick()"
+                    [routerLink]="subMenuItem.url"
+                    routerLinkActive="active">
+                    {{ subMenuItem.titulo }}
+                    <span *ngIf="subMenuItem.titulo === 'Pujas Activas' && numPujasActivas" class="label label-rouded label-themecolor pull-right">
+                      {{numPujasActivas}}
+                    </span>
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
 
         <ng-container *ngIf="(!managerEnSesion || managerEnSesion?.grupo?.pkGrupo === '1' || managerEnSesion?.grupo?.pkGrupo === '3')">
           <li class="nav-devider"></li>

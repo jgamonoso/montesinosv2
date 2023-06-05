@@ -35,7 +35,7 @@ import { WaiversComponent } from './features/mi-equipo/waivers/waivers.component
 import { JugadoresAlComponent } from './features/agencia-libre/jugadores-al/jugadores-al.component';
 import { JugadoresAlSeasonComponent } from './features/agencia-libre/jugadores-al-season/jugadores-al-season.component';
 import { JugadoresAlOffseasonComponent } from './features/agencia-libre/jugadores-al-offseason/jugadores-al-offseason.component';
-import { PujasActivasAlComponent } from './features/agencia-libre/pujas-activas-al/pujas-activas-al.component';
+import { PujasActivasAlOffseasonComponent } from './features/agencia-libre/pujas-activas-al-offseason/pujas-activas-al-offseason.component';
 import { JugadoresRenovacionesComponent } from './features/renovaciones/jugadores-renovaciones/jugadores-renovaciones.component';
 import { PujasActivasRenovacionesComponent } from './features/renovaciones/pujas-activas-renovaciones/pujas-activas-renovaciones.component';
 import { DraftPicksComponent } from './features/draft/draft-picks/draft-picks.component';
@@ -92,7 +92,7 @@ import { ShowInfoComponent } from '../shared/show-info/show-info.component';
     JugadoresAlComponent,
     JugadoresAlSeasonComponent,
     JugadoresAlOffseasonComponent,
-    PujasActivasAlComponent,
+    PujasActivasAlOffseasonComponent,
     JugadoresRenovacionesComponent,
     PujasActivasRenovacionesComponent,
     DraftPicksComponent,
