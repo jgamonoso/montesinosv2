@@ -48,8 +48,9 @@ export class TradingBlockComponent implements OnInit {
       this.mercadoService.obtenerListaJugadoresConContratoTradingBlock(this.ligaGuardadaEnSesion.ligaVisible),
       this.mercadoService.obtenerListaJugadoresConDerechoTradingBlock(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([listaDraftpicks, listaJugadoresConContrato, listaJugadoresConDerecho, listaEquiposNombre]) => {
+      ([listaDraftpicks, listaJugadoresConContrato, listaJugadoresConDerecho, listaEquiposNombre, listaEquiposNba]) => {
         this.listaDraftpicks = listaDraftpicks;
         this.listaJugadoresConContrato = listaJugadoresConContrato;
         this.listaJugadoresConDerecho = listaJugadoresConDerecho;

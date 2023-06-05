@@ -57,8 +57,9 @@ export class RealizaOfertaComponent implements OnInit {
       this.realizaOfertaService.obtenerEquipoPorPk(this.pkEquipo),
       this.sharedService.obtenerListaEquiposNombre(),
       this.sharedService.obtenerListaTemporadas(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([equipoPorPk, listaEquiposNombre, listaTemporadas]) => {
+      ([equipoPorPk, listaEquiposNombre, listaTemporadas, listaEquiposNba]) => {
         this.equipoPorPk = equipoPorPk;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

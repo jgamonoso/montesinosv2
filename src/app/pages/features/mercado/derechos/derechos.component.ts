@@ -44,8 +44,9 @@ export class DerechosComponent implements OnInit {
     forkJoin([
       this.mercadoService.obtenerListaJugadoresConDerecho(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([listaJugadoresConDerecho, listaEquiposNombre]) => {
+      ([listaJugadoresConDerecho, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresConDerecho = listaJugadoresConDerecho;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

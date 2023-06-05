@@ -98,8 +98,9 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
         managerRequest,
         this.sharedService.obtenerListaEquiposNombre(),
         this.sharedService.obtenerListaTemporadas(),
+        this.sharedService.obtenerListaEquiposNba(),
       ]).pipe(
-        tap(([manager, listaEquiposNombre, listaTemporadas]) => {
+        tap(([manager, listaEquiposNombre, listaTemporadas, listaEquiposNba]) => {
         this.man = manager;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

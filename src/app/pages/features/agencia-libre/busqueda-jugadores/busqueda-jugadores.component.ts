@@ -28,6 +28,12 @@ export class BusquedaJugadoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sharedService.obtenerListaEquiposNba().subscribe(
+      () => {},
+      error => {
+        console.error('Error obteniendo lista de equipos NBA', error.message);
+      }
+    );
     this.listaTemporadas = this.authService.getStoredProximasTemporadas();
     this.temporadaEnSesion = this.authService.getStoredTemporada();
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();

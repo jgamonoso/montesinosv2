@@ -42,8 +42,9 @@ export class JugadoresRenovacionesComponent implements OnInit {
     forkJoin([
       this.renovacionesService.obtenerListaJugadoresRenovables(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([JugadoresRenovables, listaEquiposNombre]) => {
+      ([JugadoresRenovables, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresRenovables = JugadoresRenovables;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

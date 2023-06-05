@@ -77,7 +77,6 @@ export class SharedService {
     return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
-          console.log('response:', response);
           if (Array.isArray(response)) {
             response.forEach(equiponba => {
               this.equiposNbaMap[equiponba.pkEquipoNba] = equiponba.nombre;

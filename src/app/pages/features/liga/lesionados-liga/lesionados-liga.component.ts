@@ -46,8 +46,9 @@ export class LesionadosLigaComponent implements OnInit {
       this.equiposService.obtenerJugadoresCOVIDConContrato(this.ligaGuardadaEnSesion.ligaVisible),
       this.equiposService.obtenerJugadoresILLiga(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([jugadoresLLDConContrato, jugadoresCOVIDConContrato, jugadoresILLiga, listaEquiposNombre]) => {
+      ([jugadoresLLDConContrato, jugadoresCOVIDConContrato, jugadoresILLiga, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresLLDConContrato = jugadoresLLDConContrato;
         this.listaJugadoresCOVIDConContrato = jugadoresCOVIDConContrato;
         this.listaJugadoresILLiga = jugadoresILLiga;

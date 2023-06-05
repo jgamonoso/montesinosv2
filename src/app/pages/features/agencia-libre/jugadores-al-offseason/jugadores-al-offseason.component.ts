@@ -42,8 +42,9 @@ export class JugadoresAlOffseasonComponent implements OnInit {
     forkJoin([
       this.agenciaLibreService.obtenerListaJugadoresLibresOffseason(this.ligaGuardadaEnSesion.ligaVisible, this.managerEnSesion.equipo.pkEquipo),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([JugadoresLibresOffseason, listaEquiposNombre]) => {
+      ([JugadoresLibresOffseason, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresLibresOffseason = JugadoresLibresOffseason;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { EquiposService } from '../../liga/equipos/equipos.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
+import { forkJoin } from 'rxjs';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-lesionados',
@@ -21,7 +23,8 @@ export class LesionadosComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private equiposService: EquiposService,
-    private readonly loadingService: LoadingService
+    private readonly loadingService: LoadingService,
+    private sharedService: SharedService,
   ) { }
 
   ngOnInit(): void {
@@ -34,17 +37,19 @@ export class LesionadosComponent implements OnInit {
   }
 
   loadInitialData() {
-    this.equiposService.obtenerJugadoresLesionadosEquipo(this.managerEnSesion.equipo.pkEquipo)
-      .subscribe(
-        (listadoJugadoresLesionados) => {
-          this.jugadoresLesionados = listadoJugadoresLesionados;
-          this.dataLoaded = true;
-          this.loadingService.setLoadingState(false);
-        },
-        (error) => {
-          console.error('Error en las llamadas', error.message);
-          this.loadingService.setLoadingState(false);
-        }
-      );
+    forkJoin([
+      this.equiposService.obtenerJugadoresLesionadosEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.sharedService.obtenerListaEquiposNba(),
+    ]).subscribe(
+      ([listadoJugadoresLesionados, listaEquiposNba]) => {
+        this.jugadoresLesionados = listadoJugadoresLesionados;
+        this.dataLoaded = true;
+        this.loadingService.setLoadingState(false);
+      },
+      (error) => {
+        console.error('Error en las llamadas', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
   }
 }

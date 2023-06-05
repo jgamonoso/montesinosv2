@@ -174,17 +174,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   shouldDisplayItem(item): boolean {
     if (item.titulo === 'Renovaciones' || item.titulo === 'Draft') {
-      return this.temporadaEnSesion.estado === 'RENOVACIONES';
+      return this.temporadaEnSesion?.estado === 'RENOVACIONES';
     }
     if (item.titulo === 'Agencia Libre') {
-      return this.temporadaEnSesion.estado !== 'TEAM_OPTION';
+      return this.temporadaEnSesion?.estado !== 'TEAM_OPTION';
     }
     return true;
   }
 
   shouldDisplaySubItem(item, subItem): boolean {
     if (item.titulo === 'Agencia Libre') {
-      switch(this.temporadaEnSesion.estado) {
+      switch(this.temporadaEnSesion?.estado) {
         case 'RENOVACIONES':
           return subItem.url === '/agencia-libre/jugadores-al';
         case 'AL_OFFSEASON':

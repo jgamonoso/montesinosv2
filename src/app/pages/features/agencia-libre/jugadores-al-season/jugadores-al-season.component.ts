@@ -42,8 +42,9 @@ export class JugadoresAlSeasonComponent implements OnInit {
     forkJoin([
       this.agenciaLibreService.obtenerListaJugadoresLibres(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([JugadoresLibres, listaEquiposNombre]) => {
+      ([JugadoresLibres, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresLibres = JugadoresLibres;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);

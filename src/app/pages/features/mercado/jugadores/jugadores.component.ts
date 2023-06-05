@@ -44,8 +44,9 @@ export class JugadoresComponent implements OnInit {
     forkJoin([
       this.mercadoService.obtenerJugadoresConContrato(this.ligaGuardadaEnSesion.ligaVisible),
       this.sharedService.obtenerListaEquiposNombre(),
+      this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
-      ([jugadoresConContrato, listaEquiposNombre]) => {
+      ([jugadoresConContrato, listaEquiposNombre, listaEquiposNba]) => {
         this.listaJugadoresConContrato = jugadoresConContrato;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);
