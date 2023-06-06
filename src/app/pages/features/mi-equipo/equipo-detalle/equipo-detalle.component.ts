@@ -81,7 +81,7 @@ export class EquipoDetalleComponent implements OnInit, OnDestroy {
             this.ligaPropia = false;
           }
         } else {
-          console.log('NO MANAGER')
+          // console.log('NO MANAGER')
         }
       }),
       switchMap(() => this.loadInitialData())

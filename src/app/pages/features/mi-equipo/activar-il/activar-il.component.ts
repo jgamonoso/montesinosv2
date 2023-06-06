@@ -131,10 +131,10 @@ export class ActivarIlComponent implements OnInit {
         this.case = 2;
         this.dataLoaded = true;
         this.loadingService.setLoadingState(false);
-        console.log('HAY QUE SUSTITUIR JUGADORES IL')
+        // console.log('HAY QUE SUSTITUIR JUGADORES IL')
       } else { // managerEnSesion.equipo.jugadoresIL?.length > numeroIL
         this.case = 3;
-        console.log('YA HAY MAS JUGADORES IL de los permitidos')
+        // console.log('YA HAY MAS JUGADORES IL de los permitidos')
       }
     }
   }

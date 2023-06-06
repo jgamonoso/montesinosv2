@@ -32,7 +32,6 @@ export class EquiposComponent implements OnInit {
     this.equiposService.obtenerListadoManagersConEquipo(this.ligaGuardadaEnSesion.ligaVisible)
       .subscribe(
         (listadoManagersConEquipo) => {
-          // console.log('listadoManagersConEquipo:', listadoManagersConEquipo);
           this.listadoManagersConEquipo = listadoManagersConEquipo;
           this.dataLoaded = true;
           this.loadingService.setLoadingState(false);

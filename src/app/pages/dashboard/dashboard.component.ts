@@ -77,7 +77,6 @@ export class DashboardComponent implements OnInit {
   }
 
   reloadPage() {
-    console.log('reloadPage()')
     window.location.reload();
   }
 

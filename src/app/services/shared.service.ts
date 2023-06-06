@@ -101,7 +101,6 @@ export class SharedService {
     return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
-          console.log('response:', response);
           if (Array.isArray(response)) {
             response.forEach(entrenadornba => {
               this.entrenadoresNbaMap[entrenadornba.pkEntrenador] = entrenadornba.nombre + " ("+ entrenadornba.equipo +")";
@@ -125,7 +124,6 @@ export class SharedService {
     return this.httpService.post(httpParametersClass).pipe(
       tap(
         response => {
-          console.log('response:', response);
           if (Array.isArray(response)) {
             response.forEach(temporada => {
               this.temporadasMap[temporada.pkTemporada] = temporada.nombre;

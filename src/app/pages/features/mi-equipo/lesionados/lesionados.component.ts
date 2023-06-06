@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { EquiposService } from '../../liga/equipos/equipos.service';
 import { LoadingService } from 'src/app/shared/modules/loading.module/service/loading.service';
 import { forkJoin } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
+import { LesionadosService } from './lesionados.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lesionados',
@@ -17,14 +18,16 @@ export class LesionadosComponent implements OnInit {
   managerEnSesion: any;
   listaTemporadas: any[];
   temporadaEnSesion: any
+  ligaGuardadaEnSesion: any
 
   jugadoresLesionados: any[];
 
   constructor(
     private authService: AuthService,
-    private equiposService: EquiposService,
+    private lesionadosService: LesionadosService,
     private readonly loadingService: LoadingService,
     private sharedService: SharedService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,12 +36,13 @@ export class LesionadosComponent implements OnInit {
     this.temporadaEnSesion = this.authService.getStoredTemporada();
     this.managerEnSesion = this.authService.getStoredManager();
     this.listaTemporadas = this.authService.getStoredProximasTemporadas();
+    this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
     this.loadInitialData();
   }
 
   loadInitialData() {
     forkJoin([
-      this.equiposService.obtenerJugadoresLesionadosEquipo(this.managerEnSesion.equipo.pkEquipo),
+      this.lesionadosService.obtenerJugadoresLesionadosEquipo(this.managerEnSesion.equipo.pkEquipo),
       this.sharedService.obtenerListaEquiposNba(),
     ]).subscribe(
       ([listadoJugadoresLesionados, listaEquiposNba]) => {
@@ -53,17 +57,34 @@ export class LesionadosComponent implements OnInit {
     );
   }
 
-  navegarRecuperarLLD(pkJugador: number) {
-    console.log('pkJugador', pkJugador);
+  recuperarLLD(pkJugador: number) {
+    this.loadingService.setLoadingState(true);
+    this.lesionadosService.recuperarJugadorLesionado(
+      this.managerEnSesion.pkManager,
+      this.managerEnSesion.equipo.pkEquipo,
+      pkJugador,
+      this.ligaGuardadaEnSesion.ligaVisible
+    ).subscribe(
+      (response) => {
+        this.loadingService.setLoadingState(false);
+        if (response.status === 'ok') {
+          this.verRecuperarLLDOK();
+        }
+      },
+      (error) => {
+        console.error('Error al recuperar jugador LLD', error.message);
+        this.loadingService.setLoadingState(false);
+      }
+    );
+  }
 
-
-    // recuperarJugadorLesionado($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['jugador'],$liga->pkLiga);
-
-
-    // const queryParams = {
-    //   pkDraftpick: pkDraftpick,
-    //   recuperarTB: recuperarTB
-    // };
-    // this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  verRecuperarLLDOK(): void {
+    this.router.navigate(['/mi-equipo/show-info'], {
+      state: {
+        titulo: 'Jugador recuperado de LLD',
+        subtitulo: 'Puedes ir al menú "Mi equipo" para comprobarlo',
+        redirectUrl: '/mi-equipo/lesionados'
+      }
+    });
   }
 }
