@@ -35,7 +35,7 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
 
-            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
+            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'" (click)="navegarRecuperarLLD(player.pkJugadorliga)">Recuperar</td>
           </tr>
         </tbody>
       </table>

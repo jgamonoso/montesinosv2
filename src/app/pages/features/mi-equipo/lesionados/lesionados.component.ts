@@ -52,4 +52,18 @@ export class LesionadosComponent implements OnInit {
       }
     );
   }
+
+  navegarRecuperarLLD(pkJugador: number) {
+    console.log('pkJugador', pkJugador);
+
+
+    // recuperarJugadorLesionado($manager->pkManager, $manager->equipo->pkEquipo, $_REQUEST['jugador'],$liga->pkLiga);
+
+
+    // const queryParams = {
+    //   pkDraftpick: pkDraftpick,
+    //   recuperarTB: recuperarTB
+    // };
+    // this.router.navigate(['/mi-equipo/activar-trading-block'], { queryParams });
+  }
 }

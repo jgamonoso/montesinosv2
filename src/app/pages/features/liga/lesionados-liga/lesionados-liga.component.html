@@ -17,7 +17,6 @@
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
-            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
           </tr>
         </thead>
         <tbody>
@@ -38,8 +37,6 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
-
-            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
           </tr>
         </tbody>
       </table>
@@ -61,7 +58,6 @@
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
-            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
           </tr>
         </thead>
         <tbody>
@@ -82,8 +78,6 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
-
-            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
           </tr>
         </tbody>
       </table>
@@ -105,7 +99,6 @@
             <th scope="col">{{ listaTemporadas[1]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[2]?.nombre }}</th>
             <th scope="col">{{ listaTemporadas[3]?.nombre }}</th>
-            <th scope="col" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</th>
           </tr>
         </thead>
         <tbody>
@@ -126,8 +119,6 @@
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[1].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[2].pkTemporada) || (player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
             <td>{{ ((player.contrato.temporadaFin.pkTemporada === listaTemporadas[3].pkTemporada)) ? player.contrato.salario : '' }}</td>
-
-            <td class="link-style" *ngIf="temporadaEnSesion.estado === 'TEAM_OPTION'">Recuperar</td>
           </tr>
         </tbody>
       </table>
