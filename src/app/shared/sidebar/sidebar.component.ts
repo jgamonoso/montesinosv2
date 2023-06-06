@@ -42,7 +42,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {
     const storedImagePath = this.authService.getStoredImagenPerfil();
-    this.temporadaEnSesion = this.authService.getStoredTemporada();
     if (storedImagePath) {
       this.imagenPerfil = storedImagePath; // Usa la ruta de la imagen almacenada si está disponible.
     } else {
@@ -54,6 +53,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.menuItems = this.sidebarService.menu;
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada() || this.ligaGuardadaEnSesion;
     this.credencialesEnSesion = this.authService.getStoredCredentials();
+    this.temporadaEnSesion = this.authService.getStoredTemporada();
     if (!this.credencialesEnSesion) {
       this.router.navigate(['/auth/login']);
     }

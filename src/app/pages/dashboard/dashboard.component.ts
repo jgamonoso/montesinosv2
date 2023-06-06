@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
       ([temporadaActual, proximasTemporadas, managerPorLogin, listaEquiposNombre]) => {
         this.setligaVisible();
         this.loadingService.setLoadingState(false);
+        this.reloadPage();
       },
       (error) => {
         console.error('Error en dashboard', error.message);
@@ -73,6 +74,11 @@ export class DashboardComponent implements OnInit {
     }
     this.ligaVisibleLoaded = true;
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
+  }
+
+  reloadPage() {
+    console.log('reloadPage()')
+    window.location.reload();
   }
 
   updateNoticiasVisibility(resultadosBusqueda: any): void {
