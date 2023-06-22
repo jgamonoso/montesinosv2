@@ -121,11 +121,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
 
-  verMiEquipo(): void {
-    this.onSidebarLinkClick();
-    const queryParams = { mngr: this.managerEnSesion.pkManager };
-    this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
-  }
+  // verMiEquipo(): void {
+  //   this.onSidebarLinkClick();
+  //   const queryParams = { mngr: this.managerEnSesion.pkManager };
+  //   this.router.navigate(['/mi-equipo/equipo-detalle'], { queryParams });
+  // }
 
   cambiarDeLiga(): void {
     this.onSidebarLinkClick();
