@@ -34,6 +34,12 @@ export class BusquedaJugadoresComponent implements OnInit {
         console.error('Error obteniendo lista de equipos NBA', error.message);
       }
     );
+    this.sharedService.obtenerListaEquiposNombre().subscribe(
+      () => {},
+      error => {
+        console.error('Error obteniendo lista de equipos', error.message);
+      }
+    );
     this.listaTemporadas = this.authService.getStoredProximasTemporadas();
     this.temporadaEnSesion = this.authService.getStoredTemporada();
     this.ligaGuardadaEnSesion = this.authService.getStoredLigaGuardada();
